@@ -1,7 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-const BaseForm = require('./BaseForm');
 const mdToPdf = require('md-to-pdf');
+const BaseForm = require('./BaseForm');
+const { toCurrency } = require('./utils');
 
 class Form1116 extends BaseForm {
 	constructor(ctx, form = 'f1116') {

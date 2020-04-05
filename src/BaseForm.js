@@ -4,16 +4,7 @@ const pdfFiller = require('pdffiller');
 const chalk = require('chalk');
 const yaml = require('js-yaml');
 const log = require('debug')('irs-tax-filler');
-
-function toCurrency(val) {
-    return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-}
-
-function parseCurrency(val) {
-	return parseInt(val.replace && val.replace(',', '') || val);
-}
-global.parseCurrency = parseCurrency;
-global.toCurrency = toCurrency;
+const { toCurrency } = require('./utils');
 
 class BaseForm {
 	constructor({ cwd, year }, form) {
@@ -78,7 +69,6 @@ class BaseForm {
 	}
 
 	fill(ctx, options = {}) {
-		const fillerjs = path.join(ctx.cwd, 'filler', ctx.year, `${this.form}.js`);
 		const filleryaml = path.join(ctx.cwd, 'filler', ctx.year, `${this.form}.yaml`);
 		if (fs.existsSync(filleryaml)) {
 			this._fillYAML(ctx, filleryaml, options);
@@ -117,15 +107,15 @@ class BaseForm {
 		for (const entry in inputs) {
 			if (inputs[entry].value) {
 				// needs to be calculated
-				const value = eval(ctx.userInputs, inputs[entry].value);
+				const value = xeval(ctx.userInputs, inputs[entry].value);
 				if (inputs[entry].calculate) {
-					const fn = eval2(inputs[entry].calculate);
+					const fn = xeval2(inputs[entry].calculate);
 					const { field, fill } = fn(ctx.userInputs, value);
 					fillFormField(ctx, form, entry, field, fill);
 				}
 			} else {
 				for (const fieldId in inputs[entry]) {
-					const value = eval(ctx.userInputs, inputs[entry][fieldId]);
+					const value = xeval(ctx.userInputs, inputs[entry][fieldId]);
 					fillFormField(ctx, form, entry, fieldId, value);
 				}
 			}
@@ -157,20 +147,20 @@ function CURRENCY(value) {
 		return {
 			whole: parts[0],
 			dec: '00'
-		}
+		};
 	} else {
 		return {
 			whole: parts[0],
 			dec: parts[1]
-		}
+		};
 	}
 }
 
-function eval(data, template) {
+function xeval(data, template) {
 	const validator = {
 		get(target, key) {
 			if (typeof target[key] === 'object' && target[key] !== null) {
-				return new Proxy(target[key], validator)
+				return new Proxy(target[key], validator);
 			} else {
 				if (!Reflect.has(target, key)) {
 					return '';
@@ -184,17 +174,17 @@ function eval(data, template) {
 		const fn = new Function('ctx', 'return `' + template + '`;');
 		return fn.call(global, proxy) || '';
 	} catch (ex) {
-		console.error(`error with template: ${template}`)
+		console.error(`error with template: ${template}`);
 		throw ex;
 	}
 }
 
-function eval2(template) {
+function xeval2(template) {
 	try {
 		const fn = new Function(`return ${template}`);
 		return fn.call();
 	} catch (ex) {
-		console.error(`error with template: ${template}`)
+		console.error(`error with template: ${template}`);
 		throw ex;
 	}
 }

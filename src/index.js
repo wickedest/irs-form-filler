@@ -45,17 +45,12 @@ async function fill(year, inputs, options = {}) {
 		year
 	};
 
-	let only = [];
-	if (options.only && !(options.only instanceof Array)) {
-		only = [ options.only ];
-	}
-
 	const forms = fs.readdirSync(path.join(cwd, 'tax-forms', year))
 		.map(a => path.basename(a, '.pdf'))
 		.filter(a => !options.only || options.only.includes(a))
 		.sort(sortForms)
 		.map(a => {
-			if (formMap.hasOwnProperty(a)) {
+			if (formMap[a]) {
 				return new formMap[a](ctx);
 			}
 			// else, unknown form
@@ -64,7 +59,7 @@ async function fill(year, inputs, options = {}) {
 
 	// generate form data for building forms
 	if (options.generate) {
-		log(`Generating form data into: ${path.join(cwd, 'data')}`)
+		log(`Generating form data into: ${path.join(cwd, 'data')}`);
 		for (const form of forms) {
 			form.generateData(ctx);
 		}

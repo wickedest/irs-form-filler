@@ -11,7 +11,7 @@ class PDF {
 				'output',
 				out
 			];
-			execFile('pdftk', args, (error, stdout, stderr) => {
+			execFile('pdftk', args, (error) => {
 				if (error) {
 					return reject(error);
 				}
@@ -30,7 +30,7 @@ class PDF {
 				'output',
 				out
 			];
-			execFile('pdftk', args, (error, stdout, stderr) => {
+			execFile('pdftk', args, (error) => {
 				if (error) {
 					return reject(error);
 				}
@@ -38,6 +38,6 @@ class PDF {
 			});
 		});
 	}
-};
+}
 
 module.exports = PDF;

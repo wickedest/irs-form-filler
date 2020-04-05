@@ -14,11 +14,9 @@ class Form8938 extends BaseForm {
 		// form 8938 has two pages, but we're going to make additional pages,
 		// starting at page 3.
 		const remainder = ctx.userInputs.accounts.slice(1);
-		let i = 0;
-		for (const account of remainder) {
+		for (let i = 0; i < remainder.length; ++i) {
 			const form = `f8938-${i + 3}`;
 			await super.init(ctx, form);
-			i += 1;
 		}
 
 		// Take clean page 3 from the main f8938 document and make f8938-contd
@@ -70,8 +68,7 @@ class Form8938 extends BaseForm {
 		// the remainder
 		const remainder = userInputs.accounts.slice(1);
 		// this writes f8938-3.pdf, f8938-4.pdf, etc.
-		let i = 0;
-		for (const account of remainder) {
+		for (let i = 0; i < remainder.length; ++i) {
 			unlink.push(path.join(cwd, year, `f8938-${i + 3}.pdf`));
 			await this.writeFormFromSource(
 				ctx, `f8938-${i + 3}`,
