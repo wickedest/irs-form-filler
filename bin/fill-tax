@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+
+const path = require('path');
+const yargs = require('yargs');
+const chalk = require('chalk');
+const fill = require('../src');
+const year = `${new Date().getUTCFullYear() - 1}`;
+
+yargs
+	.usage('Usage: $0 [options] --only [form] --year [year] <file>')
+	.options({
+		generate: {
+			type: 'boolean',
+			desc: 'Generates form data into: ./data'
+		}
+	})
+	.alias('v', 'version')
+	.alias('y', 'year')
+	.default('y', year, year)
+	.alias('g', 'generate')
+	.describe('year', 'The tax filing year')
+	.describe('only', 'Run only the specified form')
+	.demandOption(['year'])
+	.demand(1, 'Missing argument: file.  You must supply a YAML input file.')
+	.strict()
+	.argv;
+
+fill(yargs.argv.year + '', path.resolve(yargs.argv._[0]), {
+	generate: yargs.argv.generate,
+	only: yargs.argv.only
+}).catch((ex) => {
+	console.error(chalk.red(ex));
+});

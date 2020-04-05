@@ -1,0 +1,42 @@
+{
+  "name": "irs-form-filler",
+  "version": "0.1.0-0",
+  "description": "Form fill USA IRS tax documents",
+  "license": "MIT",
+  "author": {
+    "name": "Jamie Peabody",
+    "email": "jamie.peabody@gmail.com",
+    "url": "http://mergely.com"
+  },
+  "keywords": [
+    "usa",
+    "irs",
+    "tax",
+    "pdf-form-filler"
+  ],
+  "main": "bin/fill-tax",
+  "files": [
+    "bin",
+    "src"
+  ],
+  "homepage": "https://github.com/wickedest/irs-form-filler#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wickedest/irs-form-filler.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wickedest/irs-form-filler/issues"
+  },
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "debug": "^4.1.1",
+    "js-yaml": "^3.13.1",
+    "md-to-pdf": "^2.7.1",
+    "pdffiller": "^0.0.11",
+    "yargs": "^13.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
