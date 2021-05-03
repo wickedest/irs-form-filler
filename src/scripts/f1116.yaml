@@ -1,0 +1,186 @@
+name:
+  0: ctx.firstName + ' ' + ctx.middleInitial + ' ' + ctx.lastName
+
+ssn.nodash:
+  1: ctx.ssn
+
+category.of.income:
+  value:
+    '"General category income"'
+  calculate: |
+    (ctx, value) => {
+      return {
+        'section 951a income':                  { fill: '1', field: '2' },
+        'foreign branch income':                { fill: '2', field: '3' },
+        'passive category income':              { fill: '3', field: '4' },
+        'general category income':              { fill: '4', field: '5' },
+        'section 901 (j) income':               { fill: '5', field: '6' },
+        'certain income re-sourced by treaty':  { fill: '6', field: '7' },
+        'Lump-sum distributions':               { fill: '7', field: '8' }
+      }[value.toLowerCase()];
+    }
+
+line.h:
+  9: ctx.address.country
+
+line.i.A.foreign.country:
+  10: ctx.address.country
+
+line.i.1a.text.1.gross.income.from.sources:
+  13: '"From wages"'
+
+line.i.1a.text.2.gross.income.from.sources:
+  14:
+
+line.i.1a.text.3.gross.income.from.sources:
+  15:
+
+line.1a.A.whole:
+  16: (ctx.financial.income / ctx.financial.averageExchangeRate)
+
+line.1a.total.whole:
+  19: (ctx.financial.income / ctx.financial.averageExchangeRate)
+
+line.3a.A.whole:
+  # same as f1040 line.9.standard.deduction.whole, however, this gets filled
+  # before f1040 (circular dependency).
+  value:
+    ctx.financial.filingStatus.toLowerCase()
+  calculate: |
+    (ctx, value) => {
+      return {
+        'single':                    { fill: 12200, field: '26' },
+        'married filing separately': { fill: 12200, field: '26' },
+        'married filing jointly':    { fill: 24400, field: '26' },
+        'qualifying widow(er)':      { fill: 24400, field: '26' },
+        'head of household':         { fill: 18350, field: '26' }
+      }[value];
+    }
+
+line.3c.A.whole:
+  32: ctx.forms["f1116"]["line.3a.A.whole"] + ctx.forms["f1116"]["line.3b.A"]
+
+line.3d.A.whole:
+  35: ctx.financial.income / ctx.financial.averageExchangeRate
+
+line.3e.A.whole:
+  38: currency((ctx.financial.income / ctx.financial.averageExchangeRate))
+
+line.3f.A:
+  41: (ctx.forms["f1116"]["line.3d.A.whole"] / ctx.forms["f1116"]["line.3e.A.whole"] || 1).toFixed(4)
+
+line.3g.A.whole:
+  44: ctx.forms["f1116"]["line.3c.A.whole"] * ctx.forms["f1116"]["line.3f.A"]
+
+line.6.A.whole:
+  56: ctx.forms["f1116"]["line.2.A.whole"] +
+    ctx.forms["f1116"]["line.3g.A.whole"] +
+    ctx.forms["f1116"]["line.4a.A.whole"] +
+    ctx.forms["f1116"]["line.4b.A.whole"] +
+    ctx.forms["f1116"]["line.5.A.whole"]
+
+line.6.total.whole:
+  59: ctx.forms["f1116"]["line.6.A.whole"]
+
+line.7.whole:
+  61: ctx.forms["f1116"]["line.1a.total.whole"] - ctx.forms["f1116"]["line.6.total.whole"]
+
+part2.credit-claim-type:
+  value:
+    '"paid"'
+  calculate: |
+    (ctx, value) => {
+      return {
+        'paid':    { fill: 'Paid', field: '62' },
+        'accrued': { fill: 'Accrued', field: '63' }
+      }[value];
+    }
+
+part2.A.l:
+  66: ctx.financial.endOfTaxYear
+
+part2.A.t.whole:
+  74: ctx.financial.incomeTax / ctx.financial.averageExchangeRate
+
+part2.A.u.whole:
+  75: ctx.forms["f1116"]["part2.A.t.whole"]
+
+line.8.whole:
+  97: ctx.forms["f1116"]["part2.A.u.whole"]
+
+line.9.whole:
+  98: ctx.forms["f1116"]["line.8.whole"]
+
+line.10.carryback.whole:
+  value:
+    1
+  calculate: |
+    (ctx, value) => {
+      const carryovers = ctx.carryover.general;
+      const year = `${ctx.financial.endOfTaxYear.slice(-4) - 1}`;
+      const carryover = Object.keys(carryovers)
+        .filter(priorYear => priorYear <= year)
+        .reduce((acc, priorYear) => {
+          return acc + carryovers[priorYear]['foreign-taxes'] -
+            carryovers[priorYear].utilized;
+        }, 0);
+      return {
+        fill: carryover,
+        field: '99'
+      };
+    }
+
+line.11.whole:
+  100: ctx.forms["f1116"]["line.9.whole"] + ctx.forms["f1116"]["line.10.carryback.whole"]
+
+line.14.whole:
+  103: ctx.forms["f1116"]["line.11.whole"] + ctx.forms["f1116"]["line.12.whole"] + ctx.forms["f1116"]["line.13.whole"]
+
+line.15.whole:
+  104: ctx.forms["f1116"]["line.7.whole"]
+
+line.17.whole:
+  106: ctx.forms["f1116"]["line.15.whole"] + ctx.forms["f1116"]["line.16.whole"]
+
+line.18.whole:
+  107: ctx.forms["f1040"]["line.11b.taxable.income.whole"]
+
+line.19.whole:
+  # Divide line 17 by line 18. If line 17 is more than line 18, enter “1”
+  # This math works because if 17 > 18, then we get a value > 1 and Math.min
+  # will pick 1.
+  108: Math.min(1, ctx.forms["f1116"]["line.17.whole"] / ctx.forms["f1116"]["line.18.whole"])
+
+line.20.whole:
+  # Enter the total of Form 1040 or 1040-SR, line 12a
+  109: ctx.forms["f1040"]["line.12.a.tax.whole"]
+
+line.21.whole:
+  # Multiply line 20 by line 19 (maximum amount of credit)
+  110: ctx.forms["f1116"]["line.20.whole"] * ctx.forms["f1116"]["line.19.whole"]
+
+line.22.whole:
+  # Enter the smaller of line 14 or line 21
+  111: Math.min(ctx.forms["f1116"]["line.14.whole"], ctx.forms["f1116"]["line.21.whole"])
+
+line.26.whole:
+  # Credit for taxes on "general category income" (this part is `category.of.income` above)
+  115: ctx.forms["f1116"]["line.22.whole"]
+
+line.30.whole:
+  119: ctx.forms["f1116"]["line.23.whole"] +
+    ctx.forms["f1116"]["line.24.whole"] +
+    ctx.forms["f1116"]["line.25.whole"] +
+    ctx.forms["f1116"]["line.26.whole"] +
+    ctx.forms["f1116"]["line.27.whole"] +
+    ctx.forms["f1116"]["line.28.whole"] +
+    ctx.forms["f1116"]["line.29.whole"]
+
+line.31.whole:
+  120: Math.min(ctx.forms["f1116"]["line.20.whole"], ctx.forms["f1116"]["line.30.whole"])
+
+line.32.whole:
+  121: 0
+
+line.33.foreign.tax.credit.whole:
+  122: ctx.forms["f1116"]["line.31.whole"] - ctx.forms["f1116"]["line.32.whole"]

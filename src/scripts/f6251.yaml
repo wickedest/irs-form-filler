@@ -1,0 +1,108 @@
+# WARNING: f6251 has a circular dependency on f1040.  f1040 line.12.b.whole
+# depends on the final result, f6251 part.2.line.11.amt.whole.  However, f6251
+# also depends on f1040.
+name:
+  0: ctx.firstName + ' ' + ctx.middleInitial + ' ' + ctx.lastName
+
+ssn.nodash:
+  1: ctx.ssn
+
+part.1.line.1.f1040.11b.whole:
+  # Enter the amount from Form 1040 or 1040-SR, line 11b
+  2: ctx.forms["f1040"]["line.11b.taxable.income.whole"]
+
+part.1.line.2a.f1040.9.whole:
+  # amount from Form 1040 or 1040-SR, line 9
+  3: ctx.forms["f1040"]["line.9.standard.deduction.whole"]
+
+part.1.line.4.amti.whole:
+  # Alternative minimum taxable income. Combine lines 1 through 3. (If married
+  # filing separately and line 4 is more than $733,700, see instructions.)
+  24: ctx.forms["f6251"]["part.1.line.1.f1040.11b.whole"] +
+    (ctx.forms["f1040"]["line.9.standard.deduction.whole"] || 0) # WARNING: needed
+
+part.2.line.5.exemption.whole:
+  # Exemption. (If you were under age 24 at the end of 2019, see instructions.)
+  value: ctx.financial.filingStatus.toLowerCase()
+  calculate: |
+    (ctx, value) => {
+      const amti = ctx.forms["f6251"]["part.1.line.4.amti.whole"];
+      let amt;
+      if (value === 'single' || value === 'head of household') {
+        if (amti < 510300) {
+          amt = 71700;
+        }
+      } else if (value === 'married filing jointly' 
+        || value === 'qualifying widow(er)') {
+        if (amti < 1020600) {
+          amt = 111700;
+        }
+      } else if (value === 'married filing separately') {
+        if (amti < 510300) {
+          amt = 55850;
+        }
+      }
+      if (!amt) {
+        throw new Error('see instructions');
+      }
+      return {
+        fill: amt,
+        field: '25'
+      };
+    }
+
+part.2.line.6.whole:
+  # Subtract line 5 from line 4. If more than zero, go to line 7. If zero
+  # or less, enter -0- here and on lines 7, 9, and 11, and go to line 10
+  26: Math.max(0, ctx.forms["f6251"]["part.1.line.4.amti.whole"] -
+    ctx.forms["f6251"]["part.2.line.5.exemption.whole"])
+
+part.2.line.7.whole:
+  # All others: If line 6 is $194,800 or less ($97,400 or less if married
+  # filing separately), multiply line 6 by 26% (0.26). Otherwise, multiply
+  # line 6 by 28% (0.28) and subtract $3,896 ($1,948 if married filing
+  # separately) from the result.
+  value: ctx.financial.filingStatus.toLowerCase()
+  calculate: |
+    (ctx, value) => {
+      const line6 = ctx.forms["f6251"]["part.2.line.6.whole"];
+      let fill;
+      if (value !== 'married filing separately') {
+        if (line6 <= 194800) {
+          fill = line6 * 0.26;
+        } else {
+          fill = line6 * 0.28 - 3896;
+        }
+      }
+      else { // married filing separately
+        if (line6 <= 97400) {
+          fill = line6 * 0.26;
+        } else {
+          fill = line6 * 0.28 - 1948;
+        }
+      }
+      return {
+        fill,
+        field: '27'
+      };
+    }
+
+part.2.line.8.amt.ftc.whole:
+  # Alternative minimum tax foreign tax credit (see instructions)
+  # Complete a separate AMT Form 1116 for each separate category of income.
+  # Write "AMT" and specify the category of income in the top margin of each
+  # Form 1116.
+  28: ctx.forms["f1116amt"]["line.33.foreign.tax.credit.whole"]
+
+part.2.line.9.tentative.minimum.tax.whole:
+  # Tentative minimum tax. Subtract line 8 from line 7
+  29: ctx.forms["f6251"]["part.2.line.7.whole"] -
+    ctx.forms["f6251"]["part.2.line.8.amt.ftc.whole"]
+
+part.2.line.10.whole:
+  30: ctx.forms["f1040"]["line.12.a.tax.whole"] -
+    ctx.forms["f1040s3"]["part.i.1.foreign.tax.credit.whole"]
+
+part.2.line.11.amt.whole:
+  31: Math.max(0, ctx.forms["f6251"]["part.2.line.9.tentative.minimum.tax.whole"] -
+    ctx.forms["f6251"]["part.2.line.10.whole"])

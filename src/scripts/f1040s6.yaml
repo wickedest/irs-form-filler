@@ -1,0 +1,17 @@
+name:
+  0: ctx.firstName + ' ' + ctx.middleInitial + ' ' + ctx.lastName
+
+ssn:
+  1: ctx.ssn
+
+country:
+  2: ctx.address.country
+
+province:
+  3: ctx.address.city
+
+postCode:
+  4: ctx.address.postCode
+
+designee:
+  6: '2'

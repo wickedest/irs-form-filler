@@ -1,51 +1,29 @@
 {
   "name": "irs-form-filler",
-  "version": "0.1.0-0",
-  "description": "Form fill USA IRS tax documents",
-  "license": "MIT",
-  "author": {
-    "name": "Jamie Peabody",
-    "email": "jamie.peabody@gmail.com",
-    "url": "http://mergely.com"
-  },
-  "keywords": [
-    "usa",
-    "irs",
-    "tax",
-    "pdf-form-filler"
-  ],
-  "main": "bin/fill-tax",
-  "files": [
-    "bin",
-    "src"
-  ],
-  "homepage": "https://github.com/wickedest/irs-form-filler#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/wickedest/irs-form-filler.git"
-  },
-  "bugs": {
-    "url": "https://github.com/wickedest/irs-form-filler/issues"
-  },
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "chalk": "^2.4.2",
+    "chalk": "^4.0.0",
     "debug": "^4.1.1",
-    "js-yaml": "^3.13.1",
-    "md-to-pdf": "^2.7.1",
-    "pdffiller": "^0.0.11",
-    "yargs": "^13.3.0"
+    "md-to-pdf": "^3.1.0",
+    "pdffiller-script": "file:../pdffiller-script",
+    "yargs": "^15.3.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "eslint": "^6.8.0",
+    "jsdoc-to-markdown": "^5.0.3",
     "mocha": "^7.1.1",
     "mock-require": "^3.0.3",
     "nyc": "^15.0.1",
     "simple-mock": "^0.8.0"
   },
   "scripts": {
-    "build": "npm run build:lint",
-    "build:lint": "eslint .",
-    "test": "nyc mocha"
+    "build": "bin/fill config.yaml",
+    "build:map": "./make-maps.sh"
   }
 }

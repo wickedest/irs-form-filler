@@ -1,0 +1,18 @@
+name:
+  0: ctx.firstName + ' ' + ctx.middleInitial + ' ' + ctx.lastName
+
+ssn.nodash:
+  1: ctx.ssn
+
+part.i.1.foreign.tax.credit.whole:
+  2: ctx.forms["f1116"]["line.33.foreign.tax.credit.whole"]
+
+part.i.7.total.whole:
+  12: ctx.forms["f1040s3"]["part.i.1.foreign.tax.credit.whole"]
+
+part.ii.8.last.year.estimated.tax.payments.whole:
+  13: 0
+
+part.ii.14.refundable.credits.total.whole:
+  # Enter here and on Form 1040 or 1040-SR, line 18d
+  24: 0

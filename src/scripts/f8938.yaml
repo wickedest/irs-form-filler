@@ -1,0 +1,167 @@
+year:
+  0: ctx.financial.endOfTaxYear.substr(-2)
+
+continuationStatements:
+  5: ctx.accounts.length > 1 ? "1":"0"
+
+numberOfContinuationStatements:
+  6: ctx.accounts.length - 1
+
+name:
+  7: ctx.firstName + ' ' + ctx.middleInitial + ' ' + ctx.lastName
+
+ssn.nodash:
+  8: ctx.ssn
+
+line.3:
+  9: 1
+
+part.1.line.1:
+  15: ctx.accounts.filter((a) => a.type === "deposit").length
+
+part.1.line.2.whole:
+  16: ctx.accounts.filter((a) => a.type === "deposit").reduce((agg, cur) => agg += cur.value, 0) / ctx.financial.treasuryExchangeRate
+
+part.1.line.3:
+  17: ctx.accounts.filter((a) => a.type === "custodial").length
+
+part.1.line.4.whole:
+  18: ctx.accounts.filter((a) => a.type === "custodial").reduce((agg, cur) => agg += cur.value, 0) / ctx.financial.treasuryExchangeRate
+
+part.1.line.5:
+  value: ctx.accounts.filter((a) => a.closed).length
+  calculate: |
+    (ctx, value) => {
+        if (value) {
+          return {
+            fill: '1',
+            field: '19'
+          }
+        }
+        return {
+          fill: '2',
+          field: '20'
+        }
+      }
+
+part.V.line.1:
+  value: ctx.account.type
+  calculate: |
+    (ctx, value) => {
+      if (value === 'deposit') {
+        return {
+          fill: '1',
+          field: '73'
+        }
+      }
+      return {
+          fill: '2',
+          field: '74'
+      }
+    }
+
+part.V.line.2:
+  75: ctx.account.account
+
+part.V.line.3.a:
+  76: ctx.account.opened ? "1":""
+
+part.V.line.3.b:
+  77: ctx.account.closed ? "1":""
+
+part.V.line.3.c:
+  78: ctx.account.joint ? "1":""
+
+part.V.line.3.d:
+  79: ctx.account.tax ? "":"1"
+
+part.V.line.4.whole:
+  80: ctx.account.value / ctx.financial.treasuryExchangeRate
+
+part.V.line.5.yes:
+  81: 1
+
+part.V.line.5.no:
+  82:
+
+part.V.line.6.a:
+  83: ctx.account.currency
+
+part.V.line.6.b:
+  84: ctx.financial.treasuryExchangeRate
+
+part.V.line.6.c:
+  85:
+
+part.V.line.7.a:
+  86: ctx.account.name
+
+part.V.line.8:
+  91: ctx.account.address
+
+part.V.line.9:
+  92: ctx.account.city
+
+contd.V.page:
+  132: ctx.page
+
+contd.V.name:
+  133: ctx.firstName + ' ' + ctx.middleInitial + ' ' + ctx.lastName
+
+contd.V.ssn.nodash:
+  134: ctx.ssn
+
+contd.V.line.1:
+  value: ctx.account.type
+  calculate: |
+    (ctx, value) => {
+      if (value === 'deposit') {
+        return {
+            fill: '1',
+            field: '135'
+        }
+      }
+      return {
+          fill: '2',
+          field: '136'
+      }
+    }
+
+contd.V.line.2:
+  137: ctx.account.account
+
+contd.V.line.3.a:
+  138: ctx.account.opened ? "1":""
+
+contd.V.line.3.b:
+  139: ctx.account.closed ? "1":""
+
+contd.V.line.3.c:
+  140: ctx.account.joint ? "1":""
+
+contd.V.line.3.d:
+  141: ctx.account.tax ? "":"1"
+
+contd.V.line.4.whole:
+  142: ctx.account.value / ctx.financial.treasuryExchangeRate
+
+contd.V.line.5:
+  143: 1
+
+contd.V.line.6.a:
+  145: ctx.account.currency
+
+contd.V.line.6.b:
+  146: ctx.financial.treasuryExchangeRate
+
+contd.V.line.6.c:
+  147:
+
+contd.V.line.7.a:
+  148: ctx.account.name
+
+contd.V.line.8:
+  153: ctx.account.address
+
+contd.V.line.9:
+  154: ctx.account.city

@@ -1,0 +1,38 @@
+name:
+  0: ctx.firstName + ' ' + ctx.middleInitial + ' ' + ctx.lastName
+
+ssn.nodash:
+  1: ctx.ssn
+
+part.iii.7a:
+  value: '"yes"'
+  calculate: |
+    (ctx, value) => {
+      return {
+        yes: { fill: '1', field: '66' },
+        no: { fill: '2', field: '67' }
+      }[value];
+    }
+
+part.iii.7b:
+  value: '"yes"'
+  calculate: |
+    (ctx, value) => {
+      return {
+        yes: { fill: '1', field: '68' },
+        no: { fill: '2', field: '69' }
+      }[value];
+    }
+
+part.iii.7b.fincen.form.114.foreign.country:
+  70: ctx.financial.countriesWithBankAccounts
+
+part.iii.8:
+  value: '"no"'
+  calculate: |
+    (ctx, value) => {
+      return {
+        yes: { fill: '1', field: '71' },
+        no: { fill: '2', field: '72' }
+      }[value];
+    }

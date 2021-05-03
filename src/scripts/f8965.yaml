@@ -1,0 +1,46 @@
+name:
+  2: ctx.firstName + ' ' + ctx.middleInitial + ' ' + ctx.lastName
+
+ssn.nodash:
+  3: ctx.ssn
+
+line.1.exemption-certificate-number:
+  4: '"C"'
+
+line.8.a:
+  22: ctx.firstName + ' ' + ctx.lastName
+
+line.8.b:
+  23: ctx.ssn
+  # value:
+  #   ${ctx.ssn}
+  # calculate: |
+  #   (ctx, value) => {
+  #     return {
+  #       fill: value.replace(/-/g, ''),
+  #       field: '23'
+  #     };
+  #   }
+
+# Page 13: If you meet one of these conditions, you qualify for this exemption
+# even if you have a social security number (SSN). To claim this coverage
+# exemption, enter code “C”
+line.8.c:
+  value: '"C"'
+  calculate: |
+    (ctx, value) => {
+      return {
+        fill: value.replace(/-/g, ''),
+        field: '24'
+      };
+    }
+
+line.8.d:
+  value: '"X"'
+  calculate: |
+    (ctx, value) => {
+      return {
+        fill: value.replace(/-/g, ''),
+        field: '25'
+      };
+    }

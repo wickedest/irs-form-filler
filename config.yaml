@@ -1,0 +1,94 @@
+# Generate the tax documents and then manually copy forms and values at:
+# https://www.irs.gov/e-file-providers/before-starting-free-file-fillable-forms
+firstName: Joe
+middleInitial: A
+lastName: Bloggs
+ssn: 012-34-5678
+occupation: Programmer
+address:
+  street: 1 Anywhere Road
+  county: Dublin
+  city: Dublin
+  postCode: D1
+  countryCode: IE
+  country: Ireland
+employer:
+  name: Acme Corp.
+  usaAddress: 16 Acme Boulevard, Suite 400, Phoenix, AZ 12345
+  foreignAddress: 1st Floor Acme Building, Dublin, D1, Ireland
+financial:
+  endOfTaxYear: 12/31/2020
+  # Single | Married filing jointly | Married filing separately |
+  # Head of household | Qualifying widow(er)
+  filingStatus: Married filing separately
+  # Income from wages.  You need to calculate your income.
+  # IE: This is the pay for USC purposes, plus any employer pension
+  #   contributions (e.g. PRSA contributions December payslip).  This value
+  #   is found on ros.ie "Employment Detail Summary" in "Pay for Income Tax"
+  #   field.
+  income: 100000.00
+  # Tax you paid on wages in your own country.
+  # IE: Get from ros.ie.  Go to "Employment Detail Summary" in "Pay for 
+  # Income Tax" and add together the "Income tax paid" and "USC paid".
+  incomeTax: 25000.00
+  # All currency values must be in USD, and need an exchange rate to convert
+  # from your country income to USD.
+  averageExchangeRate: 0.893
+  averageExchangeRateSource: 'https://www.irs.gov/individuals/international-taxpayers/yearly-average-currency-exchange-rates'
+  # Except 8938, which needs the treasury exchange rate.
+  # https://fiscal.treasury.gov/reports-statements/treasury-reporting-rates-exchange/historical.html
+  treasuryExchangeRate: 0.890
+  # 1040 Schedule B and FBAR required
+  countriesWithBankAccounts: Ireland
+  # NOTE ---------------------------------------------------------------------
+  # Fill everything above this line first.  Then run `npm run build` once.
+  # NOTE ---------------------------------------------------------------------
+  # f1040 line.12.a: Tax (see inst. on page 31).  Tax on your taxable income.
+  # I did not want IRS calculating my taxable income.  As a US citizen living
+  # and paying taxes in a foreign country with a bilateral tax agreement, you
+  # have 2 choices: 1) "Foreign Earned Income Exclusion" (f2555); 2) "Foreign
+  # Tax Credit" (f1116 + f1040s3).  I went with Foreign Tax Credit.
+  taxTableUSD: 17660.00
+carryover:
+  # The cumulative total amount of utilized tax carry over, up to last year.
+  # i.e. the carryover-general.pdf "Carryover to 2018" column summed.
+  lastYearTaxCarryOverUSD: 25000
+  general:
+    2018:
+      # foreign-taxes is 2017's f1116 line 8
+      foreign-taxes: 28000
+      # utilized is 2017's f1116 line 22
+      utilized: 19000
+  alternative-minimum-tax:
+    # foreign-taxes is f1116 line 8
+    # utilized is f1116 line 22
+    2018:
+      # foreign-taxes is 2017's f1116amt line 8
+      foreign-taxes: 28000
+      # utilized is 2017's f1116amt line 22
+      utilized: 19000
+# List all of your foreign accounts for the FBAR
+accounts:
+  - account: '12345-678'
+    type: deposit
+    name: Allied Irish Bank
+    address: 37 O'Connell Street
+    city: Dublin, Dublin 1, IRELAND
+    currency: Euro
+    value: 12345.67
+    opened: false
+    closed: false
+    joint: false
+    tax: false
+
+  - account: '12345-679'
+    type: custodial
+    name: Irish Life
+    address: 37 O'Connell Street
+    city: Dublin, Dublin 1, IRELAND
+    currency: Euro
+    value: 10000.00
+    opened: false
+    closed: false
+    joint: false
+    tax: false
