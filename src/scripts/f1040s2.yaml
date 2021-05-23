@@ -1,0 +1,14 @@
+name:
+  0: ctx.firstName + ' ' + ctx.middleInitial + ' ' + ctx.lastName
+
+ssn.nodash:
+  1: ctx.ssn
+
+part.i.1.alternative.minimum.tax.whole:
+  2: ctx.forms["f6251"]["part.2.line.11.amt.whole"] || 0
+
+part.i.2.excess.advanced.premium.tax.credit:
+  3: 0
+
+part.i.3.total.tax.whole:
+  4: ctx.forms["f6251"]["part.2.line.11.amt.whole"] || 0

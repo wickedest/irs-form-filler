@@ -5,6 +5,8 @@ middleInitial: A
 lastName: Bloggs
 ssn: 012-34-5678
 occupation: Programmer
+phone: +353 5551212
+email: joe.bloggs@domain.com
 address:
   street: 1 Anywhere Road
   county: Dublin

@@ -1,0 +1,78 @@
+#!/usr/bin/env node
+
+const os = require('os');
+const fs = require('fs');
+const path = require('path');
+const https = require('https');
+const chalk = require('chalk');
+
+const IRS_URL = 'https://www.irs.gov/pub/irs-pdf';
+const year = `${new Date().getUTCFullYear() - 1}`;
+const taxFormsPath = path.join(process.cwd(), 'src', 'forms');
+const files = [
+	{ name: 'f1040.pdf' },
+	{ name: 'f1040s2.pdf' },
+	{ name: 'f1040sb.pdf' },
+	{ name: 'f1040s3.pdf' },
+	{ name: 'f1116.pdf', as: 'f1116amt.pdf' },
+	{ name: 'f1116.pdf' },
+	{ name: 'f6251.pdf' },
+	{ name: 'f8938.pdf' }
+];
+
+async function download(url, dest) {
+	return new Promise((resolve, reject) => {
+		if (fs.existsSync(dest)) {
+			return resolve();
+		}
+		const file = fs.createWriteStream(dest);
+		console.log(chalk.grey(`Downloading: ${url} into ${dest}`));
+		https.get(url, (response) => {
+			response.pipe(file);
+			file.on('finish', () => {
+				file.close();
+				resolve();
+			});
+		}).on('error', (err) => {
+			fs.unlink(dest);
+			throw err;
+		});
+	});
+}
+
+function makeOutputDirectory() {
+	return new Promise((resolve, reject) => {
+		if (fs.existsSync(taxFormsPath)) {
+			return resolve();
+		}
+		fs.mkdir(taxFormsPath, { recursive: true }, (err) => {
+			if (err) {
+				return reject(err);
+			}
+			return resolve();
+		});
+	});
+}
+
+function downloadIRSPDF() {
+	if (!fs.existsSync(taxFormsPath)) {
+		fs.mkdirSync(taxFormsPath, { recursive: true });
+	}
+
+	const promises = files
+		.map(file => {
+			return download(
+				`${IRS_URL}/${file.name}`,
+				path.join(taxFormsPath, file.as || file.name)
+			);
+		});
+
+	return Promise.all(promises);
+}
+
+downloadIRSPDF(taxFormsPath)
+	.then(makeOutputDirectory)
+	.catch(err => {
+		console.error(err);
+		process.exit(-1);
+	});

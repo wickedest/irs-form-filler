@@ -30,6 +30,10 @@ async function fill({ config, only, output, debug }) {
 	}
 	// 2nd pass
 	for (const formId in forms) {
+		await formFillers[formId].fill(form, null, { debug, filled });
+	}
+	// 3nd pass, save
+	for (const formId in forms) {
 		const save = only ? only.includes(formId) : true;
 		await formFillers[formId].fill(form, save ? output : null, { debug, filled });
 	}

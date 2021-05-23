@@ -1,11 +1,23 @@
 {
   "name": "irs-form-filler",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "",
   "main": "index.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bin": {
+    "init": "bin/init",
+    "fill": "bin/fill"
+  },
+  "files": [
+    "bin",
+    "data",
+    "src",
+    "config.yaml",
+    "README.md",
+    "CONTRIBUTING.md"
+  ],
   "dependencies": {
     "chalk": "^4.0.0",
     "debug": "^4.1.1",

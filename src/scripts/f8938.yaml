@@ -5,42 +5,42 @@ continuationStatements:
   5: ctx.accounts.length > 1 ? "1":"0"
 
 numberOfContinuationStatements:
-  6: ctx.accounts.length - 1
+  4: ctx.accounts.length - 1
 
 name:
-  7: ctx.firstName + ' ' + ctx.middleInitial + ' ' + ctx.lastName
+  5: ctx.firstName + ' ' + ctx.middleInitial + ' ' + ctx.lastName
 
 ssn.nodash:
-  8: ctx.ssn
+  6: ctx.ssn
 
-line.3:
-  9: 1
+line.3.type.of.filler:
+  7: 1
 
-part.1.line.1:
-  15: ctx.accounts.filter((a) => a.type === "deposit").length
+part.1.line.1.number.of.deposit.accounts:
+  13: ctx.accounts.filter((a) => a.type === "deposit").length
 
-part.1.line.2.whole:
-  16: ctx.accounts.filter((a) => a.type === "deposit").reduce((agg, cur) => agg += cur.value, 0) / ctx.financial.treasuryExchangeRate
+part.1.line.2.maximum.value.deposit.accounts.whole:
+  14: ctx.accounts.filter((a) => a.type === "deposit").reduce((agg, cur) => agg += cur.value, 0) / ctx.financial.treasuryExchangeRate
 
-part.1.line.3:
-  17: ctx.accounts.filter((a) => a.type === "custodial").length
+part.1.line.3.number.of.custodial.accounts:
+  15: ctx.accounts.filter((a) => a.type === "custodial").length
 
-part.1.line.4.whole:
-  18: ctx.accounts.filter((a) => a.type === "custodial").reduce((agg, cur) => agg += cur.value, 0) / ctx.financial.treasuryExchangeRate
+part.1.line.4.maximum.value.custodial.accounts.whole:
+  16: ctx.accounts.filter((a) => a.type === "custodial").reduce((agg, cur) => agg += cur.value, 0) / ctx.financial.treasuryExchangeRate
 
-part.1.line.5:
-  value: ctx.accounts.filter((a) => a.closed).length
+part.1.line.5.any.deposit.or.custodial.accounts.closed:
+  value: ctx.accounts.filter((a) => ["custodial", "deposit"].includes(a.type)).filter((a) => a.closed).length
   calculate: |
     (ctx, value) => {
         if (value) {
           return {
             fill: '1',
-            field: '19'
+            field: '17'
           }
         }
         return {
           fill: '2',
-          field: '20'
+          field: '18'
         }
       }
 
@@ -51,65 +51,65 @@ part.V.line.1:
       if (value === 'deposit') {
         return {
           fill: '1',
-          field: '73'
+          field: '71'
         }
       }
       return {
           fill: '2',
-          field: '74'
+          field: '72'
       }
     }
 
 part.V.line.2:
-  75: ctx.account.account
+  73: ctx.account.account
 
 part.V.line.3.a:
-  76: ctx.account.opened ? "1":""
+  74: ctx.account.opened ? "1":""
 
 part.V.line.3.b:
-  77: ctx.account.closed ? "1":""
+  75: ctx.account.closed ? "1":""
 
 part.V.line.3.c:
-  78: ctx.account.joint ? "1":""
+  76: ctx.account.joint ? "1":""
 
 part.V.line.3.d:
-  79: ctx.account.tax ? "":"1"
+  77: ctx.account.tax ? "":"1"
 
 part.V.line.4.whole:
-  80: ctx.account.value / ctx.financial.treasuryExchangeRate
+  78: ctx.account.value / ctx.financial.treasuryExchangeRate
 
 part.V.line.5.yes:
-  81: 1
+  79: 1
 
 part.V.line.5.no:
-  82:
+  80:
 
 part.V.line.6.a:
-  83: ctx.account.currency
+  81: ctx.account.currency
 
 part.V.line.6.b:
-  84: ctx.financial.treasuryExchangeRate
+  82: ctx.financial.treasuryExchangeRate
 
 part.V.line.6.c:
-  85:
+  83:
 
 part.V.line.7.a:
-  86: ctx.account.name
+  84: ctx.account.name
 
 part.V.line.8:
-  91: ctx.account.address
+  89: ctx.account.address
 
 part.V.line.9:
-  92: ctx.account.city
+  90: ctx.account.city
 
 contd.V.page:
-  132: ctx.page
+  130: ctx.page
 
 contd.V.name:
-  133: ctx.firstName + ' ' + ctx.middleInitial + ' ' + ctx.lastName
+  131: ctx.firstName + ' ' + ctx.middleInitial + ' ' + ctx.lastName
 
 contd.V.ssn.nodash:
-  134: ctx.ssn
+  132: ctx.ssn
 
 contd.V.line.1:
   value: ctx.account.type
@@ -128,40 +128,40 @@ contd.V.line.1:
     }
 
 contd.V.line.2:
-  137: ctx.account.account
+  135: ctx.account.account
 
 contd.V.line.3.a:
-  138: ctx.account.opened ? "1":""
+  136: ctx.account.opened ? "1":""
 
 contd.V.line.3.b:
-  139: ctx.account.closed ? "1":""
+  137: ctx.account.closed ? "1":""
 
 contd.V.line.3.c:
-  140: ctx.account.joint ? "1":""
+  138: ctx.account.joint ? "1":""
 
 contd.V.line.3.d:
-  141: ctx.account.tax ? "":"1"
+  139: ctx.account.tax ? "":"1"
 
 contd.V.line.4.whole:
-  142: ctx.account.value / ctx.financial.treasuryExchangeRate
+  140: ctx.account.value / ctx.financial.treasuryExchangeRate
 
 contd.V.line.5:
-  143: 1
+  141: 1
 
 contd.V.line.6.a:
-  145: ctx.account.currency
+  143: ctx.account.currency
 
 contd.V.line.6.b:
-  146: ctx.financial.treasuryExchangeRate
+  144: ctx.financial.treasuryExchangeRate
 
 contd.V.line.6.c:
-  147:
+  145:
 
 contd.V.line.7.a:
-  148: ctx.account.name
+  146: ctx.account.name
 
 contd.V.line.8:
-  153: ctx.account.address
+  151: ctx.account.address
 
 contd.V.line.9:
-  154: ctx.account.city
+  152: ctx.account.city

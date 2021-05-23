@@ -42,7 +42,7 @@ line.1a.total.whole:
   19: (ctx.financial.income / ctx.financial.averageExchangeRate)
 
 line.3a.A.whole:
-  # same as f1040 line.9.standard.deduction.whole, however, this gets filled
+  # same as f1040 line.12.standard.deduction.whole, however, this gets filled
   # before f1040 (circular dependency).
   value:
     ctx.financial.filingStatus.toLowerCase()
@@ -143,7 +143,7 @@ line.17.whole:
   106: ctx.forms["f1116"]["line.15.whole"] + ctx.forms["f1116"]["line.16.whole"]
 
 line.18.whole:
-  107: ctx.forms["f1040"]["line.11b.taxable.income.whole"]
+  107: ctx.forms["f1040"]["line.15.taxable.income.whole"]
 
 line.19.whole:
   # Divide line 17 by line 18. If line 17 is more than line 18, enter “1”
@@ -153,34 +153,38 @@ line.19.whole:
 
 line.20.whole:
   # Enter the total of Form 1040 or 1040-SR, line 12a
-  109: ctx.forms["f1040"]["line.12.a.tax.whole"]
+  109: ctx.forms["f1040"]["line.16.tax.whole"]
 
 line.21.whole:
   # Multiply line 20 by line 19 (maximum amount of credit)
   110: ctx.forms["f1116"]["line.20.whole"] * ctx.forms["f1116"]["line.19.whole"]
 
-line.22.whole:
-  # Enter the smaller of line 14 or line 21
-  111: Math.min(ctx.forms["f1116"]["line.14.whole"], ctx.forms["f1116"]["line.21.whole"])
+line.24.whole:
+  # Enter the smaller of line 14 or line 23
+  113: Math.min(ctx.forms["f1116"]["line.14.whole"], ctx.forms["f1116"]["line.21.whole"])
 
-line.26.whole:
+line.28.whole:
   # Credit for taxes on "general category income" (this part is `category.of.income` above)
-  115: ctx.forms["f1116"]["line.22.whole"]
+  117: ctx.forms["f1116"]["line.24.whole"]
 
-line.30.whole:
-  119: ctx.forms["f1116"]["line.23.whole"] +
-    ctx.forms["f1116"]["line.24.whole"] +
-    ctx.forms["f1116"]["line.25.whole"] +
+line.32.whole:
+  # Add lines 25 through 31
+  121: ctx.forms["f1116"]["line.25.whole"] +
     ctx.forms["f1116"]["line.26.whole"] +
     ctx.forms["f1116"]["line.27.whole"] +
     ctx.forms["f1116"]["line.28.whole"] +
-    ctx.forms["f1116"]["line.29.whole"]
+    ctx.forms["f1116"]["line.29.whole"] +
+    ctx.forms["f1116"]["line.30.whole"] +
+    ctx.forms["f1116"]["line.31.whole"]
 
-line.31.whole:
-  120: Math.min(ctx.forms["f1116"]["line.20.whole"], ctx.forms["f1116"]["line.30.whole"])
+line.33.whole:
+  # Enter the smaller of line 20 or line 32
+  122: Math.min(ctx.forms["f1116"]["line.20.whole"], ctx.forms["f1116"]["line.32.whole"])
 
-line.32.whole:
-  121: 0
+line.34.whole:
+  # Reduction of credit for international boycott operations.
+  123: 0
 
-line.33.foreign.tax.credit.whole:
-  122: ctx.forms["f1116"]["line.31.whole"] - ctx.forms["f1116"]["line.32.whole"]
+line.35.foreign.tax.credit.whole:
+  # Subtract line 34 from line 33. This is your foreign tax credit.
+  124: ctx.forms["f1116"]["line.33.whole"] - ctx.forms["f1116"]["line.34.whole"]

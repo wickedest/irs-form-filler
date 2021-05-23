@@ -5,9 +5,11 @@ ssn.nodash:
   1: ctx.ssn
 
 part.i.1.foreign.tax.credit.whole:
-  2: ctx.forms["f1116"]["line.33.foreign.tax.credit.whole"]
+  # Foreign tax credit. Attach Form 1116 if required
+  2: ctx.forms["f1116"]["line.35.foreign.tax.credit.whole"]
 
 part.i.7.total.whole:
+  # Add lines 1 through 6.
   12: ctx.forms["f1040s3"]["part.i.1.foreign.tax.credit.whole"]
 
 part.ii.8.last.year.estimated.tax.payments.whole:
