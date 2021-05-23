@@ -1,6 +1,4 @@
 const fs = require('fs');
-const path = require('path');
-const chalk = require('chalk');
 const { Form } = require('pdffiller-script');
 const getForms = require('./forms');
 const FormFiller = require('./FormFiller');

@@ -29,25 +29,24 @@ function sortByFillOrder(a, b) {
 
 async function getForms() {
 	return Promise.all([
-			afs.readdir(path.join(__dirname, 'maps')),
-			afs.readdir(path.join(__dirname, 'scripts')),
-			afs.readdir(path.join(__dirname, 'forms'))
-		])
-		.then(([ maps, scripts, forms ]) => {
-			const result = {};
-			
-			const ordered = forms
-				.map(a => a.replace('.pdf', ''))
-				.sort(sortByFillOrder);
+		afs.readdir(path.join(__dirname, 'maps')),
+		afs.readdir(path.join(__dirname, 'scripts')),
+		afs.readdir(path.join(__dirname, 'forms'))
+	]).then(([ , , forms ]) => {
+		const result = {};
+		
+		const ordered = forms
+			.map(a => a.replace('.pdf', ''))
+			.sort(sortByFillOrder);
 
-			for (const formId of ordered) {
-				result[formId] = {
-					map: path.join(__dirname, 'maps', `${formId}-map.yaml`),
-					script: path.join(__dirname, 'scripts', `${formId}.yaml`),
-					pdf: path.join(__dirname, 'forms', `${formId}.pdf`)
-				}
-			}
-			return result;
+		for (const formId of ordered) {
+			result[formId] = {
+				map: path.join(__dirname, 'maps', `${formId}-map.yaml`),
+				script: path.join(__dirname, 'scripts', `${formId}.yaml`),
+				pdf: path.join(__dirname, 'forms', `${formId}.pdf`)
+			};
+		}
+		return result;
 	});
 }
 
