@@ -15,11 +15,15 @@ Actually, this tool was designed to file taxes for its author.  Unless you fit t
 ```bash
 $ mkdir tax-2020
 $ cd tax-2020
-$ npx irs-form-filler init
+$ npx -p irs-form-filler init
 ```
+
+After running, your `tax-2020` directory will be initialized with a `config.yaml` file, which you use to provide your financial information.
 
 # Fill out all forms for the tax year
 
+Update `config.yaml` with your current tax year details, and then run:
+
 ```bash
-$ npx irs-form-filler fill config.yaml
+$ npx -p irs-form-filler fill config.yaml
 ```

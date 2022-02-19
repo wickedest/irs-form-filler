@@ -30,7 +30,7 @@ financial:
   #   field.
   income: 100000.00
   # Tax you paid on wages in your own country.
-  # IE: Get from ros.ie.  Go to "Employment Detail Summary" in "Pay for 
+  # IE: Get from ros.ie.  Go to "Employment Detail Summary" in "Pay for
   # Income Tax" and add together the "Income tax paid" and "USC paid".
   incomeTax: 25000.00
   # All currency values must be in USD, and need an exchange rate to convert
@@ -51,6 +51,7 @@ financial:
   # have 2 choices: 1) "Foreign Earned Income Exclusion" (f2555); 2) "Foreign
   # Tax Credit" (f1116 + f1040s3).  I went with Foreign Tax Credit.
   taxTableUSD: 17660.00
+  haveVirtualCurrency: no
 carryover:
   # The cumulative total amount of utilized tax carry over, up to last year.
   # i.e. the carryover-general.pdf "Carryover to 2018" column summed.
