@@ -1,6 +1,3 @@
-# Generate the tax documents and then manually copy the values form the forms
-# into into the same values at:
-# https://www.irs.gov/e-file-providers/before-starting-free-file-fillable-forms
 firstName: Joe
 middleInitial: A
 lastName: Bloggs
@@ -31,15 +28,14 @@ financial:
   #   field.
   income: 100000.00
   # Tax you paid on wages in your own country.
-  # IE: Get from ros.ie.  Go to "Employment Detail Summary" in "Pay for
-  # Income Tax" and add together the "Income tax paid" and "USC paid".
+  # IE: Go to ros.ie.  Generate an "Employment Detail Summary" in
+  #   "Pay for Income Tax" and add together the "Income tax paid" and
+  #   "USC paid".
   incomeTax: 25000.00
   # All currency values must be in USD, and need an exchange rate to convert
   # from your country income to USD.
   averageExchangeRate: 0.893
   averageExchangeRateSource: 'https://www.irs.gov/individuals/international-taxpayers/yearly-average-currency-exchange-rates'
-  # Except 8938, which needs the treasury exchange rate.
-  # https://fiscal.treasury.gov/reports-statements/treasury-reporting-rates-exchange/historical.html
   treasuryExchangeRate: 0.890
   # 1040 Schedule B and FBAR required
   countriesWithBankAccounts: Ireland
@@ -47,10 +43,6 @@ financial:
   # Fill everything above this line first.  Then run `npm run build` once.
   # NOTE ---------------------------------------------------------------------
   # f1040 line.12.a: Tax (see inst. on page 31).  Tax on your taxable income.
-  # I did not want IRS calculating my taxable income.  As a US citizen living
-  # and paying taxes in a foreign country with a bilateral tax agreement, you
-  # have 2 choices: 1) "Foreign Earned Income Exclusion" (f2555); 2) "Foreign
-  # Tax Credit" (f1116 + f1040s3).  I went with Foreign Tax Credit.
 # FIXME:
 #  taxTableUSD: 17660.00
   haveVirtualCurrency: no
@@ -59,20 +51,18 @@ carryover:
   # i.e. the carryover-general.pdf "Carryover to 2018" column summed.
   lastYearTaxCarryOverUSD: 25000
   general:
+    # foreign-taxes (from `f1116.pdf` line 8)
+    # utilized (from `f1116.pdf` line 22)
     2018:
-      # foreign-taxes is 2017's f1116 line 8
       foreign-taxes: 28000
-      # utilized is 2017's f1116 line 22
       utilized: 19000
   alternative-minimum-tax:
-    # foreign-taxes is f1116 line 8
-    # utilized is f1116 line 22
+    # foreign-taxes (from `f1116amt.pdf` line 8)
+    # utilized is (from `f1116amt.pdf` line 22
     2018:
-      # foreign-taxes is 2017's f1116amt line 8
       foreign-taxes: 28000
-      # utilized is 2017's f1116amt line 22
       utilized: 19000
-# List all of your foreign accounts for the FBAR
+# List all of your foreign accounts for f8938 and the separate FBAR
 accounts:
   - account: '12345-678'
     type: deposit
