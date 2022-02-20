@@ -21,7 +21,13 @@ Once filled you can use the [e-file](https://www.irs.gov/filing/e-file-options) 
 
 ## WARNING
 
-**Do not rely on this tool.**  The maintainers are developers, not tax experts.  _You_ are responsible for filing your taxes correctly, not the maintainers of **irs-form-filler**, and we accept no responsibility for the documents this tool produces, and make no promises as to their correctness.  If you know what you are doing, then this tool can help you.  This tool is only a form filler (to the best of its ability) for the specific tax year.  It has formulas for calculating individual fields and requires re-calibration every tax year because the IRS changes the forms every year.
+**Do not rely on this tool.**  The maintainers are developers, not tax experts.  _You_ are responsible for filing your taxes correctly, not the maintainers of **irs-form-filler**, and we accept no responsibility for the documents this tool produces, and make no promises as to their correctness.  If you know what you are doing, then this tool can help you.
+
+## Versions
+
+This tool is only a form filler (to the best of its ability) for the specific tax year.  It has formulas for calculating individual fields and requires re-calibration every tax year because the IRS changes the forms every year.  Each year, there will be a new tagged version.
+
+* [irs-2020](https://www.npmjs.com/package/irs-form-filler/v/0.2.0) - Fills forms for the 2020 tax return.
 
 ## How to use irs-form-filler
 
