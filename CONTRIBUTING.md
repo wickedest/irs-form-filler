@@ -15,7 +15,7 @@ The `./examples` are pre-filled forms that assign an integer to every input fiel
 Pull master, and create a new branch for the tax year, for example:
 
 ```bash
-$ git branch -b year-2020
+$ git checkout -b year-2020
 ```
 
 Remove all pre-existing data:
