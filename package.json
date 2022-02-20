@@ -1,6 +1,6 @@
 {
   "name": "irs-form-filler",
-  "version": "0.2.5",
+  "version": "0.3.0-rc0",
   "description": "",
   "main": "index.js",
   "keywords": [],
@@ -31,6 +31,7 @@
   "scripts": {
     "build": "npm run build:lint",
     "build:lint": "eslint .",
-    "build:map": "./scripts/make-maps.sh"
+    "build:map": "./scripts/make-maps.sh",
+    "build:fetch": "./scripts/fetch"
   }
 }

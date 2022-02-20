@@ -29,7 +29,7 @@ $ rm examples/*.pdf
 Fetch the latest tax documents.  The required documents can change year to year, so the script may need to be updated if any new documents were added, or if any are no longer required (e.g. [f8965.pdf](https://www.irs.gov/affordable-care-act/individuals-and-families/individual-shared-responsibility-provision)).
 
 ```bash
-$ ./scripts/fetch
+$ npm run build:fetch
 ```
 
 Generate the `src/maps` files and `examples` files:
