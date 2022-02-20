@@ -5,8 +5,11 @@
 To develop, you will first need to generate the `./examples` so that you can use this for a visual reference with respect to the `src/maps` files:
 
 ```bash
-$ ./scripts/make-maps.sh
+$ npm run build:map
 ```
+
+The `./examples` are pre-filled forms that assign an integer to every input field (that can accept text) that can be used to to visually map the form fields to their keys.  This is necessary because the input fields are not really very human readable, e.g. `topmostSubform[0].Page1[0].FilingStatus[0].c1_01[0]`.  Some fields are checkboxes so are not filled (you may have to count from the last visible integer).
+
 
 ## Updating irs-form-filler documents for a new tax year
 
@@ -31,14 +34,14 @@ $ ./scripts/fetch
 Generate the `src/maps` files and `examples` files:
 
 ```bash
-$ ./scripts/make-maps.sh
+$ npm run build:map
 ```
 
 ## Updating irs-form-filler for a new tax year
 
 This is the hard part.  Every year is different.  The `src/scripts` are sensitive to the specific tax year.  There are hard-coded values taken from the IRS instruction booklets, e.g. 1040 line 12a.  Not to mention that fields are sequentially numbered, so if they add, or move fields, their values will be all wrong.
 
-Examine all of the scripts in `src/scripts` against their 
+Examine all of the scripts in `src/scripts` against their
 pre-filled PDF forms in `./examples`.  Some PDF readers do not seem to recognize the pre-filled fields, so if that is the case, open the PDF in chrome.  Not all fields are filled.  It may even be helpful to look at the previous year's form.
 
 You need to go through every script line-by-line.  Each line requires concentration and take upwards of 15 minutes.  It is easy to lose your place.  I recommend putting a comment in the script as you go along: `// CURRENT -----------------`.
