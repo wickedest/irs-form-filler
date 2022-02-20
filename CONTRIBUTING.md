@@ -10,15 +10,16 @@ $ npm run build:map
 
 The `./examples` are pre-filled forms that assign an integer to every input field (that can accept text) that can be used to to visually map the form fields to their keys.  This is necessary because the input fields are not really very human readable, e.g. `topmostSubform[0].Page1[0].FilingStatus[0].c1_01[0]`.  Some fields are checkboxes so are not filled (you may have to count from the last visible integer).
 
-
 ## Updating irs-form-filler documents for a new tax year
 
 Pull master, and create a new branch for the tax year, for example:
+
 ```bash
 $ git branch -b year-2020
 ```
 
 Remove all pre-existing data:
+
 ```bash
 $ rm src/forms/*.pdf
 $ rm src/maps/*.pdf
@@ -35,6 +36,12 @@ Generate the `src/maps` files and `examples` files:
 
 ```bash
 $ npm run build:map
+```
+
+Update the `package.json` version, bump to a major release candidate, e.g.
+
+```json
+"version": "0.3.0-rc0",
 ```
 
 ## Updating irs-form-filler for a new tax year
