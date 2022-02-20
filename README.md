@@ -1,14 +1,14 @@
 # irs-form-filler
 
-A tool for filling out IRS income tax forms.
-
-# Warning
-
-_You_ are responsible for filing your taxes correctly, not the maintainers of **irs-form-filler**.  If you know what you are doing, then this tool can help you.  This tool is only a form filler to the best of its ability for the specific tax year.  Do not rely only on this tool.  The maintainers are developers, not tax experts.
+A tool for filling out Internal Revenue Service (IRS) income tax forms.  Given a simple input file, this tool will generate a seris of documents for filing with the IRS.
 
 This tool was designed to file taxes for US citizens who reside abroad, file their taxes within their country of residence and need to submit their taxes to the IRS with (hopefully) $0.00 amount owed.  Some companies charge substiantial amounts for filing, and this is a punative tax on US citizens living abroad.
 
-Actually, this tool was designed to file taxes for its author.  Unless you fit the specific profile (i.e. married, filing separately, no dependents, etc.), then you may not find this tool very useful.  However, I am happy to accept PR that might extend the functionality of the scripts so as to support other filers, such as single filers, etc., but you have to do the work.  See [CONTRIBUTING.md](./CONTRIBUTING.md).
+Actually, this tool was specifically designed to file taxes for its author.  Unless you fit the specific profile (i.e. married, filing separately, no dependents, etc.), then you may not find this tool very useful.  However, I am happy to accept PR that might extend the functionality of the scripts so as to support other filers, such as single filers, etc., but you have to do the work.  See [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+# WARNING
+
+_You_ are responsible for filing your taxes correctly, not the maintainers of **irs-form-filler**, and we accept no responsibility for the documents this tool produces.  If you know what you are doing, then this tool can help you.  This tool is only a form filler (to the best of its ability) for the specific tax year, and requires re-calibration every year.  **Do not rely on this tool.**  The maintainers are developers, not tax experts.
 
 # Initialize a new tax year project
 
@@ -20,9 +20,111 @@ $ npx -p irs-form-filler init
 
 After running, your `tax-2020` directory will be initialized with a `config.yaml` file, which you use to provide your financial information.
 
-# Fill out all forms for the tax year
+# Configuration
 
-Update `config.yaml` with your current tax year details, and then run:
+## Personal configuration
+
+Edit `config.yaml` and update all of the following fields with your personal information.
+
+| Field                  | Description |
+| ---------------------- | ---------------------|
+| **firstName** | Your first name. |
+| **middleInitial** | Your middle initial. |
+| **lastName** | Your last name (surname). |
+| **ssn** | Your USA social security number or equivalent. |
+| **occupation** | Your employment occupation. |
+| **address.street** | The house number and street where you are tax resident. |
+| **address.county** | The county in which you are tax resident. |
+| **address.city** | The city in which are tax resident. |
+| **address.postCode** | The postal code in which are tax resident. |
+| **address.countryCode** | The country code in which are tax resident. |
+| **address.country** | The country in which are tax resident. |
+| **employer.name** | Your employer / company. |
+| **employer.usaAddress** | Your employer's USA address. |
+| **employer.foreignAddress** | Your employer's foreign address. |
+
+## Financial configuration
+
+Edit `config.yaml` and update all of the following fields with your financial information.
+
+| Field                  | Description |
+| ---------------------- | ---------------------|
+| **endOfTaxYear** | The end of the tax year in `MM/DD/YYYY` format, e.g. `12/31/2021` |
+| **filingStatus** | Your filing status, one of: `Single` \| `Married filing jointly` \| `Married filing separately` \| `Head of household` \| `Qualifying widow(er)` |
+| **income¹** | This is your income. |
+| **incomeTax¹** | This is the amount of tax you paid on wages. |
+| **averageExchangeRate** | Look up the exchange rate for on [irs.gov](https://www.irs.gov/individuals/international-taxpayers/yearly-average-currency-exchange-rates) for converting from your tax resident country's currency to USD. |
+| **treasuryExchangeRate** | Look up the treasury exchange rate for on [fiscal.treasury.gov](https://fiscal.treasury.gov/reports-statements/treasury-reporting-rates-exchange/historical.html) for converting from your tax resident country's currency to USD. |
+| **countriesWithBankAccounts** | A comma-separated list of countries for which you have bank accounts (an Schedule B and FBAR are required). |
+
+1. This field value is in your tax resident country's currency; `irs-form-filler` will convert to USD.
+
+## Foreign bank accounts
+
+If you hold any foreign bank accounts, you must declare them to the IRS, and you must also submit a separate FBAR.  For each account you own, create an item in `accounts` with the following fields:
+
+| Field                  | Description |
+| ---------------------- | ---------------------|
+| **account** | The account number/designation. |
+| **type** | The type of account, one of `deposit` | `custodial`.  A "custodial" might be a mutual fund, or brokerage account. |
+| **name** | The name of the financial institution. |
+| **address** | The financial institution's address. |
+| **city** | The cityfinancial institution's city. |
+| **currency** | The currency of the account. |
+| **value** | The value of the account, in the stated `currency`. |
+| **opened** | Set to `true` if the account was opened this year, otherwise `false`. |
+| **closed** | Set to `true` if the account was closed this year, otherwise `false`. |
+| **joint** | Set to `true` if the account is a joint account, otherwise `false`. |
+| **tax** | Set to `true` if the account is taxable, otherwise `false`. |
+
+## Carryover
+
+As a US citizen living abroad and paying taxes in a foreign country with a bilateral tax agreement, there are two choices for how to handle the the foreign tax:
+
+1. [Foreign Earned Income Exclusion](https://www.irs.gov/individuals/international-taxpayers/foreign-earned-income-exclusion) ([f2555](https://www.irs.gov/forms-pubs/about-form-2555))
+2. [Foreign Tax Credit](https://www.irs.gov/individuals/international-taxpayers/foreign-tax-credit) ([f1116](https://www.irs.gov/forms-pubs/about-form-1116))
+
+This configuration assumes #2.  This tool will calculate the amount of `utilized` taxes, and any "excess" can accumulate credit over the tax years.
+
+### Foreign tax credit general carryover
+
+Pay attention because it can be a little confusing.  This section deals with carryover from **previous years**.  _This tax year_ is the year for which you are filing taxes, and _previous tax year_ is the year prior to that.
+
+| Field                  | Description |
+| ---------------------- | ---------------------|
+| **lastYearTaxCarryOverUSD** | This is the cumulative total amount of tax carryover, up to the previous tax year (excluding this tax year). So, if you used this tool to generate these files for the 2021 tax year, then it is in the `carryover-general.pdf` file and the total value in the field **Carryover to 2020**.  If you did not calculate carryover for the previous tax year, enter `0`. |
+
+If you used this tool to generate tax in the previous tax year, then open the previous tax year's `carryover-general.pdf` file, and find the row of values for the previous tax year.  Then, in the `carryover.general` section, create a new section for the previous year's carryover, and copy the values for **Foreign Taxes** and **Utilized** and record them as follows:
+
+```yaml
+general:
+  2019:
+    foreign-taxes: 10404
+    utilized: 980
+```
+
+Keep this `config.yaml` for all previous tax years, and also keep this tax year's `carryover-general.pdf` as it will feed into next year's tax.
+
+## Foreign tax credit alternative minimum tax (AMT) carryover
+
+This is similar to the [Carryover](#carryover) section but instead deals with [Alternative Minimum Tax](https://www.irs.gov/taxtopics/tc556).  This is any surplus tax that paid in your tax resident country that is above what you would have paid to the USA.
+
+Open last tax year's `carryover-general.pdf` file, and find the row of values for the previous tax year.  Then, in the `carryover.alternative-minimum-tax` section, create a new section for the previous year's carryover, and copy the values for **Foreign Taxes** and **Utilized** and record them as follows:
+
+```yaml
+alternative-minimum-tax:
+  2019:
+    foreign-taxes: 10404
+    utilized: 980
+```
+
+Keep this record of all the previous tax years.  This section will feed into next year's taxes.
+
+# Generating tax documents
+
+This tool uses a configuration file (e.g. `config.yaml`) to generate tax documents.  You must fill this file with your own details before running this tool.  See the [Configuration](#configuration) section for more information.
+
+To generate your tax documents:
 
 ```bash
 $ npx -p irs-form-filler fill config.yaml

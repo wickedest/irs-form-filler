@@ -1,4 +1,5 @@
-# Generate the tax documents and then manually copy forms and values at:
+# Generate the tax documents and then manually copy the values form the forms
+# into into the same values at:
 # https://www.irs.gov/e-file-providers/before-starting-free-file-fillable-forms
 firstName: Joe
 middleInitial: A
@@ -50,7 +51,8 @@ financial:
   # and paying taxes in a foreign country with a bilateral tax agreement, you
   # have 2 choices: 1) "Foreign Earned Income Exclusion" (f2555); 2) "Foreign
   # Tax Credit" (f1116 + f1040s3).  I went with Foreign Tax Credit.
-  taxTableUSD: 17660.00
+# FIXME:
+#  taxTableUSD: 17660.00
   haveVirtualCurrency: no
 carryover:
   # The cumulative total amount of utilized tax carry over, up to last year.
