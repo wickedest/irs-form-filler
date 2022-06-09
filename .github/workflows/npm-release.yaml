@@ -1,6 +1,6 @@
 name: Release latest on npm
 
-on: 
+on:
   workflow_dispatch:
     inputs:
 
@@ -26,6 +26,6 @@ jobs:
       - name: Update dist-tag
         run: |
           npm dist-tag add irs-form-filler@${PKG_VERSION} latest
-          npm dist-tag rm next
+          npm dist-tag rm irs-form-filler next
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
