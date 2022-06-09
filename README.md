@@ -1,6 +1,6 @@
 # irs-form-filler
 
-A tool for filling out Internal Revenue Service (IRS) income tax forms.  Given a simple input file, this tool will generate a seris of documents for filing with the IRS.
+`irs-form-filler` is a tool for filling out Internal Revenue Service (IRS) income tax forms for the 2021 tax year.  Given a simple input file, this tool will generate a series of documents for filing with the IRS.
 
 This tool was designed to file taxes for US citizens who reside abroad, file their taxes within their country of residence and need to submit their taxes to the IRS with (hopefully) $0.00 amount owed.  Some companies charge substiantial amounts for filing, and this is a punative tax on US citizens living abroad.
 
@@ -21,13 +21,14 @@ Once filled you can use the [e-file](https://www.irs.gov/filing/e-file-options) 
 
 ## WARNING
 
-**Do not rely on this tool.**  The maintainers are developers, not tax experts.  _You_ are responsible for filing your taxes correctly, not the maintainers of **irs-form-filler**, and we accept no responsibility for the documents this tool produces, and make no promises as to their correctness.  If you know what you are doing, then this tool can help you.
+**Do not rely on this tool to be correct.**  The maintainers are developers, not tax experts.  _You_ are responsible for filing your taxes correctly, not the maintainers of **irs-form-filler**, and we accept no responsibility for the documents this tool produces, and make no promises as to their correctness.  If you know what you are doing, then this tool can help you.
 
 ## Versions
 
 This tool is only a form filler (to the best of its ability) for the specific tax year.  It has formulas for calculating individual fields and requires re-calibration every tax year because the IRS changes the forms every year.  Each year, there will be a new tagged version.
 
 * [irs-2020](https://www.npmjs.com/package/irs-form-filler/v/0.2.0) - Fills forms for the 2020 tax return.
+* [irs-2021](https://www.npmjs.com/package/irs-form-filler/v/0.3.0) - Fills forms for the 2021 tax return (FIXME).
 
 ## How to use irs-form-filler
 
@@ -36,12 +37,13 @@ It is recommended to create and maintain separate directories for each tax year.
 ### Initialize a new tax year project
 
 ```bash
-$ mkdir tax-2020
-$ cd tax-2020
+$ mkdir tax-2021
+$ cd tax-2021
 $ npx -p irs-form-filler init
+$ npm install
 ```
 
-After running, your `tax-2020` directory will be initialized with a `config.yaml` file, which you use to provide your financial information.
+After running, your `tax-2021` directory will be initialized with a `config.yaml` file, which you use to provide your financial information.
 
 ### Fill out config.yaml
 
@@ -54,7 +56,7 @@ This tool uses a configuration file (e.g. `config.yaml`) to generate tax documen
 To generate your tax documents:
 
 ```bash
-$ npx -p irs-form-filler fill config.yaml
+$ npm run build
 ```
 
 # Configuration
@@ -72,6 +74,8 @@ Edit `config.yaml` and update all of the following fields with your personal inf
 | **lastName** | Your last name (surname). |
 | **ssn** | Your USA social security number or equivalent. |
 | **occupation** | Your employment occupation. |
+| **phone** | Your phone, including `00` country code (**use numbers only**). |
+| **email** | Your email address. |
 | **address.street** | The house number and street where you are tax resident. |
 | **address.county** | The county in which you are tax resident. |
 | **address.city** | The city in which are tax resident. |
@@ -90,7 +94,7 @@ Edit `config.yaml` and update all of the following fields with your financial in
 | ---------------------- | ---------------------|
 | **endOfTaxYear** | The end of the tax year in `MM/DD/YYYY` format, e.g. `12/31/2021` |
 | **filingStatus** | Your filing status, one of: `Single` \| `Married filing jointly` \| `Married filing separately` \| `Head of household` \| `Qualifying widow(er)` |
-| **income¹** | This is your income. |
+| **income¹** | This is your income from wages. |
 | **incomeTax¹** | This is the amount of tax you paid on wages. |
 | **averageExchangeRate** | Look up the exchange rate for on [irs.gov](https://www.irs.gov/individuals/international-taxpayers/yearly-average-currency-exchange-rates) for converting from your tax resident country's currency to USD. |
 | **treasuryExchangeRate** | Look up the treasury exchange rate for on [fiscal.treasury.gov](https://fiscal.treasury.gov/reports-statements/treasury-reporting-rates-exchange/historical.html) for converting from your tax resident country's currency to USD. |
@@ -131,7 +135,7 @@ Pay attention because it can be a little confusing.  This section deals with car
 
 | Field                  | Description |
 | ---------------------- | ---------------------|
-| **lastYearTaxCarryOverUSD** | This is the cumulative total amount of tax carryover, up to the previous tax year (excluding this tax year). So, if you used this tool to generate these files for the 2021 tax year, then it is in the `carryover-general.pdf` file and the total value in the field **Carryover to 2020**.  If you did not calculate carryover for the previous tax year, enter `0`. |
+| **lastYearTaxCarryOverUSD** | This is the cumulative total amount of tax carryover, up to the previous tax year (excluding this tax year). So, if you used this tool to generate these files for the 2021 tax year, then it is in the `carryover-general.pdf` file and the total value in the field **Carryover to 2021**.  If you did not calculate carryover for the previous tax year, enter `0`. |
 
 If you used this tool to generate tax in the previous tax year, then open the previous tax year's `carryover-general.pdf` file, and find the row of values for the previous tax year.  Then, in the `carryover.general` section, create a new section for the previous year's carryover, and copy the values for **Foreign Taxes** and **Utilized** and record them as follows:
 

@@ -3,7 +3,7 @@ middleInitial: A
 lastName: Bloggs
 ssn: 012-34-5678
 occupation: Programmer
-phone: +353 5551212
+phone: 0015551212
 email: joe.bloggs@domain.com
 address:
   street: 1 Anywhere Road
@@ -21,44 +21,39 @@ financial:
   # Single | Married filing jointly | Married filing separately |
   # Head of household | Qualifying widow(er)
   filingStatus: Married filing separately
-  # Income from wages.  You need to calculate your income.
-  # IE: This is the pay for USC purposes, plus any employer pension
-  #   contributions (e.g. PRSA contributions December payslip).  This value
-  #   is found on ros.ie "Employment Detail Summary" in "Pay for Income Tax"
-  #   field.
+  # Income from wages.
+  # IE: This value is found on ros.ie "Review your tax", and then go to
+  #   "Employment Detail Summary" and look for "Pay for Income Tax".
   income: 100000.00
   # Tax you paid on wages in your own country.
   # IE: Go to ros.ie.  Generate an "Employment Detail Summary" in
-  #   "Pay for Income Tax" and add together the "Income tax paid" and
-  #   "USC paid".
-  incomeTax: 25000.00
-  # All currency values must be in USD, and need an exchange rate to convert
-  # from your country income to USD.
-  averageExchangeRate: 0.893
+  #   "Pay for Income Tax" and add together "Income tax paid" and "USC paid".
+  incomeTax: 35000.00
+  # All currency values reported here are in the currency of your country of
+  # residence, but the IRS forms require values to be in USD, so you need an
+  # exchange rate to convert from your country income to USD. The
+  # `irs-form-filler` will convert the values for you.
+  averageExchangeRate: 0.590
   averageExchangeRateSource: 'https://www.irs.gov/individuals/international-taxpayers/yearly-average-currency-exchange-rates'
-  treasuryExchangeRate: 0.890
+  # Except 8938, which needs the treasury exchange rate, end of year, December
+  # https://fiscaldata.treasury.gov/datasets/treasury-reporting-rates-exchange/treasury-reporting-rates-of-exchange
+  treasuryExchangeRate: 0.590
   # 1040 Schedule B and FBAR required
   countriesWithBankAccounts: Ireland
-  # NOTE ---------------------------------------------------------------------
-  # Fill everything above this line first.  Then run `npm run build` once.
-  # NOTE ---------------------------------------------------------------------
-  # f1040 line.12.a: Tax (see inst. on page 31).  Tax on your taxable income.
-# FIXME:
-#  taxTableUSD: 17660.00
   haveVirtualCurrency: no
 carryover:
   # The cumulative total amount of utilized tax carry over, up to last year.
-  # i.e. the carryover-general.pdf "Carryover to 2018" column summed.
-  lastYearTaxCarryOverUSD: 25000
+  # i.e. the carryover-general.pdf from your **previous** tax year.
+  lastYearTaxCarryOverUSD: 8000
   general:
-    # foreign-taxes (from `f1116.pdf` line 8)
-    # utilized (from `f1116.pdf` line 22)
+    # `foreign-taxes` is f1116 line 8 for the year in question
+    # `utilized` is f1116 line 24 (2020+), line 22 (2019)
     2018:
       foreign-taxes: 28000
       utilized: 19000
   alternative-minimum-tax:
-    # foreign-taxes (from `f1116amt.pdf` line 8)
-    # utilized is (from `f1116amt.pdf` line 22
+    # `foreign-taxes` is f1116 line 8 for the year in question
+    # `utilized` is f1116 line 24 (2020+), line 22 (2019)
     2018:
       foreign-taxes: 28000
       utilized: 19000

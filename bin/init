@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
+const fs = require('fs').promises;
 const path = require('path');
-
-const afs = fs.promises;
 
 const { argv } = require('yargs')
 	.command(
@@ -24,7 +22,7 @@ const { argv } = require('yargs')
 
 async function init({ force }) {
 	try {
-		await afs.access('config.yaml', fs.constants.R_OK | fs.constants.W_OK);
+		await fs.access('config.yaml', fs.constants.R_OK | fs.constants.W_OK);
 		if (!force) {
 			console.error('config.yaml already exists; use --force to overwrite.');
 			process.exit(-1);
@@ -32,8 +30,26 @@ async function init({ force }) {
 	} catch (ex) {
 		// okay, file does not exist
 	}
-	const config = await afs.readFile(path.join(__dirname, '..', 'config.yaml'));
-	afs.writeFile('config.yaml', config);
+	const config = await fs.readFile(path.join(__dirname, '..', 'config.yaml'));
+	await fs.writeFile('config.yaml', config);
+
+	const year = (new Date()).getFullYear() - 1;
+	await fs.writeFile('package.json', JSON.stringify({
+		name: `tax-${year}`,
+		version: '1.0.0',
+		description: `Your tax year ${year}`,
+		keywords: [],
+		author: '',
+		license: 'ISC',
+		private: true,
+		dependencies: {
+			'irs-form-filler': '^0.3.0'
+		},
+		scripts: {
+			build: 'fill config.yaml',
+			test: 'echo "Error: no tests" && exit 1'
+		}
+	}, null, '\t'));
 }
 
 init(argv).catch(console.err);

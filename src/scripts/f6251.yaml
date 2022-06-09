@@ -12,8 +12,8 @@ part.1.line.1.whole:
   2: ctx.forms["f1040"]["line.15.taxable.income.whole"]
 
 part.1.line.2a.whole:
-  # enter the amount from Form 1040 or 1040-SR, line 12
-  3: ctx.forms["f1040"]["line.12.standard.deduction.whole"]
+  # enter the amount from Form 1040 or 1040-SR, line 12a
+  3: ctx.forms["f1040"]["line.12a.standard.deduction.whole"]
 
 part.1.line.4.alternative.minimum.taxable.income.whole:
   # Alternative minimum taxable income. Combine lines 1 through 3. (If married
@@ -29,17 +29,17 @@ part.2.line.5.exemption.whole:
       const amti = ctx.forms["f6251"]["part.1.line.4.alternative.minimum.taxable.income.whole"];
       let amt;
       if (value === 'single' || value === 'head of household') {
-        if (amti < 518400) {
-          amt = 72900;
+        if (amti <= 523600) {
+          amt = 73600;
         }
-      } else if (value === 'married filing jointly' 
+      } else if (value === 'married filing jointly'
         || value === 'qualifying widow(er)') {
-        if (amti < 1036800) {
-          amt = 113400;
+        if (amti <= 1047200) {
+          amt = 114600;
         }
       } else if (value === 'married filing separately') {
-        if (amti < 518400) {
-          amt = 56700;
+        if (amti <= 523600) {
+          amt = 57300;
         }
       }
       if (!amt) {
@@ -58,9 +58,9 @@ part.2.line.6.whole:
     ctx.forms["f6251"]["part.2.line.5.exemption.whole"])
 
 part.2.line.7.whole:
-  # All others: If line 6 is $194,800 or less ($97,400 or less if married
+  # All others: If line 6 is $199,900 or less ($99,950 or less if married
   # filing separately), multiply line 6 by 26% (0.26). Otherwise, multiply
-  # line 6 by 28% (0.28) and subtract $3,896 ($1,948 if married filing
+  # line 6 by 28% (0.28) and subtract $3,998 ($1,999 if married filing
   # separately) from the result.
   value: ctx.financial.filingStatus.toLowerCase()
   calculate: |
@@ -68,17 +68,17 @@ part.2.line.7.whole:
       const line6 = ctx.forms["f6251"]["part.2.line.6.whole"];
       let fill;
       if (value !== 'married filing separately') {
-        if (line6 <= 197900) {
+        if (line6 <= 199900) {
           fill = line6 * 0.26;
         } else {
-          fill = line6 * 0.28 - 3958;
+          fill = line6 * 0.28 - 3998;
         }
       }
       else { // married filing separately
-        if (line6 <= 98950) {
+        if (line6 <= 99950) {
           fill = line6 * 0.26;
         } else {
-          fill = line6 * 0.28 - 1979;
+          fill = line6 * 0.28 - 1999;
         }
       }
       return {
@@ -91,7 +91,11 @@ part.2.line.8.amt.ftc.whole:
   # Alternative minimum tax foreign tax credit (see instructions)
   # Complete a separate AMT Form 1116 for each separate category of income.
   # Write "AMT" and specify the category of income in the top margin of each
-  # Form 1116.
+  # Form 1116. If you made an election to claim the foreign tax credit on
+  # your (current year) tax return without filing Form 1116, your ATFTC is the
+  # same as the foreign tax credit on Schedule 3, line 1. But, this value is
+  # actually f1116 foreign tax credit (line 33).
+  # FIXME: this line number looks wrong
   28: ctx.forms["f1116amt"]["line.35.foreign.tax.credit.whole"]
 
 part.2.line.9.tentative.minimum.tax.whole:

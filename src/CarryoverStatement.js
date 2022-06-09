@@ -33,7 +33,7 @@ class CarryoverStatement {
 
 		const year = new Date(Date.parse(form.ctx.financial.endOfTaxYear)).getFullYear();
 		const lastYear = year - 1;
-		const carryovers = form.ctx.carryover[this.type];
+		const carryovers = form.ctx.carryover[this.type] || {};
 		const years = Object.keys(carryovers)
 			.filter(priorYear => priorYear <= lastYear);
 

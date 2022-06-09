@@ -49,11 +49,11 @@ line.3a.A.whole:
   calculate: |
     (ctx, value) => {
       return {
-        'single':                    { fill: 12200, field: '26' },
-        'married filing separately': { fill: 12200, field: '26' },
-        'married filing jointly':    { fill: 24400, field: '26' },
-        'qualifying widow(er)':      { fill: 24400, field: '26' },
-        'head of household':         { fill: 18350, field: '26' }
+        'single':                    { fill: 12550, field: '26' },
+        'married filing separately': { fill: 12550, field: '26' },
+        'married filing jointly':    { fill: 25100, field: '26' },
+        'qualifying widow(er)':      { fill: 25100, field: '26' },
+        'head of household':         { fill: 18800, field: '26' }
       }[value];
     }
 
@@ -158,6 +158,14 @@ line.20.whole:
 line.21.whole:
   # Multiply line 20 by line 19 (maximum amount of credit)
   110: ctx.forms["f1116"]["line.20.whole"] * ctx.forms["f1116"]["line.19.whole"]
+
+line.22.whole:
+  # Increase in limitation section 960(c)
+  111: 0
+
+line.23.whole:
+  # Add lines 21 and 22
+  112: ctx.forms["f1116"]["line.21.whole"] + ctx.forms["f1116"]["line.22.whole"]
 
 line.24.whole:
   # Enter the smaller of line 14 or line 23

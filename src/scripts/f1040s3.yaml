@@ -8,13 +8,17 @@ part.i.1.foreign.tax.credit.whole:
   # Foreign tax credit. Attach Form 1116 if required
   2: ctx.forms["f1116"]["line.35.foreign.tax.credit.whole"]
 
-part.i.7.total.whole:
-  # Add lines 1 through 6.
-  12: ctx.forms["f1040s3"]["part.i.1.foreign.tax.credit.whole"]
+part.i.7.total.other.non-refundable.credits.whole:
+  # Add lines 6a - 6z
+  22: 0
 
-part.ii.8.last.year.estimated.tax.payments.whole:
-  13: 0
+part.i.8.total.whole:
+  # Add lines 1-5
+  23: ctx.forms["f1040s3"]["part.i.1.foreign.tax.credit.whole"]
 
-part.ii.14.refundable.credits.total.whole:
-  # Enter here and on Form 1040 or 1040-SR, line 18d
-  24: 0
+part.ii.14.refundable.payments.total.whole:
+  39: 0
+
+part.ii.15.refundable.credits.total.whole:
+  # Add lines 9-12 and 14. Enter here and on Form 1040 or 1040-SR, line 31
+  40: 0
