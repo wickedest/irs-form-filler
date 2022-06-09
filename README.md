@@ -28,7 +28,7 @@ Once filled you can use the [e-file](https://www.irs.gov/filing/e-file-options) 
 This tool is only a form filler (to the best of its ability) for the specific tax year.  It has formulas for calculating individual fields and requires re-calibration every tax year because the IRS changes the forms every year.  Each year, there will be a new tagged version.
 
 * [irs-2020](https://www.npmjs.com/package/irs-form-filler/v/0.2.0) - Fills forms for the 2020 tax return.
-* [irs-2021](https://www.npmjs.com/package/irs-form-filler/v/0.3.0) - Fills forms for the 2021 tax return (FIXME).
+* [irs-2021](https://www.npmjs.com/package/irs-form-filler/v/0.3.0) - Fills forms for the 2021 tax return.
 
 ## How to use irs-form-filler
 
