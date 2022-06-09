@@ -105,14 +105,14 @@ line.9.total.income.whole:
 
 line.10a.adjustments.to.income.schedule.1.whole:
   # Adjustments to income from Schedule 1, line 22
-  68: 
+  68:
 
 line.11.adjusted.gross.income.whole:
   # Subtract line 10c from line 9. This is your adjusted gross income
-  71: ctx.forms["f1040"]["line.9.total.income.whole"]
+  69: ctx.forms["f1040"]["line.9.total.income.whole"]
 
-line.12.standard.deduction.whole:
-  # Single or Married filing separately, $12,200 
+line.12a.standard.deduction.whole:
+  # Single or Married filing separately, $12,200
   # • Married filing jointly or Qualifying widow(er), $24,400
   # • Head of household, $18,350
   # • If you checked any box under Standard Deduction, see instructions.
@@ -120,22 +120,26 @@ line.12.standard.deduction.whole:
   calculate: |
     (ctx, value) => {
       return {
-        'single':                    { fill: 12400, field: '72' },
-        'married filing separately': { fill: 12400, field: '72' },
-        'married filing jointly':    { fill: 24800, field: '72' },
-        'qualifying widow(er)':      { fill: 24800, field: '72' },
-        'head of household':         { fill: 18650, field: '72' }
+        'single':                    { fill: 12550, field: '70' },
+        'married filing separately': { fill: 12550, field: '70' },
+        'married filing jointly':    { fill: 25100, field: '70' },
+        'qualifying widow(er)':      { fill: 25100, field: '70' },
+        'head of household':         { fill: 18800, field: '70' }
       }[value];
     }
 
-line.14.total.deductions.whole:
-  # Add lines 12 and 13
-  74: ctx.forms["f1040"]["line.12.standard.deduction.whole"]
+line.12c.total.deductions.whole:
+  # Add lines 12a and 12b
+  72: ctx.forms["f1040"]["line.12a.standard.deduction.whole"]
+
+line.14.all.deductions.whole:
+  # Add lines 12c and 13
+  74: ctx.forms["f1040"]["line.12c.total.deductions.whole"]
 
 line.15.taxable.income.whole:
   75: Math.max(0,
           (ctx.forms["f1040"]["line.11.adjusted.gross.income.whole"])
-          - (ctx.forms["f1040"]["line.14.total.deductions.whole"])
+          - (ctx.forms["f1040"]["line.14.all.deductions.whole"])
       )
 
 line.16.tax.whole:
@@ -148,30 +152,30 @@ line.16.tax.whole:
   #
   # **NOTE**: You must read "IRS f1040 instructions".
   #
-  # **NOTE**: For future reference, this value is key to unlocking the whole
-  # thing.  This field is also used in f1116.  ** do f1040 FIRST **
-  #
   # **NOTE**: I believe that, in the case of foreign earned income, you never
   # want the IRS to calculate your tax, so this assumes the worksheet
   # calculation.
   #
   # **NOTE**: The "Tax Computation Worksheet" is found in the f1040
   # instructions and is calculated per-filing status.
+  # see: TAX COMPUTATION WORKSHEET ("married filing separately") p77.
   #
-  # see: TAX COMPUTATION WORKSHEET ("married filing separately") p78.
   value: ctx.forms["f1040"]["line.15.taxable.income.whole"]
   calculate: |
     (ctx, value) => {
       let taxComputationWorksheetValue;
+      if (value < 100000) {
+        throw new Error(`The taxable income ${value} is < $100,000 and requires you use a tax table (not implemented)`);
+      }
       // Tax Computation Worksheet (married filing separately)
-      if (value >= 100000 && value < 163300) {
-        taxComputationWorksheetValue = value * 0.24 - 5920.50;
-      } else if (value >= 163300 && value < 207350) {
-        taxComputationWorksheetValue = value * 0.32 - 18984.50;
-      } else if (value >= 207350 && value < 311025) {
-        taxComputationWorksheetValue = value * 0.35 - 25205.00;
+      if (value >= 100000 && value <= 164925) {
+        taxComputationWorksheetValue = value * 0.24 - 5979.00;
+      } else if (value > 164925 && value < 209425) {
+        taxComputationWorksheetValue = value * 0.32 - 19173.00;
+      } else if (value > 209425 && value < 523600) {
+        taxComputationWorksheetValue = value * 0.35 - 25455.75;
       } else {
-        taxComputationWorksheetValue = value * 0.37 - 31425.00;
+        taxComputationWorksheetValue = value * 0.37 - 31738.75;
       }
       // include this amount on the entry space on Form 1040 or 1040-SR, line 12a
       return { field: '80', fill: taxComputationWorksheetValue };
@@ -195,10 +199,9 @@ line.18.tax.and.amt.whole:
     ctx.forms["f1040"]["line.17.alternative.minimum.tax.whole"]
 
 line.20.schedule.3.additional.credits.whole:
-  # Amount from Schedule 3, line 7
-  #
+  # Amount from Schedule 3, line 8
   # **NOTE**: Foreign tax credit (f116 required)
-  84: ctx.forms["f1040s3"]["part.i.7.total.whole"] || 0
+  84: ctx.forms["f1040s3"]["part.i.8.total.whole"] || 0
 
 line.21.total.tax.credits.whole:
   # Add lines 19 and 20
@@ -217,12 +220,12 @@ line.24.total.tax.whole:
 
 line.31.schedule.3.other.refundable.credits.whole:
   # Amount from Schedule 3, line 13
-  98: ctx.forms["f1040s3"]["part.ii.13.other.refundable.credits.total.whole"]
+  101: ctx.forms["f1040s3"]["part.ii.13.other.refundable.credits.total.whole"]
 
 line.32.total.refundable.credits.whole:
-  # Add lines 27 through 31. These are your total other payments and refundable
-  # credits
-  99: ctx.forms["f1040"]["line.27.whole"] +
+  # Add lines 27a and 28 through 31. These are your total other payments and
+  # refundable credits
+  102: ctx.forms["f1040"]["line.27.whole"] +
     ctx.forms["f1040"]["line.28.whole"] +
     ctx.forms["f1040"]["line.29.whole"] +
     ctx.forms["f1040"]["line.30.whole"] +
@@ -230,24 +233,24 @@ line.32.total.refundable.credits.whole:
 
 line.33.total.payments.whole:
   # Add lines 25d, 26, and 32. These are your total payments
-  100: ctx.forms["f1040"]["line.17.a.whole"] +
+  103: ctx.forms["f1040"]["line.17.a.whole"] +
     ctx.forms["f1040"]["line.32.total.refundable.credits.whole"]
 
 line.37.amount.you.owe.whole:
   # Subtract line 33 from line 24. This is the amount you owe now
-  109: ctx.forms["f1040"]["line.24.total.tax.whole"] -
+  112: ctx.forms["f1040"]["line.24.total.tax.whole"] -
     ctx.forms["f1040"]["line.33.total.payments.whole"]
 
 third.party.designee:
-  # 100: 1 is "yes"
-  # 101: 2 is "no"
-  111: 2
+  # 114: 1 is "yes"
+  # 115: 2 is "no"
+  115: 2
 
 occupation:
-  116: ctx.occupation
+  119: ctx.occupation
 
 phone:
-  120: ctx.phone
+  123: ctx.phone
 
 email:
-  121: ctx.email
+  124: ctx.email

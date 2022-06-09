@@ -44,11 +44,11 @@ class FormFiller8938 extends FormFiller {
 
 		await form.load(this.pdf, this.map);
 
-		// Take a clean page 3 from the original document
+		// Take a clean page 2 from the original document
 		let contd;
 		if (dir) {
 			contd = path.join(dir, 'f8938-contd.pdf');
-			await form.slice(3, 4, contd);
+			await form.slice(2, 3, contd);
 			unlink.push(contd);
 		}
 

@@ -8,13 +8,14 @@ const year = `${new Date().getUTCFullYear() - 1}`;
 
 const { argv } = require('yargs')
 	.command(
-		'* [--only form] [-o output] [-d key] <config>',
+		'* [--only form] [-o output] [-d key] [config]',
 		'Fill PDF tax forms.',
 		(yargs) => {
 			yargs.positional('config', {
 				describe: 'The YAML config file to use when filling forms.',
 				type: 'string',
-				required: true
+				// required: true,
+				default: 'config.yaml'
 			}).option(
 				'only', {
 					description: 'Only fill the specified tax document',
@@ -38,12 +39,7 @@ const { argv } = require('yargs')
 		}
 	);
 
-let only;
-if (typeof argv.only === 'string') {
-	only = [ argv.only ];
-} else {
-	only = argv.only;
-}
+const only = (typeof argv.only === 'string') ? [ argv.only ] : argv.only;
 
 fill({
 	config: argv.config,

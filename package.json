@@ -1,11 +1,21 @@
 {
   "name": "irs-form-filler",
-  "version": "0.2.5",
+  "version": "0.3.0-rc0",
   "description": "",
   "main": "index.js",
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "irs",
+    "tax",
+    "pdf"
+  ],
+  "author": {
+    "name": "Jamie Peabody",
+    "email": "jamie.peabody@gmail.com",
+    "url": "http://mergely.com"
+  },
   "license": "ISC",
+  "homepage": "https://github.com/wickedest/irs-form-filler",
+  "bugs": "https://github.com/wickedest/irs-form-filler/issues",
   "bin": {
     "init": "bin/init",
     "fill": "bin/fill"
@@ -31,6 +41,7 @@
   "scripts": {
     "build": "npm run build:lint",
     "build:lint": "eslint .",
-    "build:map": "./scripts/make-maps.sh"
+    "build:map": "./scripts/make-maps.sh",
+    "build:fetch": "./scripts/fetch"
   }
 }

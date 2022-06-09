@@ -29,7 +29,7 @@ $ rm examples/*.pdf
 Fetch the latest tax documents.  The required documents can change year to year, so the script may need to be updated if any new documents were added, or if any are no longer required (e.g. [f8965.pdf](https://www.irs.gov/affordable-care-act/individuals-and-families/individual-shared-responsibility-provision)).
 
 ```bash
-$ ./scripts/fetch
+$ npm run build:fetch
 ```
 
 Generate the `src/maps` files and `examples` files:
@@ -47,6 +47,8 @@ Update the `package.json` version, bump to a major release candidate, e.g.
 ## Updating irs-form-filler for a new tax year
 
 This is the hard part.  Every year is different.  The `src/scripts` are sensitive to the specific tax year.  There are hard-coded values taken from the IRS instruction booklets, e.g. 1040 line 12a.  Not to mention that fields are sequentially numbered, so if they add, or move fields, their values will be all wrong.
+
+It is useful to generate examples of the previous tax year, and one for the new tax year and visually compare the old/new documents.  This will help identify key differences between them, allowing you to update the `src\scripts` accordingly.
 
 Examine all of the scripts in `src/scripts` against their
 pre-filled PDF forms in `./examples`.  Some PDF readers do not seem to recognize the pre-filled fields, so if that is the case, open the PDF in chrome.  Not all fields are filled.  It may even be helpful to look at the previous year's form.
