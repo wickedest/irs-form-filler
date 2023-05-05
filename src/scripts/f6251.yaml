@@ -13,7 +13,7 @@ part.1.line.1.whole:
 
 part.1.line.2a.whole:
   # enter the amount from Form 1040 or 1040-SR, line 12a
-  3: ctx.forms["f1040"]["line.12a.standard.deduction.whole"]
+  3: ctx.forms["f1040"]["line.12.standard.deduction.whole"]
 
 part.1.line.4.alternative.minimum.taxable.income.whole:
   # Alternative minimum taxable income. Combine lines 1 through 3. (If married

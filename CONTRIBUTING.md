@@ -15,14 +15,14 @@ The `./examples` are pre-filled forms that assign an integer to every input fiel
 Pull master, and create a new branch for the tax year, for example:
 
 ```bash
-$ git checkout -b year-2020
+$ git checkout -b year-2022
 ```
 
 Remove all pre-existing data:
 
 ```bash
 $ rm src/forms/*.pdf
-$ rm src/maps/*.pdf
+$ rm src/maps/*.yaml
 $ rm examples/*.pdf
 ```
 
@@ -41,7 +41,7 @@ $ npm run build:map
 Update the `package.json` version, bump to a major release candidate, e.g.
 
 ```json
-"version": "0.3.0-rc0",
+"version": "0.4.0-rc0",
 ```
 
 ## Updating irs-form-filler for a new tax year

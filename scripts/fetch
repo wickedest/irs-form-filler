@@ -21,10 +21,8 @@ const files = [
 ];
 
 async function download(url, dest) {
+	console.log("Downloading:", url);
 	return new Promise((resolve, reject) => {
-		if (fs.existsSync(dest)) {
-			return resolve();
-		}
 		const file = fs.createWriteStream(dest);
 		console.log(chalk.grey(`Downloading: ${url} into ${dest}`));
 		https.get(url, (response) => {
@@ -34,6 +32,7 @@ async function download(url, dest) {
 				resolve();
 			});
 		}).on('error', (err) => {
+			console.error(err);
 			fs.unlink(dest);
 			throw err;
 		});
