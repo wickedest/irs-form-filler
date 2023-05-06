@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 class FormFiller {
 	constructor({ name, map, script, pdf }) {
@@ -102,4 +102,4 @@ class FormFiller8938 extends FormFiller {
 	}
 }
 
-module.exports = FormFiller;
+export default FormFiller;

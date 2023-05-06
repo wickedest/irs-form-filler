@@ -6,7 +6,20 @@ This tool was designed to file taxes for US citizens who reside abroad, file the
 
 Actually, this tool was specifically designed to file taxes for its author.  Unless you fit the specific profile (i.e. married, filing separately, no dependents, etc.), then you may not find this tool very useful.  However, I am happy to accept PR that might extend the functionality of the scripts so as to support other filers, such as single filers, etc., but you have to do the work.  See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
-This tool fills:
+This tool takes an input YAML file, e.g.:
+
+```yaml
+firstName: Joe
+middleInitial: A
+lastName: Bloggs
+ssn: 012-34-5678
+occupation: Programmer
+phone: 0015551212
+email: joe.bloggs@domain.com
+...
+```
+
+And fills the following IRS forms:
 
 * [f1116](https://www.irs.gov/pub/irs-pdf/f1116.pdf) - Foreign Tax Credit
 * [f1116 amt](https://www.irs.gov/pub/irs-pdf/f1116.pdf) - Foreign Tax Credit Alternative Minimum Tax
@@ -40,7 +53,6 @@ It is recommended to create and maintain separate directories for each tax year.
 $ mkdir tax-2021
 $ cd tax-2021
 $ npx -p irs-form-filler init
-$ npm install
 ```
 
 After running, your `tax-2021` directory will be initialized with a `config.yaml` file, which you use to provide your financial information.
@@ -56,7 +68,7 @@ This tool uses a configuration file (e.g. `config.yaml`) to generate tax documen
 To generate your tax documents:
 
 ```bash
-$ npm run build
+$ npx -p irs-form-filler fill
 ```
 
 # Configuration

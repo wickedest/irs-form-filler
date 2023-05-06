@@ -1,8 +1,8 @@
-const fs = require('fs');
-const { Form } = require('pdffiller-script');
-const getForms = require('./forms');
-const FormFiller = require('./FormFiller');
-const CarryoverStatement = require('./CarryoverStatement');
+import fs from 'fs';
+import { Form } from 'pdffiller-script';
+import getForms from './forms.js';
+import FormFiller from './FormFiller.js';
+import CarryoverStatement from './CarryoverStatement.js';
 
 const afs = fs.promises;
 
@@ -54,4 +54,4 @@ function ensureDirectory(dir) {
 		});
 }
 
-module.exports = fill;
+export default fill;
