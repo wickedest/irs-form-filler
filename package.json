@@ -47,6 +47,7 @@
     "build": "npm run build:lint",
     "build:lint": "eslint .",
     "build:map": "./scripts/make-maps.sh",
-    "build:fetch": "./scripts/fetch"
+    "build:fetch": "./scripts/fetch",
+    "test": "echo done"
   }
 }
