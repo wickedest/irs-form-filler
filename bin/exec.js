@@ -54,7 +54,7 @@ const { argv } = yargs(process.argv.slice(2))
 						description: 'Force the generation of a new config file.',
 						default: false
 					}
-				)
+				);
 		}
 	);
 
@@ -70,26 +70,6 @@ async function init({ force }) {
 	}
 	const config = await fs.readFile(path.join(__dirname, '..', 'config.yaml'));
 	await fs.writeFile('config.yaml', config);
-
-	/*
-	const year = (new Date()).getFullYear() - 1;
-	await fs.writeFile('package.json', JSON.stringify({
-		name: `tax-${year}`,
-		version: '1.0.0',
-		description: `Your tax year ${year}`,
-		keywords: [],
-		author: '',
-		license: 'ISC',
-		private: true,
-		dependencies: {
-			'irs-form-filler': '^0.3.0'
-		},
-		scripts: {
-			build: 'fill config.yaml',
-			test: 'echo "Error: no tests" && exit 1'
-		}
-	}, null, '\t'));
-	*/
 }
 
 if (argv._.includes('init')) {
