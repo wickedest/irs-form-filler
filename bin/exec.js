@@ -10,7 +10,7 @@ import fill from '../src/index.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const { argv } = yargs(process.argv.slice(2))
+const parser = yargs(process.argv.slice(2))
 	.command(
 		'fill [--only form] [-o output] [-d key] [config]',
 		'Fill PDF tax forms.',
@@ -57,6 +57,7 @@ const { argv } = yargs(process.argv.slice(2))
 				);
 		}
 	);
+const { argv } = parser;
 
 async function init({ force }) {
 	try {
@@ -70,6 +71,7 @@ async function init({ force }) {
 	}
 	const config = await fs.readFile(path.join(__dirname, '..', 'config.yaml'));
 	await fs.writeFile('config.yaml', config);
+	console.log('Wrote: config.yaml');
 }
 
 if (argv._.includes('init')) {
@@ -85,6 +87,6 @@ if (argv._.includes('init')) {
 		console.error(chalk.red(ex.stack));
 	});
 } else {
-	yargs.showHelp();
+	parser.showHelp();
 	process.exitCode = 1;
 }

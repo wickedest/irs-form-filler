@@ -49,41 +49,41 @@ line.3a.A.whole:
   calculate: |
     (ctx, value) => {
       return {
-        'single':                    { fill: 12550, field: '26' },
-        'married filing separately': { fill: 12550, field: '26' },
-        'married filing jointly':    { fill: 25100, field: '26' },
-        'qualifying widow(er)':      { fill: 25100, field: '26' },
-        'head of household':         { fill: 18800, field: '26' }
+        'single':                    { fill: 12950, field: '24' },
+        'married filing separately': { fill: 12950, field: '24' },
+        'married filing jointly':    { fill: 25900, field: '24' },
+        'qualifying widow(er)':      { fill: 25900, field: '24' },
+        'head of household':         { fill: 19400, field: '24' }
       }[value];
     }
 
 line.3c.A.whole:
-  32: ctx.forms["f1116"]["line.3a.A.whole"] + ctx.forms["f1116"]["line.3b.A"]
+  30: ctx.forms["f1116"]["line.3a.A.whole"] + ctx.forms["f1116"]["line.3b.A"]
 
 line.3d.A.whole:
-  35: ctx.financial.income / ctx.financial.averageExchangeRate
+  33: ctx.financial.income / ctx.financial.averageExchangeRate
 
 line.3e.A.whole:
-  38: currency((ctx.financial.income / ctx.financial.averageExchangeRate))
+  36: currency((ctx.financial.income / ctx.financial.averageExchangeRate))
 
 line.3f.A:
-  41: (ctx.forms["f1116"]["line.3d.A.whole"] / ctx.forms["f1116"]["line.3e.A.whole"] || 1).toFixed(4)
+  39: (ctx.forms["f1116"]["line.3d.A.whole"] / ctx.forms["f1116"]["line.3e.A.whole"] || 1).toFixed(4)
 
 line.3g.A.whole:
-  44: ctx.forms["f1116"]["line.3c.A.whole"] * ctx.forms["f1116"]["line.3f.A"]
+  42: ctx.forms["f1116"]["line.3c.A.whole"] * ctx.forms["f1116"]["line.3f.A"]
 
 line.6.A.whole:
-  56: ctx.forms["f1116"]["line.2.A.whole"] +
+  54: ctx.forms["f1116"]["line.2.A.whole"] +
     ctx.forms["f1116"]["line.3g.A.whole"] +
     ctx.forms["f1116"]["line.4a.A.whole"] +
     ctx.forms["f1116"]["line.4b.A.whole"] +
     ctx.forms["f1116"]["line.5.A.whole"]
 
 line.6.total.whole:
-  59: ctx.forms["f1116"]["line.6.A.whole"]
+  57: ctx.forms["f1116"]["line.6.A.whole"]
 
 line.7.whole:
-  61: ctx.forms["f1116"]["line.1a.total.whole"] - ctx.forms["f1116"]["line.6.total.whole"]
+  58: ctx.forms["f1116"]["line.1a.total.whole"] - ctx.forms["f1116"]["line.6.total.whole"]
 
 part2.credit-claim-type:
   value:
@@ -91,25 +91,25 @@ part2.credit-claim-type:
   calculate: |
     (ctx, value) => {
       return {
-        'paid':    { fill: 'Paid', field: '62' },
-        'accrued': { fill: 'Accrued', field: '63' }
+        'paid':    { fill: 'Paid', field: '59' },
+        'accrued': { fill: 'Accrued', field: '60' }
       }[value];
     }
 
 part2.A.l:
-  66: ctx.financial.endOfTaxYear
+  61: ctx.financial.endOfTaxYear
 
 part2.A.t.whole:
-  74: ctx.financial.incomeTax / ctx.financial.averageExchangeRate
+  69: ctx.financial.incomeTax / ctx.financial.averageExchangeRate
 
 part2.A.u.whole:
-  75: ctx.forms["f1116"]["part2.A.t.whole"]
+  70: ctx.forms["f1116"]["part2.A.t.whole"]
 
 line.8.whole:
-  97: ctx.forms["f1116"]["part2.A.u.whole"]
+  91: ctx.forms["f1116"]["part2.A.u.whole"]
 
 line.9.whole:
-  98: ctx.forms["f1116"]["line.8.whole"]
+  92: ctx.forms["f1116"]["line.8.whole"]
 
 line.10.carryback.whole:
   value:
@@ -126,58 +126,58 @@ line.10.carryback.whole:
         }, 0);
       return {
         fill: carryover,
-        field: '99'
+        field: '93'
       };
     }
 
 line.11.whole:
-  100: ctx.forms["f1116"]["line.9.whole"] + ctx.forms["f1116"]["line.10.carryback.whole"]
+  94: ctx.forms["f1116"]["line.9.whole"] + ctx.forms["f1116"]["line.10.carryback.whole"]
 
 line.14.whole:
-  103: ctx.forms["f1116"]["line.11.whole"] + ctx.forms["f1116"]["line.12.whole"] + ctx.forms["f1116"]["line.13.whole"]
+  97: ctx.forms["f1116"]["line.11.whole"] + ctx.forms["f1116"]["line.12.whole"] + ctx.forms["f1116"]["line.13.whole"]
 
 line.15.whole:
-  104: ctx.forms["f1116"]["line.7.whole"]
+  98: ctx.forms["f1116"]["line.7.whole"]
 
 line.17.whole:
-  106: ctx.forms["f1116"]["line.15.whole"] + ctx.forms["f1116"]["line.16.whole"]
+  100: ctx.forms["f1116"]["line.15.whole"] + ctx.forms["f1116"]["line.16.whole"]
 
 line.18.whole:
-  107: ctx.forms["f1040"]["line.15.taxable.income.whole"]
+  101: ctx.forms["f1040"]["line.15.taxable.income.whole"]
 
 line.19.whole:
   # Divide line 17 by line 18. If line 17 is more than line 18, enter “1”
   # This math works because if 17 > 18, then we get a value > 1 and Math.min
   # will pick 1.
-  108: Math.min(1, ctx.forms["f1116"]["line.17.whole"] / ctx.forms["f1116"]["line.18.whole"])
+  102: Math.min(1, ctx.forms["f1116"]["line.17.whole"] / ctx.forms["f1116"]["line.18.whole"])
 
 line.20.whole:
   # Enter the total of Form 1040 or 1040-SR, line 12a
-  109: ctx.forms["f1040"]["line.16.tax.whole"]
+  103: ctx.forms["f1040"]["line.16.tax.whole"]
 
 line.21.whole:
   # Multiply line 20 by line 19 (maximum amount of credit)
-  110: ctx.forms["f1116"]["line.20.whole"] * ctx.forms["f1116"]["line.19.whole"]
+  104: ctx.forms["f1116"]["line.20.whole"] * ctx.forms["f1116"]["line.19.whole"]
 
 line.22.whole:
   # Increase in limitation section 960(c)
-  111: 0
+  105: 0
 
 line.23.whole:
   # Add lines 21 and 22
-  112: ctx.forms["f1116"]["line.21.whole"] + ctx.forms["f1116"]["line.22.whole"]
+  106: ctx.forms["f1116"]["line.21.whole"] + ctx.forms["f1116"]["line.22.whole"]
 
 line.24.whole:
   # Enter the smaller of line 14 or line 23
-  113: Math.min(ctx.forms["f1116"]["line.14.whole"], ctx.forms["f1116"]["line.21.whole"])
+  107: Math.min(ctx.forms["f1116"]["line.14.whole"], ctx.forms["f1116"]["line.21.whole"])
 
 line.28.whole:
   # Credit for taxes on "general category income" (this part is `category.of.income` above)
-  117: ctx.forms["f1116"]["line.24.whole"]
+  111: ctx.forms["f1116"]["line.24.whole"]
 
 line.32.whole:
   # Add lines 25 through 31
-  121: ctx.forms["f1116"]["line.25.whole"] +
+  115: ctx.forms["f1116"]["line.25.whole"] +
     ctx.forms["f1116"]["line.26.whole"] +
     ctx.forms["f1116"]["line.27.whole"] +
     ctx.forms["f1116"]["line.28.whole"] +
@@ -187,12 +187,12 @@ line.32.whole:
 
 line.33.whole:
   # Enter the smaller of line 20 or line 32
-  122: Math.min(ctx.forms["f1116"]["line.20.whole"], ctx.forms["f1116"]["line.32.whole"])
+  116: Math.min(ctx.forms["f1116"]["line.20.whole"], ctx.forms["f1116"]["line.32.whole"])
 
 line.34.whole:
   # Reduction of credit for international boycott operations.
-  123: 0
+  117: 0
 
 line.35.foreign.tax.credit.whole:
   # Subtract line 34 from line 33. This is your foreign tax credit.
-  124: ctx.forms["f1116"]["line.33.whole"] - ctx.forms["f1116"]["line.34.whole"]
+  118: ctx.forms["f1116"]["line.33.whole"] - ctx.forms["f1116"]["line.34.whole"]

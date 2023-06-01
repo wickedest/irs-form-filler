@@ -9,8 +9,8 @@ part.iii.7a:
   calculate: |
     (ctx, value) => {
       return {
-        yes: { fill: '1', field: '66' },
-        no: { fill: '2', field: '67' }
+        yes: { fill: '1', field: '64' },
+        no: { fill: '2', field: '65' }
       }[value];
     }
 
@@ -19,20 +19,20 @@ part.iii.7b:
   calculate: |
     (ctx, value) => {
       return {
-        yes: { fill: '1', field: '68' },
-        no: { fill: '2', field: '69' }
+        yes: { fill: '1', field: '66' },
+        no: { fill: '2', field: '67' }
       }[value];
     }
 
 part.iii.7b.fincen.form.114.foreign.country:
-  70: ctx.financial.countriesWithBankAccounts
+  68: ctx.financial.countriesWithBankAccounts
 
 part.iii.8:
   value: '"no"'
   calculate: |
     (ctx, value) => {
       return {
-        yes: { fill: '1', field: '71' },
-        no: { fill: '2', field: '72' }
+        yes: { fill: '1', field: '70' },
+        no: { fill: '2', field: '71' }
       }[value];
     }

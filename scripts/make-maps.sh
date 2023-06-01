@@ -6,7 +6,7 @@ for entry in ./src/forms/*
 do
   echo "$entry"
   # FIXME: use npx
-  ../pdffiller-script/bin/map "$entry" --out src/maps
+  ../pdffiller-script/bin/map.js "$entry" --out src/maps
   mv src/maps/*example-filled.pdf examples/
   rm -rf src/maps/*-example-*.*
 done

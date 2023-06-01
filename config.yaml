@@ -33,31 +33,34 @@ financial:
   # residence, but the IRS forms require values to be in USD, so you need an
   # exchange rate to convert from your country income to USD. The
   # `irs-form-filler` will convert the values for you.
-  averageExchangeRate: 0.590
+  averageExchangeRate: 0.951
   averageExchangeRateSource: 'https://www.irs.gov/individuals/international-taxpayers/yearly-average-currency-exchange-rates'
   # Except 8938, which needs the treasury exchange rate, end of year, December
-  # https://fiscaldata.treasury.gov/datasets/treasury-reporting-rates-exchange/treasury-reporting-rates-of-exchange
-  treasuryExchangeRate: 0.590
+  # https://www.irsstreamlinedprocedures.com/fbar-department-of-treasury-exchange-rates-2020-2
+  treasuryExchangeRate: 0.936
   # 1040 Schedule B and FBAR required
   countriesWithBankAccounts: Ireland
   haveVirtualCurrency: no
 carryover:
-  # The cumulative total amount of utilized tax carry over, up to last year.
-  # i.e. the carryover-general.pdf from your **previous** tax year.
+  # The cumulative total amount of utilized tax carry over from previous tax years.
+  # Keep every year, and roll the values into next year's taxes.
   lastYearTaxCarryOverUSD: 8000
   general:
-    # `foreign-taxes` is f1116 line 8 for the year in question
-    # `utilized` is f1116 line 24 (2020+), line 22 (2019)
+    # To update for last year, open last year's form `f1116.pdf`:
+    # * Find line 8 and enter that value in `foreign-taxes` (total from Part II)
+    # * Find line 24  and enter in `utilized` (the Part III "smaller of" value)
     2018:
       foreign-taxes: 28000
       utilized: 19000
   alternative-minimum-tax:
-    # `foreign-taxes` is f1116 line 8 for the year in question
-    # `utilized` is f1116 line 24 (2020+), line 22 (2019)
+    # To update for last year, open last year's form `f1116amt.pdf`:
+    # * Find line 8 and enter that value in `foreign-taxes` (total from Part II)
+    # * Find line 24  and enter in `utilized` (the Part III "smaller of" value)
     2018:
       foreign-taxes: 28000
       utilized: 19000
-# List all of your foreign accounts for f8938 and the separate FBAR
+# List all of your foreign accounts for f8938 and the separate FBAR.
+# tip: The FBAR file via PDF never works, so use their online version.
 accounts:
   - account: '12345-678'
     type: deposit

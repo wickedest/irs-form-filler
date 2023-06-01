@@ -1,0 +1,400 @@
+# The `friendly.key.name.N` can be customized to whatever you want.  The keys
+# e.g. `1:`, identify the unique field index ID to fill out (which can be
+# found in the example filled form) and map to a _value_.  The _value_ of the
+# a JavaScript template literal, and be any of the following:
+# * A hard-coded value, such as a string, number;
+# * Refer to a value from the `ctx`, which is the input file;
+# * An object having keys `value`
+friendly.key.name.0:
+  # fills topmostSubform[0].Page1[0].Pg1Header[0].f1_01[0]
+  0: ${ctx.field0}
+friendly.key.name.1:
+  # fills topmostSubform[0].Page1[0].Pg1Header[0].f1_02[0]
+  1: ${ctx.field1}
+friendly.key.name.2:
+  # fills topmostSubform[0].Page1[0].Pg1Header[0].f1_03[0]
+  2: ${ctx.field2}
+friendly.key.name.3:
+  # fills topmostSubform[0].Page1[0].Pg1Header[0].f1_04[0]
+  3: ${ctx.field3}
+friendly.key.name.4:
+  # fills topmostSubform[0].Page1[0].Pg1Header[0].f1_05[0]
+  4: ${ctx.field4}
+friendly.key.name.5:
+  # fills topmostSubform[0].Page1[0].c1_1[0]
+  5: ${ctx.field5}
+friendly.key.name.6:
+  # fills topmostSubform[0].Page1[0].f1_06[0]
+  6: ${ctx.field6}
+friendly.key.name.7:
+  # fills topmostSubform[0].Page1[0].f1_07[0]
+  7: ${ctx.field7}
+friendly.key.name.8:
+  # fills topmostSubform[0].Page1[0].f1_08[0]
+  8: ${ctx.field8}
+friendly.key.name.9:
+  # fills topmostSubform[0].Page1[0].c1_2[0]
+  9: ${ctx.field9}
+friendly.key.name.10:
+  # fills topmostSubform[0].Page1[0].c1_2[1]
+  10: ${ctx.field10}
+friendly.key.name.11:
+  # fills topmostSubform[0].Page1[0].c1_2[2]
+  11: ${ctx.field11}
+friendly.key.name.12:
+  # fills topmostSubform[0].Page1[0].c1_2[3]
+  12: ${ctx.field12}
+friendly.key.name.13:
+  # fills topmostSubform[0].Page1[0].f1_09[0]
+  13: ${ctx.field13}
+friendly.key.name.14:
+  # fills topmostSubform[0].Page1[0].f1_10[0]
+  14: ${ctx.field14}
+friendly.key.name.15:
+  # fills topmostSubform[0].Page1[0].f1_11[0]
+  15: ${ctx.field15}
+friendly.key.name.16:
+  # fills topmostSubform[0].Page1[0].f1_12[0]
+  16: ${ctx.field16}
+friendly.key.name.17:
+  # fills topmostSubform[0].Page1[0].f1_13[0]
+  17: ${ctx.field17}
+friendly.key.name.18:
+  # fills topmostSubform[0].Page1[0].f1_14[0]
+  18: ${ctx.field18}
+friendly.key.name.19:
+  # fills topmostSubform[0].Page1[0].c1_3[0]
+  19: ${ctx.field19}
+friendly.key.name.20:
+  # fills topmostSubform[0].Page1[0].c1_3[1]
+  20: ${ctx.field20}
+friendly.key.name.21:
+  # fills topmostSubform[0].Page1[0].f1_15[0]
+  21: ${ctx.field21}
+friendly.key.name.22:
+  # fills topmostSubform[0].Page1[0].f1_16[0]
+  22: ${ctx.field22}
+friendly.key.name.23:
+  # fills topmostSubform[0].Page1[0].c1_4[0]
+  23: ${ctx.field23}
+friendly.key.name.24:
+  # fills topmostSubform[0].Page1[0].c1_4[1]
+  24: ${ctx.field24}
+friendly.key.name.25:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow13a[0].f1_17[0]
+  25: ${ctx.field25}
+friendly.key.name.26:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow13a[0].f1_18[0]
+  26: ${ctx.field26}
+friendly.key.name.27:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow13a[0].f1_19[0]
+  27: ${ctx.field27}
+friendly.key.name.28:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow13b[0].f1_20[0]
+  28: ${ctx.field28}
+friendly.key.name.29:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow13b[0].f1_21[0]
+  29: ${ctx.field29}
+friendly.key.name.30:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow13b[0].f1_22[0]
+  30: ${ctx.field30}
+friendly.key.name.31:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow13c[0].f1_23[0]
+  31: ${ctx.field31}
+friendly.key.name.32:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow13c[0].f1_24[0]
+  32: ${ctx.field32}
+friendly.key.name.33:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow13c[0].f1_25[0]
+  33: ${ctx.field33}
+friendly.key.name.34:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow13d[0].f1_26[0]
+  34: ${ctx.field34}
+friendly.key.name.35:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow13d[0].f1_27[0]
+  35: ${ctx.field35}
+friendly.key.name.36:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow13d[0].f1_28[0]
+  36: ${ctx.field36}
+friendly.key.name.37:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow13e[0].f1_29[0]
+  37: ${ctx.field37}
+friendly.key.name.38:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow13e[0].f1_30[0]
+  38: ${ctx.field38}
+friendly.key.name.39:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow13e[0].f1_31[0]
+  39: ${ctx.field39}
+friendly.key.name.40:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow13f[0].f1_32[0]
+  40: ${ctx.field40}
+friendly.key.name.41:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow13f[0].f1_33[0]
+  41: ${ctx.field41}
+friendly.key.name.42:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow13f[0].f1_34[0]
+  42: ${ctx.field42}
+friendly.key.name.43:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow13g[0].f1_35[0]
+  43: ${ctx.field43}
+friendly.key.name.44:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow13g[0].f1_36[0]
+  44: ${ctx.field44}
+friendly.key.name.45:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow13g[0].f1_37[0]
+  45: ${ctx.field45}
+friendly.key.name.46:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow14a[0].f1_38[0]
+  46: ${ctx.field46}
+friendly.key.name.47:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow14a[0].f1_39[0]
+  47: ${ctx.field47}
+friendly.key.name.48:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow14a[0].f1_40[0]
+  48: ${ctx.field48}
+friendly.key.name.49:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow14b[0].f1_41[0]
+  49: ${ctx.field49}
+friendly.key.name.50:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow14b[0].f1_42[0]
+  50: ${ctx.field50}
+friendly.key.name.51:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow14b[0].f1_43[0]
+  51: ${ctx.field51}
+friendly.key.name.52:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow14c[0].f1_44[0]
+  52: ${ctx.field52}
+friendly.key.name.53:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow14c[0].f1_45[0]
+  53: ${ctx.field53}
+friendly.key.name.54:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow14c[0].f1_46[0]
+  54: ${ctx.field54}
+friendly.key.name.55:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow14d[0].f1_47[0]
+  55: ${ctx.field55}
+friendly.key.name.56:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow14d[0].f1_48[0]
+  56: ${ctx.field56}
+friendly.key.name.57:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow14d[0].f1_49[0]
+  57: ${ctx.field57}
+friendly.key.name.58:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow14e[0].f1_50[0]
+  58: ${ctx.field58}
+friendly.key.name.59:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow14e[0].f1_51[0]
+  59: ${ctx.field59}
+friendly.key.name.60:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow14e[0].f1_52[0]
+  60: ${ctx.field60}
+friendly.key.name.61:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow14f[0].f1_53[0]
+  61: ${ctx.field61}
+friendly.key.name.62:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow14f[0].f1_54[0]
+  62: ${ctx.field62}
+friendly.key.name.63:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow14f[0].f1_55[0]
+  63: ${ctx.field63}
+friendly.key.name.64:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow14g[0].f1_56[0]
+  64: ${ctx.field64}
+friendly.key.name.65:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow14g[0].f1_57[0]
+  65: ${ctx.field65}
+friendly.key.name.66:
+  # fills topmostSubform[0].Page1[0].Table_Part3[0].BodyRow14g[0].f1_58[0]
+  66: ${ctx.field66}
+friendly.key.name.67:
+  # fills topmostSubform[0].Page1[0].f1_59[0]
+  67: ${ctx.field67}
+friendly.key.name.68:
+  # fills topmostSubform[0].Page1[0].f1_60[0]
+  68: ${ctx.field68}
+friendly.key.name.69:
+  # fills topmostSubform[0].Page1[0].f1_61[0]
+  69: ${ctx.field69}
+friendly.key.name.70:
+  # fills topmostSubform[0].Page1[0].f1_62[0]
+  70: ${ctx.field70}
+friendly.key.name.71:
+  # fills topmostSubform[0].Page1[0].f1_63[0]
+  71: ${ctx.field71}
+friendly.key.name.72:
+  # fills topmostSubform[0].Page2[0].Line20_ReadOrder[0].c2_1[0]
+  72: ${ctx.field72}
+friendly.key.name.73:
+  # fills topmostSubform[0].Page2[0].Line20_ReadOrder[0].c2_1[1]
+  73: ${ctx.field73}
+friendly.key.name.74:
+  # fills topmostSubform[0].Page2[0].f2_01[0]
+  74: ${ctx.field74}
+friendly.key.name.75:
+  # fills topmostSubform[0].Page2[0].c2_2[0]
+  75: ${ctx.field75}
+friendly.key.name.76:
+  # fills topmostSubform[0].Page2[0].c2_3[0]
+  76: ${ctx.field76}
+friendly.key.name.77:
+  # fills topmostSubform[0].Page2[0].c2_4[0]
+  77: ${ctx.field77}
+friendly.key.name.78:
+  # fills topmostSubform[0].Page2[0].c2_5[0]
+  78: ${ctx.field78}
+friendly.key.name.79:
+  # fills topmostSubform[0].Page2[0].f2_02[0]
+  79: ${ctx.field79}
+friendly.key.name.80:
+  # fills topmostSubform[0].Page2[0].c2_6[0]
+  80: ${ctx.field80}
+friendly.key.name.81:
+  # fills topmostSubform[0].Page2[0].c2_6[1]
+  81: ${ctx.field81}
+friendly.key.name.82:
+  # fills topmostSubform[0].Page2[0].f2_03[0]
+  82: ${ctx.field82}
+friendly.key.name.83:
+  # fills topmostSubform[0].Page2[0].f2_04[0]
+  83: ${ctx.field83}
+friendly.key.name.84:
+  # fills topmostSubform[0].Page2[0].f2_05[0]
+  84: ${ctx.field84}
+friendly.key.name.85:
+  # fills topmostSubform[0].Page2[0].f2_06[0]
+  85: ${ctx.field85}
+friendly.key.name.86:
+  # fills topmostSubform[0].Page2[0].f2_07[0]
+  86: ${ctx.field86}
+friendly.key.name.87:
+  # fills topmostSubform[0].Page2[0].f2_08[0]
+  87: ${ctx.field87}
+friendly.key.name.88:
+  # fills topmostSubform[0].Page2[0].f2_09[0]
+  88: ${ctx.field88}
+friendly.key.name.89:
+  # fills topmostSubform[0].Page2[0].f2_10[0]
+  89: ${ctx.field89}
+friendly.key.name.90:
+  # fills topmostSubform[0].Page2[0].f2_11[0]
+  90: ${ctx.field90}
+friendly.key.name.91:
+  # fills topmostSubform[0].Page2[0].f2_12[0]
+  91: ${ctx.field91}
+friendly.key.name.92:
+  # fills topmostSubform[0].Page2[0].f2_13[0]
+  92: ${ctx.field92}
+friendly.key.name.93:
+  # fills topmostSubform[0].Page2[0].f2_14[0]
+  93: ${ctx.field93}
+friendly.key.name.94:
+  # fills topmostSubform[0].Page2[0].f2_15[0]
+  94: ${ctx.field94}
+friendly.key.name.95:
+  # fills topmostSubform[0].Page2[0].f2_16[0]
+  95: ${ctx.field95}
+friendly.key.name.96:
+  # fills topmostSubform[0].Page2[0].c2_7[0]
+  96: ${ctx.field96}
+friendly.key.name.97:
+  # fills topmostSubform[0].Page2[0].c2_8[0]
+  97: ${ctx.field97}
+friendly.key.name.98:
+  # fills topmostSubform[0].Page2[0].c2_9[0]
+  98: ${ctx.field98}
+friendly.key.name.99:
+  # fills topmostSubform[0].Page2[0].c2_9[1]
+  99: ${ctx.field99}
+friendly.key.name.100:
+  # fills topmostSubform[0].Page2[0].c2_9[2]
+  100: ${ctx.field100}
+friendly.key.name.101:
+  # fills topmostSubform[0].Page2[0].c2_9[3]
+  101: ${ctx.field101}
+friendly.key.name.102:
+  # fills topmostSubform[0].Page2[0].f2_17[0]
+  102: ${ctx.field102}
+friendly.key.name.103:
+  # fills topmostSubform[0].Page2[0].c2_10[0]
+  103: ${ctx.field103}
+friendly.key.name.104:
+  # fills topmostSubform[0].Page2[0].c2_10[1]
+  104: ${ctx.field104}
+friendly.key.name.105:
+  # fills topmostSubform[0].Page2[0].f2_18[0]
+  105: ${ctx.field105}
+friendly.key.name.106:
+  # fills topmostSubform[0].Page2[0].f2_19[0]
+  106: ${ctx.field106}
+friendly.key.name.107:
+  # fills topmostSubform[0].Page2[0].f2_20[0]
+  107: ${ctx.field107}
+friendly.key.name.108:
+  # fills topmostSubform[0].Page2[0].f2_21[0]
+  108: ${ctx.field108}
+friendly.key.name.109:
+  # fills topmostSubform[0].Page2[0].f2_22[0]
+  109: ${ctx.field109}
+friendly.key.name.110:
+  # fills topmostSubform[0].Page2[0].f2_23[0]
+  110: ${ctx.field110}
+friendly.key.name.111:
+  # fills topmostSubform[0].Page2[0].f2_24[0]
+  111: ${ctx.field111}
+friendly.key.name.112:
+  # fills topmostSubform[0].Page2[0].f2_25[0]
+  112: ${ctx.field112}
+friendly.key.name.113:
+  # fills topmostSubform[0].Page2[0].c2_11[0]
+  113: ${ctx.field113}
+friendly.key.name.114:
+  # fills topmostSubform[0].Page2[0].c2_11[1]
+  114: ${ctx.field114}
+friendly.key.name.115:
+  # fills topmostSubform[0].Page2[0].c2_11[2]
+  115: ${ctx.field115}
+friendly.key.name.116:
+  # fills topmostSubform[0].Page2[0].c2_11[3]
+  116: ${ctx.field116}
+friendly.key.name.117:
+  # fills topmostSubform[0].Page2[0].f2_26[0]
+  117: ${ctx.field117}
+friendly.key.name.118:
+  # fills topmostSubform[0].Page2[0].f2_27[0]
+  118: ${ctx.field118}
+friendly.key.name.119:
+  # fills topmostSubform[0].Page2[0].f2_28[0]
+  119: ${ctx.field119}
+friendly.key.name.120:
+  # fills topmostSubform[0].Page2[0].c2_12[0]
+  120: ${ctx.field120}
+friendly.key.name.121:
+  # fills topmostSubform[0].Page2[0].c2_12[1]
+  121: ${ctx.field121}
+friendly.key.name.122:
+  # fills topmostSubform[0].Page2[0].c2_13[0]
+  122: ${ctx.field122}
+friendly.key.name.123:
+  # fills topmostSubform[0].Page2[0].c2_13[1]
+  123: ${ctx.field123}
+friendly.key.name.124:
+  # fills topmostSubform[0].Page2[0].c2_13[2]
+  124: ${ctx.field124}
+friendly.key.name.125:
+  # fills topmostSubform[0].Page2[0].c2_13[3]
+  125: ${ctx.field125}
+friendly.key.name.126:
+  # fills topmostSubform[0].Page2[0].c2_13[4]
+  126: ${ctx.field126}
+friendly.key.name.127:
+  # fills topmostSubform[0].Page2[0].c2_14[0]
+  127: ${ctx.field127}
+friendly.key.name.128:
+  # fills topmostSubform[0].Page2[0].c2_14[1]
+  128: ${ctx.field128}
+friendly.key.name.129:
+  # fills topmostSubform[0].Page2[0].f2_29[0]
+  129: ${ctx.field129}
+friendly.key.name.130:
+  # fills topmostSubform[0].Page2[0].f2_30[0]
+  130: ${ctx.field130}

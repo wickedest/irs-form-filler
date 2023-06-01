@@ -2,11 +2,11 @@
 
 `irs-form-filler` is a tool for filling out Internal Revenue Service (IRS) income tax forms for the 2021 tax year.  Given a simple input file, this tool will generate a series of documents for filing with the IRS.
 
-This tool was designed to file taxes for US citizens who reside abroad, file their taxes within their country of residence and need to submit their taxes to the IRS with (hopefully) $0.00 amount owed.  Some companies charge substiantial amounts for filing, and this is a punative tax on US citizens living abroad.
+This tool was designed to file taxes for US citizens who reside abroad and file their taxes within their country of residence and need to submit their taxes to the IRS with (hopefully) $0.00 amount owed.  Some companies charge substiantial amounts for filing, and this is a punative tax on US citizens living abroad.
 
-Actually, this tool was specifically designed to file taxes for its author.  Unless you fit the specific profile (i.e. married, filing separately, no dependents, etc.), then you may not find this tool very useful.  However, I am happy to accept PR that might extend the functionality of the scripts so as to support other filers, such as single filers, etc., but you have to do the work.  See [CONTRIBUTING.md](./CONTRIBUTING.md).
+Actually, this tool was specifically designed to file taxes for its author.  Unless you fit the specific profile (i.e. married, filing separately, no dependents, etc.), then this tool may not work for you out-of-the-box.  However, I am happy to accept PR that might extend the functionality of the scripts so as to support other filers, such as single filers, etc., but you have to do the work.  See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
-This tool takes an input YAML file, e.g.:
+This tool takes an input YAML file, with your personal and finandical details e.g.:
 
 ```yaml
 firstName: Joe
@@ -30,6 +30,8 @@ And fills the following IRS forms:
 * [f1040 schedule b](https://www.irs.gov/pub/irs-pdf/f1040sb.pdf) - Interest and Ordinary Dividends
 * [f8938](https://www.irs.gov/pub/irs-pdf/f8938.pdf) - Statement of Specified Foreign Financial Assets ([FBAR](https://www.irs.gov/businesses/small-businesses-self-employed/report-of-foreign-bank-and-financial-accounts-fbar) also required, but filed electronically)
 
+Everything is done locally - **no data ever leaves your machine**.
+
 Once filled you can use the [e-file](https://www.irs.gov/filing/e-file-options) (if you earn $73,000 or less) and copy the values from the PDF documents to the e-file.  Alternatively, you can print all the files and post them snail-mail.  For more information, see [US Citizens and Resident Aliens Abroad](https://www.irs.gov/individuals/international-taxpayers/us-citizens-and-resident-aliens-abroad).
 
 ## WARNING
@@ -42,20 +44,21 @@ This tool is only a form filler (to the best of its ability) for the specific ta
 
 * [irs-2020](https://www.npmjs.com/package/irs-form-filler/v/0.2.0) - Fills forms for the 2020 tax return.
 * [irs-2021](https://www.npmjs.com/package/irs-form-filler/v/0.3.0) - Fills forms for the 2021 tax return.
+* [irs-2022](https://www.npmjs.com/package/irs-form-filler/v/1.0.0) - Fills forms for the 2022 tax return.
 
 ## How to use irs-form-filler
 
-It is recommended to create and maintain separate directories for each tax year.  Use the tool to initialize a directory, populate the `config.yaml` file, and generate the tax documents, and then file your taxes.
+It is recommended to create and retain separate directories for each tax year.  Use the tool to initialize a directory, populate the `config.yaml` file, and generate the tax documents, and then file your taxes. It is a good idea to keep backups.
 
 ### Initialize a new tax year project
 
 ```bash
-$ mkdir tax-2021
-$ cd tax-2021
-$ npx -p irs-form-filler init
+$ mkdir tax-2022
+$ cd tax-2022
+$ npx irs-form-filler init
 ```
 
-After running, your `tax-2021` directory will be initialized with a `config.yaml` file, which you use to provide your financial information.
+After running, your `tax-2022` directory will be initialized with a `config.yaml` file, which you use to provide your financial information.
 
 ### Fill out config.yaml
 
@@ -68,14 +71,22 @@ This tool uses a configuration file (e.g. `config.yaml`) to generate tax documen
 To generate your tax documents:
 
 ```bash
-$ npx -p irs-form-filler fill
+$ npx irs-form-filler fill
 ```
 
-# Configuration
+It will write all the PDF documents to `./filled`.
+
+## IRS filing deadline
+
+You are allowed an automatic 2-month extension to file (i.e. June). See https://www.irs.gov/individuals/international-taxpayers/us-citizens-and-resident-aliens-abroad-automatic-2-month-extension-of-time-to-file.
+
+However, you still need to file an [FBAR](https://www.irs.gov/businesses/small-businesses-self-employed/report-of-foreign-bank-and-financial-accounts-fbar) separately (even though the US government has **all** the information via FATCA and your tax return - it's practically identical information). You can use the f8938 that is produced from this tool to help you file the FBAR.
+
+## Configuration
 
 The following sections detail all the fields necessary to configure `config.yaml`.  You should keep a backup of this file and the documents that this tool produces, because they will be needed next year.
 
-## Personal information
+### Personal information
 
 Edit `config.yaml` and update all of the following fields with your personal information.
 
@@ -98,7 +109,7 @@ Edit `config.yaml` and update all of the following fields with your personal inf
 | **employer.usaAddress** | Your employer's USA address. |
 | **employer.foreignAddress** | Your employer's foreign address. |
 
-## Financial information
+### Financial information
 
 Edit `config.yaml` and update all of the following fields with your financial information.
 
@@ -114,7 +125,7 @@ Edit `config.yaml` and update all of the following fields with your financial in
 
 1. This field value is in your tax resident country's currency; `irs-form-filler` will convert to USD.
 
-## Foreign bank accounts
+### Foreign bank accounts
 
 If you hold any foreign bank accounts, you must declare them to the IRS using form [f8938](https://www.irs.gov/pub/irs-pdf/f8938.pdf), but you must also submit a separate [FBAR](https://www.irs.gov/businesses/small-businesses-self-employed/report-of-foreign-bank-and-financial-accounts-fbar) electronically.  For each account you own, create an item in `accounts` with the following fields:
 
@@ -132,7 +143,7 @@ If you hold any foreign bank accounts, you must declare them to the IRS using fo
 | **joint** | Set to `true` if the account is a joint account, otherwise `false`. |
 | **tax** | Set to `true` if the account is taxable, otherwise `false`. |
 
-## Carryover
+### Carryover
 
 As a US citizen living abroad and paying taxes in a foreign country with a bilateral tax agreement, there are two choices for how to handle the the foreign tax:
 
@@ -141,7 +152,7 @@ As a US citizen living abroad and paying taxes in a foreign country with a bilat
 
 This configuration assumes #2.  This tool will calculate the amount of `utilized` taxes, and any "excess" can accumulate credit over the tax years.
 
-### Foreign tax credit general carryover
+#### Foreign tax credit general carryover
 
 Pay attention because it can be a little confusing.  This section deals with carryover from **previous years**.  _This tax year_ is the year for which you are filing taxes, and _previous tax year_ is the year prior to that.
 
