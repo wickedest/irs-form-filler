@@ -61,53 +61,53 @@ part.V.line.20:
       if (value === 'deposit') {
         return {
           fill: '1',
-          field: '73'
+          field: '72'
         }
       }
       return {
           fill: '2',
-          field: '74'
+          field: '73'
       }
     }
 
 part.V.line.21.account.number:
-  75: ctx.account.account
+  74: ctx.account.account
 
 part.V.line.22.open:
-  76: ctx.account.opened ? "1":""
+  75: ctx.account.opened ? "1":""
 
 part.V.line.23.closed:
-  77: ctx.account.closed ? "1":""
+  76: ctx.account.closed ? "1":""
 
 part.V.line.24.joint:
-  78: ctx.account.joint ? "1":""
+  77: ctx.account.joint ? "1":""
 
 part.V.line.24.taxable:
-  79: ctx.account.tax ? "":"1"
+  78: ctx.account.tax ? "":"1"
 
 part.V.line.23.maximum.value.whole:
-  80: ctx.account.value / ctx.financial.treasuryExchangeRate
+  79: ctx.account.value / ctx.financial.treasuryExchangeRate
 
 part.V.line.24.used.exchange.rate.yes:
-  81: 1
+  80: 1
 
 part.V.line.24.used.exchange.rate.no:
-  82:
+  81:
 
 part.V.line.25.a.foreign.currency.name:
-  83: ctx.account.currency
+  82: ctx.account.currency
 
 part.V.line.25.b.exchange.rate:
-  84: ctx.financial.treasuryExchangeRate
+  83: ctx.financial.treasuryExchangeRate
 
 part.V.line.25.c.exchange.rate.source:
-  85:
+  84:
 
 part.V.line.26.a.financial.institution:
-  86: ctx.account.name
+  85: ctx.account.name
 
 part.V.line.27.financial.institution.address:
-  91: ctx.account.address
+  90: ctx.account.address
 
 part.V.line.28.city.zip:
-  92: ctx.account.city
+  91: ctx.account.city

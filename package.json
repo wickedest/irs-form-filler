@@ -1,8 +1,9 @@
 {
   "name": "irs-form-filler",
-  "version": "0.3.0",
+  "version": "1.0.0-alpha.2",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "keywords": [
     "irs",
     "tax",
@@ -16,10 +17,7 @@
   "license": "ISC",
   "homepage": "https://github.com/wickedest/irs-form-filler",
   "bugs": "https://github.com/wickedest/irs-form-filler/issues",
-  "bin": {
-    "init": "bin/init",
-    "fill": "bin/fill"
-  },
+  "bin": "bin/exec.js",
   "files": [
     "bin",
     "data",
@@ -29,19 +27,27 @@
     "CONTRIBUTING.md"
   ],
   "dependencies": {
-    "chalk": "^4.0.0",
-    "debug": "^4.1.1",
-    "md-to-pdf": "^3.1.0",
-    "pdffiller-script": "^0.1.1",
-    "yargs": "^15.3.1"
+    "chalk": "^5.2.0",
+    "debug": "^4.3.4",
+    "md-to-pdf": "^5.2.4",
+    "pdffiller-script": "^1.0.0",
+    "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "eslint": "^6.8.0"
+    "@commitlint/cli": "^17.6.3",
+    "@commitlint/config-conventional": "^17.6.3",
+    "@commitlint/prompt-cli": "^17.6.3",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "conventional-changelog-conventionalcommits": "^5.0.0",
+    "eslint": "^8.40.0",
+    "husky": "^8.0.3"
   },
   "scripts": {
     "build": "npm run build:lint",
     "build:lint": "eslint .",
     "build:map": "./scripts/make-maps.sh",
-    "build:fetch": "./scripts/fetch"
+    "build:fetch": "./scripts/fetch",
+    "test": "echo done"
   }
 }

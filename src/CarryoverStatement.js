@@ -1,6 +1,6 @@
-const fs = require('fs');
-const path = require('path');
-const { mdToPdf } = require('md-to-pdf');
+import fs from 'fs';
+import path from 'path';
+import { mdToPdf } from 'md-to-pdf';
 
 class CarryoverStatement {
 	constructor(options) {
@@ -61,4 +61,4 @@ class CarryoverStatement {
 	}
 }
 
-module.exports = CarryoverStatement;
+export default CarryoverStatement;

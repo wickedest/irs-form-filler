@@ -1,13 +1,17 @@
-name: Run tests
-
-# on: [push, pull_request]
+name: Run tests (branch)
 
 on:
   push:
     branches-ignore:
-      - 'master'
+      - master
+      - alpha
+      - beta
+      - next
     tags-ignore:
       - 'v*'
+
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -16,16 +20,18 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.x]
+        node-version: [16.x]
 
     name: Node.js ${{ matrix.node-version }}
 
     steps:
       - name: Git checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -34,5 +40,8 @@ jobs:
         env:
           CI: true
 
+      - name: Test
+        run: npm run test
+
       - name: Build
-        run: npm run build --if-present
+        run: npm run build:dist
