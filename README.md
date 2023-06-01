@@ -1,10 +1,10 @@
 # irs-form-filler
 
-`irs-form-filler` is a tool for filling out Internal Revenue Service (IRS) income tax forms for the 2021 tax year.  Given a simple input file, this tool will generate a series of documents for filing with the IRS.
+`irs-form-filler` is a tool for filling out Internal Revenue Service (IRS) income tax forms for the 2021 tax year. Given a simple input file, this tool will generate a series of documents for filing with the IRS.
 
-This tool was designed to file taxes for US citizens who reside abroad and file their taxes within their country of residence and need to submit their taxes to the IRS with (hopefully) $0.00 amount owed.  Some companies charge substiantial amounts for filing, and this is a punative tax on US citizens living abroad.
+This tool was designed to file taxes for US citizens who reside abroad and file their taxes within their country of residence and need to submit their taxes to the IRS with (hopefully) $0.00 amount owed. Some companies charge substiantial amounts for filing, and this is a punative tax on US citizens living abroad.
 
-Actually, this tool was specifically designed to file taxes for its author.  Unless you fit the specific profile (i.e. married, filing separately, no dependents, etc.), then this tool may not work for you out-of-the-box.  However, I am happy to accept PR that might extend the functionality of the scripts so as to support other filers, such as single filers, etc., but you have to do the work.  See [CONTRIBUTING.md](./CONTRIBUTING.md).
+Actually, this tool was specifically designed to file taxes for its author. Unless you fit the specific profile (i.e. married, filing separately, no dependents, etc.), then this tool may not work for you out-of-the-box. However, I am happy to accept PR that might extend the functionality of the scripts so as to support other filers, such as single filers, etc., but you have to do the work. See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 This tool takes an input YAML file, with your personal and finandical details e.g.:
 
@@ -32,15 +32,15 @@ And fills the following IRS forms:
 
 Everything is done locally - **no data ever leaves your machine**.
 
-Once filled you can use the [e-file](https://www.irs.gov/filing/e-file-options) (if you earn $73,000 or less) and copy the values from the PDF documents to the e-file.  Alternatively, you can print all the files and post them snail-mail.  For more information, see [US Citizens and Resident Aliens Abroad](https://www.irs.gov/individuals/international-taxpayers/us-citizens-and-resident-aliens-abroad).
+Once filled you can use the [e-file](https://www.irs.gov/filing/e-file-options) (if you earn $73,000 or less) and copy the values from the PDF documents to the e-file. Alternatively, you can print all the files and post them snail-mail. For more information, see [US Citizens and Resident Aliens Abroad](https://www.irs.gov/individuals/international-taxpayers/us-citizens-and-resident-aliens-abroad).
 
 ## WARNING
 
-**Do not rely on this tool to be correct.**  The maintainers are developers, not tax experts.  _You_ are responsible for filing your taxes correctly, not the maintainers of **irs-form-filler**, and we accept no responsibility for the documents this tool produces, and make no promises as to their correctness.  If you know what you are doing, then this tool can help you.
+**Do not rely on this tool to be correct.**  The maintainers are developers, not tax experts. _You_ are responsible for filing your taxes correctly, not the maintainers of **irs-form-filler**, and we accept no responsibility for the documents this tool produces, and make no promises as to their correctness. If you know what you are doing, then this tool can help you.
 
 ## Versions
 
-This tool is only a form filler (to the best of its ability) for the specific tax year.  It has formulas for calculating individual fields and requires re-calibration every tax year because the IRS changes the forms every year.  Each year, there will be a new tagged version.
+This tool is only a form filler (to the best of its ability) for the specific tax year. It has formulas for calculating individual fields and requires re-calibration every tax year because the IRS changes the forms every year. Each year, there will be a new tagged version.
 
 * [irs-2020](https://www.npmjs.com/package/irs-form-filler/v/0.2.0) - Fills forms for the 2020 tax return.
 * [irs-2021](https://www.npmjs.com/package/irs-form-filler/v/0.3.0) - Fills forms for the 2021 tax return.
@@ -48,7 +48,7 @@ This tool is only a form filler (to the best of its ability) for the specific ta
 
 ## How to use irs-form-filler
 
-It is recommended to create and retain separate directories for each tax year.  Use the tool to initialize a directory, populate the `config.yaml` file, and generate the tax documents, and then file your taxes. It is a good idea to keep backups.
+It is recommended to create and retain separate directories for each tax year. Use the tool to initialize a directory, populate the `config.yaml` file, and generate the tax documents, and then file your taxes. It is a good idea to keep backups.
 
 ### Initialize a new tax year project
 
@@ -66,7 +66,7 @@ Edit `config.yaml` and fill out your information as per the [Configuration](#con
 
 ### Generate tax documents
 
-This tool uses a configuration file (e.g. `config.yaml`) to generate tax documents.  You must fill this file with your own details before running this tool.  See the [Configuration](#configuration) section for more information.
+This tool uses a configuration file (e.g. `config.yaml`) to generate tax documents. You must fill this file with your own details before running this tool. See the [Configuration](#configuration) section for more information.
 
 To generate your tax documents:
 
@@ -84,7 +84,7 @@ However, you still need to file an [FBAR](https://www.irs.gov/businesses/small-b
 
 ## Configuration
 
-The following sections detail all the fields necessary to configure `config.yaml`.  You should keep a backup of this file and the documents that this tool produces, because they will be needed next year.
+The following sections detail all the fields necessary to configure `config.yaml`. You should keep a backup of this file and the documents that this tool produces, because they will be needed next year.
 
 ### Personal information
 
@@ -127,12 +127,12 @@ Edit `config.yaml` and update all of the following fields with your financial in
 
 ### Foreign bank accounts
 
-If you hold any foreign bank accounts, you must declare them to the IRS using form [f8938](https://www.irs.gov/pub/irs-pdf/f8938.pdf), but you must also submit a separate [FBAR](https://www.irs.gov/businesses/small-businesses-self-employed/report-of-foreign-bank-and-financial-accounts-fbar) electronically.  For each account you own, create an item in `accounts` with the following fields:
+If you hold any foreign bank accounts, you must declare them to the IRS using form [f8938](https://www.irs.gov/pub/irs-pdf/f8938.pdf), but you must also submit a separate [FBAR](https://www.irs.gov/businesses/small-businesses-self-employed/report-of-foreign-bank-and-financial-accounts-fbar) electronically. For each account you own, create an item in `accounts` with the following fields:
 
 | Field                  | Description |
 | ---------------------- | ---------------------|
 | **account** | The account number/designation. |
-| **type** | The type of account, one of `deposit` | `custodial`.  A "custodial" might be a mutual fund, or brokerage account. |
+| **type** | The type of account, one of `deposit` | `custodial`. A "custodial" might be a mutual fund, or brokerage account. |
 | **name** | The name of the financial institution. |
 | **address** | The financial institution's address. |
 | **city** | The cityfinancial institution's city. |
@@ -150,17 +150,17 @@ As a US citizen living abroad and paying taxes in a foreign country with a bilat
 1. [Foreign Earned Income Exclusion](https://www.irs.gov/individuals/international-taxpayers/foreign-earned-income-exclusion) ([f2555](https://www.irs.gov/forms-pubs/about-form-2555))
 2. [Foreign Tax Credit](https://www.irs.gov/individuals/international-taxpayers/foreign-tax-credit) ([f1116](https://www.irs.gov/forms-pubs/about-form-1116))
 
-This configuration assumes #2.  This tool will calculate the amount of `utilized` taxes, and any "excess" can accumulate credit over the tax years.
+This configuration assumes #2. This tool will calculate the amount of `utilized` taxes, and any "excess" can accumulate credit over the tax years.
 
 #### Foreign tax credit general carryover
 
-Pay attention because it can be a little confusing.  This section deals with carryover from **previous years**.  _This tax year_ is the year for which you are filing taxes, and _previous tax year_ is the year prior to that.
+Pay attention because it can be a little confusing. This section deals with carryover from **previous years**. _This tax year_ is the year for which you are filing taxes, and _previous tax year_ is the year prior to that.
 
 | Field                  | Description |
 | ---------------------- | ---------------------|
-| **lastYearTaxCarryOverUSD** | This is the cumulative total amount of tax carryover, up to the previous tax year (excluding this tax year). So, if you used this tool to generate these files for the 2021 tax year, then it is in the `carryover-general.pdf` file and the total value in the field **Carryover to 2021**.  If you did not calculate carryover for the previous tax year, enter `0`. |
+| **lastYearTaxCarryOverUSD** | This is the cumulative total amount of tax carryover, up to the previous tax year (excluding this tax year). So, if you used this tool to generate these files for the 2021 tax year, then it is in the `carryover-general.pdf` file and the total value in the field **Carryover to 2021**. If you did not calculate carryover for the previous tax year, enter `0`. |
 
-If you used this tool to generate tax in the previous tax year, then open the previous tax year's `carryover-general.pdf` file, and find the row of values for the previous tax year.  Then, in the `carryover.general` section, create a new section for the previous year's carryover, and copy the values for **Foreign Taxes** and **Utilized** and record them as follows:
+If you used this tool to generate tax in the previous tax year, then open the previous tax year's `carryover-general.pdf` file, and find the row of values for the previous tax year. Then, in the `carryover.general` section, create a new section for the previous year's carryover, and copy the values for **Foreign Taxes** and **Utilized** and record them as follows:
 
 ```yaml
 general:
@@ -173,9 +173,9 @@ Keep this `config.yaml` for all previous tax years, and also keep this tax year'
 
 ## Foreign tax credit alternative minimum tax (AMT) carryover
 
-This is similar to the [Carryover](#carryover) section but instead deals with [Alternative Minimum Tax](https://www.irs.gov/taxtopics/tc556).  This is any surplus tax that paid in your tax resident country that is above what you would have paid to the USA.
+This is similar to the [Carryover](#carryover) section but instead deals with [Alternative Minimum Tax](https://www.irs.gov/taxtopics/tc556). This is any surplus tax that paid in your tax resident country that is above what you would have paid to the USA.
 
-Open last tax year's `carryover-general.pdf` file, and find the row of values for the previous tax year.  Then, in the `carryover.alternative-minimum-tax` section, create a new section for the previous year's carryover, and copy the values for **Foreign Taxes** and **Utilized** and record them as follows:
+Open last tax year's `carryover-general.pdf` file, and find the row of values for the previous tax year. Then, in the `carryover.alternative-minimum-tax` section, create a new section for the previous year's carryover, and copy the values for **Foreign Taxes** and **Utilized** and record them as follows:
 
 ```yaml
 alternative-minimum-tax:
@@ -184,4 +184,4 @@ alternative-minimum-tax:
     utilized: 980
 ```
 
-Keep this record of all the previous tax years.  This section will feed into next year's taxes.
+Keep this record of all the previous tax years. This section will feed into next year's taxes.
