@@ -21,13 +21,12 @@ email: joe.bloggs@domain.com
 
 And fills the following IRS forms:
 
+* [f1040](https://www.irs.gov/pub/irs-pdf/f1040.pdf) -  U.S. Individual Income Tax Return
+* [f1040 schedule 2](https://www.irs.gov/pub/irs-pdf/f1040s2.pdf) - Additional Taxes
+* [f1040 schedule b](https://www.irs.gov/pub/irs-pdf/f1040sb.pdf) - Interest and * [f1040 schedule 3](https://www.irs.gov/pub/irs-pdf/f1040s3.pdf) - Additional Credits and Payments
 * [f1116](https://www.irs.gov/pub/irs-pdf/f1116.pdf) - Foreign Tax Credit
 * [f1116 amt](https://www.irs.gov/pub/irs-pdf/f1116.pdf) - Foreign Tax Credit Alternative Minimum Tax
-* [f1040 schedule 3](https://www.irs.gov/pub/irs-pdf/f1040s3.pdf) - Additional Credits and Payments
-* [f1040](https://www.irs.gov/pub/irs-pdf/f1040.pdf) -  U.S. Individual Income Tax Return
 * [f6251](https://www.irs.gov/pub/irs-pdf/f6251.pdf) - Alternative Minimum Tax—Individuals
-* [f1040 schedule 2](https://www.irs.gov/pub/irs-pdf/f1040s2.pdf) - Additional Taxes
-* [f1040 schedule b](https://www.irs.gov/pub/irs-pdf/f1040sb.pdf) - Interest and Ordinary Dividends
 * [f8938](https://www.irs.gov/pub/irs-pdf/f8938.pdf) - Statement of Specified Foreign Financial Assets ([FBAR](https://www.irs.gov/businesses/small-businesses-self-employed/report-of-foreign-bank-and-financial-accounts-fbar) also required, but filed electronically)
 
 Everything is done locally - **no data ever leaves your machine**.
@@ -45,6 +44,7 @@ This tool is only a form filler (to the best of its ability) for the specific ta
 * [irs-2020](https://www.npmjs.com/package/irs-form-filler/v/0.2.0) - Fills forms for the 2020 tax return.
 * [irs-2021](https://www.npmjs.com/package/irs-form-filler/v/0.3.0) - Fills forms for the 2021 tax return.
 * [irs-2022](https://www.npmjs.com/package/irs-form-filler/v/1.0.0) - Fills forms for the 2022 tax return.
+* [irs-2023](https://www.npmjs.com/package/irs-form-filler/v/2.0.0) - Fills forms for the 2023 tax return.
 
 ## How to use irs-form-filler
 

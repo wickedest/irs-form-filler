@@ -1,6 +1,6 @@
 {
   "name": "irs-form-filler",
-  "version": "1.0.0",
+  "version": "2.0.0-rc0",
   "description": "",
   "main": "index.js",
   "type": "module",
@@ -29,7 +29,6 @@
   "dependencies": {
     "chalk": "^5.2.0",
     "debug": "^4.3.4",
-    "md-to-pdf": "^5.2.4",
     "pdffiller-script": "^1.0.0",
     "yargs": "^17.7.2"
   },
@@ -48,6 +47,8 @@
     "build:lint": "eslint .",
     "build:map": "./scripts/make-maps.sh",
     "build:fetch": "./scripts/fetch",
+    "clean": "rm -f src/forms/*.pdf && rm -f src/maps/*.yaml && rm -rf examples",
+    "new-tax-year": "npm run build:fetch && npm run build:map",
     "test": "echo done"
   }
 }

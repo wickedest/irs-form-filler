@@ -17,7 +17,7 @@ employer:
   usaAddress: 16 Acme Boulevard, Suite 400, Phoenix, AZ 12345
   foreignAddress: 1st Floor Acme Building, Dublin, D1, Ireland
 financial:
-  endOfTaxYear: 12/31/2020
+  endOfTaxYear: 12/31/2023
   # Single | Married filing jointly | Married filing separately |
   # Head of household | Qualifying widow(er)
   filingStatus: Married filing separately
@@ -33,18 +33,16 @@ financial:
   # residence, but the IRS forms require values to be in USD, so you need an
   # exchange rate to convert from your country income to USD. The
   # `irs-form-filler` will convert the values for you.
-  averageExchangeRate: 0.951
+  averageExchangeRate:	0.924
   averageExchangeRateSource: 'https://www.irs.gov/individuals/international-taxpayers/yearly-average-currency-exchange-rates'
   # Except 8938, which needs the treasury exchange rate, end of year, December
   # https://www.irsstreamlinedprocedures.com/fbar-department-of-treasury-exchange-rates-2020-2
-  treasuryExchangeRate: 0.936
+  treasuryExchangeRate: 0.905
   # 1040 Schedule B and FBAR required
   countriesWithBankAccounts: Ireland
   haveVirtualCurrency: no
 carryover:
-  # The cumulative total amount of utilized tax carry over from previous tax years.
-  # Keep every year, and roll the values into next year's taxes.
-  lastYearTaxCarryOverUSD: 8000
+  # Carryover is for the last 10 tax years
   general:
     # To update for last year, open last year's form `f1116.pdf`:
     # * Find line 8 and enter that value in `foreign-taxes` (total from Part II)

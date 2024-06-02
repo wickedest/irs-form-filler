@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 
-const os = require('os');
-const fs = require('fs');
-const path = require('path');
-const https = require('https');
-const chalk = require('chalk');
+import fs from 'fs';
+import path from 'path';
+import https from 'https';
+import chalk from 'chalk';
+
 
 const IRS_URL = 'https://www.irs.gov/pub/irs-pdf';
-const year = `${new Date().getUTCFullYear() - 1}`;
 const taxFormsPath = path.join(process.cwd(), 'src', 'forms');
 const files = [
 	{ name: 'f1040.pdf' },
@@ -16,6 +15,7 @@ const files = [
 	{ name: 'f1040s3.pdf' },
 	{ name: 'f1116.pdf', as: 'f1116amt.pdf' },
 	{ name: 'f1116.pdf' },
+	{ name: 'f1116sb.pdf' },
 	{ name: 'f6251.pdf' },
 	{ name: 'f8938.pdf' }
 ];
