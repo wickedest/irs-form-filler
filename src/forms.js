@@ -52,8 +52,7 @@ async function getForms() {
 				};
 			}
 			return result;
-		}
-	);
+		});
 }
 
 export default getForms;
