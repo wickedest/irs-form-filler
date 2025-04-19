@@ -29,17 +29,17 @@ part.2.line.5.exemption.whole:
       const amti = ctx.forms["f6251"]["part.1.line.4.alternative.minimum.taxable.income.whole"];
       let amt;
       if (value === 'single' || value === 'head of household') {
-        if (amti <= 539900) {
-          amt = 75900;
+        if (amti <= 578150) {
+          amt = 81300;
         }
       } else if (value === 'married filing jointly'
         || value === 'qualifying widow(er)') {
-        if (amti <= 1079800) {
-          amt = 118100;
+        if (amti <= 1156300) {
+          amt = 126500;
         }
       } else if (value === 'married filing separately') {
-        if (amti <= 539900) {
-          amt = 59050;
+        if (amti <= 578150) {
+          amt = 63250;
         }
       }
       if (!amt) {
@@ -68,17 +68,17 @@ part.2.line.7.whole:
       const line6 = ctx.forms["f6251"]["part.2.line.6.whole"];
       let fill;
       if (value !== 'married filing separately') {
-        if (line6 <= 199900) {
+        if (line6 <= 220700) {
           fill = line6 * 0.26;
         } else {
-          fill = line6 * 0.28 - 3998;
+          fill = line6 * 0.28 - 4414;
         }
       }
       else { // married filing separately
-        if (line6 <= 99950) {
+        if (line6 <= 110350) {
           fill = line6 * 0.26;
         } else {
-          fill = line6 * 0.28 - 1999;
+          fill = line6 * 0.28 - 2207;
         }
       }
       return {

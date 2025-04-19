@@ -2,7 +2,6 @@ import fs from 'fs';
 import { Form } from 'pdffiller-script';
 import getForms from './forms.js';
 import FormFiller from './FormFiller.js';
-import CarryoverStatement from './CarryoverStatement.js';
 
 const afs = fs.promises;
 
@@ -34,14 +33,6 @@ async function fill({ config, only, output, debug }) {
 	for (const formId in forms) {
 		const save = only ? only.includes(formId) : true;
 		await formFillers[formId].fill(form, save ? output : null, { debug, filled });
-	}
-
-	if (!only) {
-		const gcos = new CarryoverStatement({ type: 'general' });
-		await gcos.fill(form, output, { filled });
-
-		const acos = new CarryoverStatement({ type: 'alternative-minimum-tax' });
-		await acos.fill(form, output, { filled });
 	}
 }
 

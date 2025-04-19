@@ -1,0 +1,442 @@
+
+calendar.year.carryover:
+  0: ctx.financial.endOfTaxYear.slice(-4)
+
+name.first.and.initial:
+  5: ctx.firstName + ' ' + ctx.middleInitial + ' ' + ctx.lastName
+
+ssn.nodash:
+  6: ctx.ssn
+
+tick.general.category.income:
+  # reserved (1)
+  # foreign (2)
+  # passive (3)
+  # general (4)
+  # section 901 (5)
+  # treaty (6)
+  # lump-sum (7)
+  10: 4
+
+page.1.row.1.10th.year.carryover:
+  value: ctx.carryover["alternative-minimum-tax"]
+  calculate: |
+    (ctx, value) => {
+      const ithyear = 10;
+      const field = '16';
+      let carryover = Object.values(value);
+      if (carryover.length > 10) {
+        // get the last 10 years
+        carryover = carryover.slice(-10);
+      }
+      if (ithyear > carryover.length) {
+        return { field, fill: '' };
+      }
+      item = carryover.at(-1 * ithyear);
+      return {
+        field,
+        fill: item['foreign-taxes'] - item.utilized
+      };
+    }
+
+page.1.row.1.9th.year.carryover:
+  value: ctx.carryover["alternative-minimum-tax"]
+  calculate: |
+    (ctx, value) => {
+      const ithyear = 9;
+      const field = '17';
+      let carryover = Object.values(value);
+      if (carryover.length > 10) {
+        // get the last 10 years
+        carryover = carryover.slice(-10);
+      }
+      if (ithyear > carryover.length) {
+        return { field, fill: '' };
+      }
+      item = carryover.at(-1 * ithyear);
+      return {
+        field,
+        fill: item['foreign-taxes'] - item.utilized
+      };
+    }
+
+page.1.row.1.8th.year.carryover:
+  value: ctx.carryover["alternative-minimum-tax"]
+  calculate: |
+    (ctx, value) => {
+      const ithyear = 8;
+      const field = '18';
+      let carryover = Object.values(value);
+      if (carryover.length > 10) {
+        // get the last 10 years
+        carryover = carryover.slice(-10);
+      }
+      if (ithyear > carryover.length) {
+        return { field, fill: '' };
+      }
+      item = carryover.at(-1 * ithyear);
+      return {
+        field,
+        fill: item['foreign-taxes'] - item.utilized
+      };
+    }
+
+page.1.row.1.7th.year.carryover:
+  value: ctx.carryover["alternative-minimum-tax"]
+  calculate: |
+    (ctx, value) => {
+      const ithyear = 7;
+      const field = '19';
+      let carryover = Object.values(value);
+      if (carryover.length > 10) {
+        // get the last 10 years
+        carryover = carryover.slice(-10);
+      }
+      if (ithyear > carryover.length) {
+        return { field, fill: '' };
+      }
+      item = carryover.at(-1 * ithyear);
+      return {
+        field,
+        fill: item['foreign-taxes'] - item.utilized
+      };
+    }
+
+page.1.row.1.6th.year.carryover:
+  value: ctx.carryover["alternative-minimum-tax"]
+  calculate: |
+    (ctx, value) => {
+      const ithyear = 6;
+      const field = '20';
+      let carryover = Object.values(value);
+      if (carryover.length > 10) {
+        // get the last 10 years
+        carryover = carryover.slice(-10);
+      }
+      if (ithyear > carryover.length) {
+        return { field, fill: '' };
+      }
+      item = carryover.at(-1 * ithyear);
+      return {
+        field,
+        fill: item['foreign-taxes'] - item.utilized
+      };
+    }
+
+page.1.row.1.5th.year.carryover:
+  value: ctx.carryover["alternative-minimum-tax"]
+  calculate: |
+    (ctx, value) => {
+      const ithyear = 5;
+      const field = '21';
+      let carryover = Object.values(value);
+      if (carryover.length > 10) {
+        // get the last 10 years
+        carryover = carryover.slice(-10);
+      }
+      if (ithyear > carryover.length) {
+        return { field, fill: '' };
+      }
+      item = carryover.at(-1 * ithyear);
+      return {
+        field,
+        fill: item['foreign-taxes'] - item.utilized
+      };
+    }
+
+page.1.row.1.subtotal:
+  22: |
+    ctx.forms["f1116sbamt"]["page.1.row.1.10th.year.carryover"]
+    + ctx.forms["f1116sbamt"]["page.1.row.1.9th.year.carryover"]
+    + ctx.forms["f1116sbamt"]["page.1.row.1.8th.year.carryover"]
+    + ctx.forms["f1116sbamt"]["page.1.row.1.7th.year.carryover"]
+    + ctx.forms["f1116sbamt"]["page.1.row.1.6th.year.carryover"]
+    + ctx.forms["f1116sbamt"]["page.1.row.1.5th.year.carryover"]
+
+page.1.row.3.10th.year.adjusted.carryover:
+  77: ctx.forms["f1116sbamt"]["page.1.row.1.10th.year.carryover"]
+
+page.1.row.3.9th.year.adjusted.carryover:
+  78: ctx.forms["f1116sbamt"]["page.1.row.1.9th.year.carryover"]
+
+page.1.row.3.8th.year.adjusted.carryover:
+  79: ctx.forms["f1116sbamt"]["page.1.row.1.8th.year.carryover"]
+
+page.1.row.3.7th.year.adjusted.carryover:
+  80: ctx.forms["f1116sbamt"]["page.1.row.1.7th.year.carryover"]
+
+page.1.row.3.6th.year.adjusted.carryover:
+  81: ctx.forms["f1116sbamt"]["page.1.row.1.6th.year.carryover"]
+
+page.1.row.3.5th.year.adjusted.carryover:
+  82: ctx.forms["f1116sbamt"]["page.1.row.1.5th.year.carryover"]
+
+page.1.row.3.subtotal:
+  83: |
+    ctx.forms["f1116sbamt"]["page.1.row.3.10th.year.adjusted.carryover"]
+    + ctx.forms["f1116sbamt"]["page.1.row.3.9th.year.adjusted.carryover"]
+    + ctx.forms["f1116sbamt"]["page.1.row.3.8th.year.adjusted.carryover"]
+    + ctx.forms["f1116sbamt"]["page.1.row.3.7th.year.adjusted.carryover"]
+    + ctx.forms["f1116sbamt"]["page.1.row.3.6th.year.adjusted.carryover"]
+    + ctx.forms["f1116sbamt"]["page.1.row.3.5th.year.adjusted.carryover"]
+
+page.1.row.4.10th.year.foreign.tax.used:
+  84: 0
+
+page.1.row.4.9th.year.foreign.tax.used:
+  85: 0
+
+page.1.row.4.8th.year.foreign.tax.used:
+  86: 0
+
+page.1.row.4.7th.year.foreign.tax.used:
+  87: 0
+
+page.1.row.4.6th.year.foreign.tax.used:
+  88: 0
+
+page.1.row.4.5th.year.foreign.tax.used:
+  89: 0
+
+page.1.row.4.subtotal:
+  90: 0
+
+page.1.row.5.10th.year.expired:
+  91: ctx.forms["f1116sbamt"]["page.1.row.3.10th.year.adjusted.carryover"] * -1
+
+page.1.row.5.subtotal:
+  97: ctx.forms["f1116sbamt"]["page.1.row.5.10th.year.expired"]
+
+page.1.row.8.9th.year.adjusted.carryover:
+  113: |
+    ctx.forms["f1116sbamt"]["page.1.row.3.9th.year.adjusted.carryover"]
+    + ctx.forms["f1116sbamt"]["page.1.row.4.9th.year.foreign.tax.used"]
+
+page.1.row.8.8th.year.adjusted.carryover:
+  114: |
+    ctx.forms["f1116sbamt"]["page.1.row.3.8th.year.adjusted.carryover"]
+    + ctx.forms["f1116sbamt"]["page.1.row.4.8th.year.foreign.tax.used"]
+
+page.1.row.8.7th.year.adjusted.carryover:
+  115: |
+    ctx.forms["f1116sbamt"]["page.1.row.3.7th.year.adjusted.carryover"]
+    + ctx.forms["f1116sbamt"]["page.1.row.4.7th.year.foreign.tax.used"]
+
+page.1.row.8.6th.year.adjusted.carryover:
+  116: |
+    ctx.forms["f1116sbamt"]["page.1.row.3.6th.year.adjusted.carryover"]
+    + ctx.forms["f1116sbamt"]["page.1.row.4.6th.year.foreign.tax.used"]
+
+page.1.row.8.5th.year.adjusted.carryover:
+  117: |
+    ctx.forms["f1116sbamt"]["page.1.row.3.5th.year.adjusted.carryover"]
+    + ctx.forms["f1116sbamt"]["page.1.row.4.5th.year.foreign.tax.used"]
+
+page.1.row.8.subtotal:
+  118: |
+    ctx.forms["f1116sbamt"]["page.1.row.8.9th.year.adjusted.carryover"]
+    + ctx.forms["f1116sbamt"]["page.1.row.8.8th.year.adjusted.carryover"]
+    + ctx.forms["f1116sbamt"]["page.1.row.8.7th.year.adjusted.carryover"]
+    + ctx.forms["f1116sbamt"]["page.1.row.8.6th.year.adjusted.carryover"]
+    + ctx.forms["f1116sbamt"]["page.1.row.8.5th.year.adjusted.carryover"]
+
+page.2.row.1.copy.subtotal:
+  119: ctx.forms["f1116sbamt"]["page.1.row.1.subtotal"]
+
+page.2.row.1.4th.year.carryover:
+  value: ctx.carryover["alternative-minimum-tax"]
+  calculate: |
+    (ctx, value) => {
+      const ithyear = 4;
+      const field = '120';
+      let carryover = Object.values(value);
+      if (carryover.length > 10) {
+        // get the last 10 years
+        carryover = carryover.slice(-10);
+      }
+      if (ithyear > carryover.length) {
+        return { field, fill: '' };
+      }
+      item = carryover.at(-1 * ithyear);
+      return {
+        field,
+        fill: item['foreign-taxes'] - item.utilized
+      };
+    }
+
+page.2.row.1.3rd.year.carryover:
+  value: ctx.carryover["alternative-minimum-tax"]
+  calculate: |
+    (ctx, value) => {
+      const ithyear = 3;
+      const field = '121';
+      let carryover = Object.values(value);
+      if (carryover.length > 10) {
+        // get the last 10 years
+        carryover = carryover.slice(-10);
+      }
+      if (ithyear > carryover.length) {
+        return { field, fill: '' };
+      }
+      item = carryover.at(-1 * ithyear);
+      return {
+        field,
+        fill: item['foreign-taxes'] - item.utilized
+      };
+    }
+
+page.2.row.1.2nd.year.carryover:
+  value: ctx.carryover["alternative-minimum-tax"]
+  calculate: |
+    (ctx, value) => {
+      const ithyear = 2;
+      const field = '122';
+      let carryover = Object.values(value);
+      if (carryover.length > 10) {
+        // get the last 10 years
+        carryover = carryover.slice(-10);
+      }
+      if (ithyear > carryover.length) {
+        return { field, fill: '' };
+      }
+      item = carryover.at(-1 * ithyear);
+      return {
+        field,
+        fill: item['foreign-taxes'] - item.utilized
+      };
+    }
+
+page.2.row.1.1st.year.carryover:
+  value: ctx.carryover["alternative-minimum-tax"]
+  calculate: |
+    (ctx, value) => {
+      const ithyear = 1;
+      const field = '123';
+      let carryover = Object.values(value);
+      if (carryover.length > 10) {
+        // get the last 10 years
+        carryover = carryover.slice(-10);
+      }
+      if (ithyear > carryover.length) {
+        return { field, fill: '' };
+      }
+      item = carryover.at(-1 * ithyear);
+      return {
+        field,
+        fill: item['foreign-taxes'] - item.utilized
+      };
+    }
+
+page2.row.1.subtotal:
+  125: |
+    ctx.forms["f1116sbamt"]["page.2.row.1.copy.subtotal"]
+    + ctx.forms["f1116sbamt"]["page.2.row.1.4th.year.carryover"]
+    + ctx.forms["f1116sbamt"]["page.2.row.1.3rd.year.carryover"]
+    + ctx.forms["f1116sbamt"]["page.2.row.1.2nd.year.carryover"]
+    + ctx.forms["f1116sbamt"]["page.2.row.1.1st.year.carryover"]
+
+page.2.row.3.copy.adjusted.carryover:
+  180: ctx.forms["f1116sbamt"]["page.2.row.1.copy.subtotal"]
+
+page.2.row.3.4th.year.adjusted.carryover:
+  181: ctx.forms["f1116sbamt"]["page.2.row.1.4th.year.carryover"]
+
+page.2.row.3.3rd.year.adjusted.carryover:
+  182: ctx.forms["f1116sbamt"]["page.2.row.1.3rd.year.carryover"]
+
+page.2.row.3.2nd.year.adjusted.carryover:
+  183: ctx.forms["f1116sbamt"]["page.2.row.1.2nd.year.carryover"]
+
+page.2.row.3.1st.year.adjusted.carryover:
+  184: ctx.forms["f1116sbamt"]["page.2.row.1.1st.year.carryover"]
+
+page.2.row.3.subtotal:
+  186: |
+    ctx.forms["f1116sbamt"]["page.2.row.3.copy.adjusted.carryover"]
+    + ctx.forms["f1116sbamt"]["page.2.row.1.4th.year.carryover"]
+    + ctx.forms["f1116sbamt"]["page.2.row.1.3rd.year.carryover"]
+    + ctx.forms["f1116sbamt"]["page.2.row.1.2nd.year.carryover"]
+    + ctx.forms["f1116sbamt"]["page.2.row.1.1st.year.carryover"]
+
+page.2.row.4.vii.carryover.used:
+  187: 0
+
+page.2.row.4.4th.year.carryover.used:
+  188: 0
+
+page.2.row.4.3rd.year.carryover.used:
+  189: 0
+
+page.2.row.4.2nd.year.carryover.used:
+  190: 0
+
+page.2.row.4.1st.year.carryover.used:
+  191: 0
+
+page.2.row.4.subtotal:
+  193: |
+    ctx.forms["f1116sbamt"]["page.2.row.4.vii.carryover.used"]
+    + ctx.forms["f1116sbamt"]["page.2.row.4.4th.year.carryover.used"]
+    + ctx.forms["f1116sbamt"]["page.2.row.4.3rd.year.carryover.used"]
+    + ctx.forms["f1116sbamt"]["page.2.row.4.2nd.year.carryover.used"]
+    + ctx.forms["f1116sbamt"]["page.2.row.4.1st.year.carryover.used"]
+
+page.2.row.5.viii.subtotal:
+  194: ctx.forms["f1116sbamt"]["page.1.row.5.subtotal"]
+
+page.2.row.5.subtotal:
+  200: ctx.forms["f1116sbamt"]["page.2.row.5.viii.subtotal"]
+
+page.2.row.6.current.carryover:
+  # force whole number with `| 0`
+  206: |
+    (ctx.forms["f1116amt"]["line.8.whole"] | 0)
+    - (ctx.forms["f1116amt"]["line.24.whole"] | 0)
+
+page.2.row.6.subtotal:
+  207: ctx.forms["f1116sbamt"]["page.2.row.6.current.carryover"]
+
+page.2.row.7.estimated.carryback:
+  213: 0
+
+page.2.row.7.subtotal:
+  214: ctx.forms["f1116sbamt"]["page.2.row.7.estimated.carryback"]
+
+page.2.row.8.viii.subtotal:
+  215: |
+    ctx.forms["f1116sbamt"]["page.2.row.3.copy.adjusted.carryover"]
+    + ctx.forms["f1116sbamt"]["page.2.row.5.viii.subtotal"]
+    + ctx.forms["f1116sbamt"]["page.2.row.4.viii.carryover.used"]
+
+page.2.row.8.4th.year.subtotal:
+  216: |
+    ctx.forms["f1116sbamt"]["page.2.row.3.4th.year.adjusted.carryover"]
+    + ctx.forms["f1116sbamt"]["page.2.row.4.4th.year.carryover.used"]
+
+page.2.row.8.3rd.year.subtotal:
+  217: |
+    ctx.forms["f1116sbamt"]["page.2.row.3.3rd.year.adjusted.carryover"]
+    + ctx.forms["f1116sbamt"]["page.2.row.4.3rd.year.carryover.used"]
+
+page.2.row.8.2nd.year.subtotal:
+  218: |
+    ctx.forms["f1116sbamt"]["page.2.row.3.2nd.year.adjusted.carryover"]
+    + ctx.forms["f1116sbamt"]["page.2.row.4.2nd.year.carryover.used"]
+
+page.2.row.8.1st.year.subtotal:
+  219: |
+    ctx.forms["f1116sbamt"]["page.2.row.3.1st.year.adjusted.carryover"]
+    + ctx.forms["f1116sbamt"]["page.2.row.4.1st.year.carryover.used"]
+
+page.2.row.8.current.year.subtotal:
+  220: |
+    ctx.forms["f1116sbamt"]["page.2.row.6.current.carryover"]
+    + ctx.forms["f1116sbamt"]["page.2.row.7.estimated.carryback"]
+
+page.2.total:
+  221: |
+    ctx.forms["f1116sbamt"]["page.2.row.3.subtotal"]
+    + ctx.forms["f1116sbamt"]["page.2.row.4.subtotal"]
+    + ctx.forms["f1116sbamt"]["page.2.row.5.subtotal"]
+    + ctx.forms["f1116sbamt"]["page.2.row.6.subtotal"]
+    + ctx.forms["f1116sbamt"]["page.2.row.7.subtotal"]

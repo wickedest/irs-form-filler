@@ -101,72 +101,64 @@ line.9.whole:
   92: ctx.forms["f1116amt"]["line.8.whole"]
 
 line.10.carryback.whole:
-  value:
-    1
-  calculate: |
-    (ctx, value) => {
-      const carryovers = ctx.carryover.general;
-      const year = `${ctx.financial.endOfTaxYear.slice(-4) - 1}`;
-      const carryover = Object.keys(carryovers)
-        .filter(priorYear => priorYear <= year)
-        .reduce((acc, priorYear) => {
-          return acc + carryovers[priorYear]['foreign-taxes'] -
-            carryovers[priorYear].utilized;
-        }, 0);
-      return {
-        fill: carryover,
-        field: '93'
-      };
-    }
+  94: ctx.forms["f1116sbamt"]["page.2.row.3.subtotal"]
 
 line.11.whole:
-  94: ctx.forms["f1116amt"]["line.9.whole"] + ctx.forms["f1116amt"]["line.10.carryback.whole"]
+  95: |
+    ctx.forms["f1116amt"]["line.9.whole"]
+    + ctx.forms["f1116amt"]["line.10.carryback.whole"]
 
 line.14.whole:
-  97: ctx.forms["f1116amt"]["line.11.whole"] + ctx.forms["f1116amt"]["line.12.whole"] + ctx.forms["f1116amt"]["line.13.whole"]
+  98: ctx.forms["f1116amt"]["line.11.whole"] + ctx.forms["f1116amt"]["line.12.whole"] + ctx.forms["f1116amt"]["line.13.whole"]
 
 line.15.whole:
-  98: ctx.forms["f1116amt"]["line.7.whole"]
+  99: ctx.forms["f1116amt"]["line.7.whole"]
 
 line.17.whole:
-  100: ctx.forms["f1116amt"]["line.15.whole"] + ctx.forms["f1116amt"]["line.16.whole"]
+  101: ctx.forms["f1116amt"]["line.15.whole"] + ctx.forms["f1116amt"]["line.16.whole"]
 
 line.18.whole:
-  101: ctx.forms["f1040"]["line.15.taxable.income.whole"] || 0
+  102: ctx.forms["f1040"]["line.15.taxable.income.whole"] || 0
 
 line.19.whole:
   # Divide line 17 by line 18. If line 17 is more than line 18, enter “1”
   # This math works because if 17 > 18, then we get a value > 1 and Math.min
   # will pick 1.
-  102: Math.min(1, ctx.forms["f1116amt"]["line.17.whole"] / ctx.forms["f1116amt"]["line.18.whole"])
+  103: Math.min(1, ctx.forms["f1116amt"]["line.17.whole"] / ctx.forms["f1116amt"]["line.18.whole"])
 
 line.20.whole:
   # Enter the total of Form 1040 or 1040-SR, line 12a
-  103: ctx.forms["f1040"]["line.16.tax.whole"] || 0
+  104: ctx.forms["f1040"]["line.16.tax.whole"] || 0
 
 line.21.whole:
   # Multiply line 20 by line 19 (maximum amount of credit)
-  104: ctx.forms["f1116amt"]["line.20.whole"] * ctx.forms["f1116amt"]["line.19.whole"]
+  105: ctx.forms["f1116amt"]["line.20.whole"] * ctx.forms["f1116amt"]["line.19.whole"]
 
 line.22.whole:
   # Increase in limitation section 960(c)
-  105: 0
+  106: 0
 
 line.23.whole:
   # Add lines 21 and 22
-  106: ctx.forms["f1116amt"]["line.21.whole"] + ctx.forms["f1116amt"]["line.22.whole"]
+  107: |
+    ctx.forms["f1116amt"]["line.21.whole"]
+    + ctx.forms["f1116amt"]["line.22.whole"]
 
 line.24.whole:
   # Enter the smaller of line 14 or line 23
-  107: Math.min(ctx.forms["f1116amt"]["line.14.whole"], ctx.forms["f1116amt"]["line.21.whole"])
+  108: |
+    Math.min(
+      ctx.forms["f1116amt"]["line.14.whole"],
+      ctx.forms["f1116amt"]["line.21.whole"]
+    )
 
 line.28.whole:
   # Credit for taxes on "general category income" (this part is `category.of.income` above)
-  111: ctx.forms["f1116amt"]["line.24.whole"]
+  112: ctx.forms["f1116amt"]["line.24.whole"]
 
 line.32.whole:
   # Add lines 25 through 31
-  115: ctx.forms["f1116amt"]["line.25.whole"] +
+  116: ctx.forms["f1116amt"]["line.25.whole"] +
     ctx.forms["f1116amt"]["line.26.whole"] +
     ctx.forms["f1116amt"]["line.27.whole"] +
     ctx.forms["f1116amt"]["line.28.whole"] +
@@ -176,12 +168,12 @@ line.32.whole:
 
 line.33.whole:
   # Enter the smaller of line 20 or line 32
-  116: Math.min(ctx.forms["f1116amt"]["line.20.whole"], ctx.forms["f1116amt"]["line.32.whole"])
+  117: Math.min(ctx.forms["f1116amt"]["line.20.whole"], ctx.forms["f1116amt"]["line.32.whole"])
 
 line.34.whole:
   # Reduction of credit for international boycott operations.
-  117: 0
+  118: 0
 
 line.35.foreign.tax.credit.whole:
   # Subtract line 34 from line 33. This is your foreign tax credit.
-  118: ctx.forms["f1116amt"]["line.33.whole"] - ctx.forms["f1116amt"]["line.34.whole"]
+  119: ctx.forms["f1116amt"]["line.33.whole"] - ctx.forms["f1116amt"]["line.34.whole"]
