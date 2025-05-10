@@ -58,27 +58,27 @@ part.2.line.6.whole:
     ctx.forms["f6251"]["part.2.line.5.exemption.whole"])
 
 part.2.line.7.whole:
-  # All others: If line 6 is $199,900 or less ($99,950 or less if married
-  # filing separately), multiply line 6 by 26% (0.26). Otherwise, multiply
-  # line 6 by 28% (0.28) and subtract $3,998 ($1,999 if married filing
-  # separately) from the result.
+  # All others: If line 6 is $232,600 or less ($116,300 or less if married
+  # filing separately), multiply line 6 by 26% (0.26). Otherwise, multiply line
+  # 6 by 28% (0.28) and subtract $4,652 ($2,326 if married filing separately)
+  # from the result.
   value: ctx.financial.filingStatus.toLowerCase()
   calculate: |
     (ctx, value) => {
       const line6 = ctx.forms["f6251"]["part.2.line.6.whole"];
       let fill;
       if (value !== 'married filing separately') {
-        if (line6 <= 220700) {
+        if (line6 <= 232600) {
           fill = line6 * 0.26;
         } else {
-          fill = line6 * 0.28 - 4414;
+          fill = line6 * 0.28 - 4652;
         }
       }
       else { // married filing separately
-        if (line6 <= 110350) {
+        if (line6 <= 116300) {
           fill = line6 * 0.26;
         } else {
-          fill = line6 * 0.28 - 2207;
+          fill = line6 * 0.28 - 2326;
         }
       }
       return {

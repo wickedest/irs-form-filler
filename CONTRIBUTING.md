@@ -12,6 +12,8 @@ The `./examples` are pre-filled forms that assign an integer to every input fiel
 
 ## Updating PDF documents for a new tax year
 
+**note**: You should first generate the examples from the previous tax year. These will be useful to compare against for the new tax year.
+
 Pull master, and create a new branch for the tax year, for example:
 
 ```bash
@@ -79,12 +81,12 @@ In the case where multiple checkboxes can be ticked independently, then they mos
 
 ### Specific fields of note
 
-**1040 standard.deduction**: This changes every year on the 1040.  The 1040 margin lists the standard deductions.  Update `src/scripts/f1040.yaml` with the appropriate standard deduction values and field number.
+* **1040 standard.deduction**: This changes every year on the 1040.  The 1040 margin lists the standard deductions.  Update `src/scripts/f1040.yaml` with the appropriate standard deduction values and field number.
 
-**1040 tax**: This requires you read the instructions and uses the Tax Computation Worksheet.
+* **1040 tax**: This requires you read the instructions and uses the Tax Computation Worksheet.
 
-**1040 amount from schedule 2, line 3**: This is the Alternative Minimum Tax which is calculated in f6251.
+* **1040 amount from schedule 2, line 3**: This is the Alternative Minimum Tax which is calculated in f6251.
 
-**6251 exemption**: The values for this field are found in Part II of the form.
+* **6251 exemption**: The values for this field are found in Part II of the form.
 
-**6251 line 7**: The values for this field are found in Part II of the form.  The text is so confusing, but the "married filing separately" is a separate else condition.
+* **6251 line 7**: The values for this field are found in Part II of the form (or the instructions). The text is so confusing, but the "married filing separately" is a separate else condition.

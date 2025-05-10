@@ -29,7 +29,7 @@
   "dependencies": {
     "chalk": "^5.2.0",
     "debug": "^4.3.4",
-    "pdffiller-script": "^2.0.0",
+    "pdffiller-script": "file:../pdffiller-script",
     "yargs": "^17.7.2"
   },
   "devDependencies": {

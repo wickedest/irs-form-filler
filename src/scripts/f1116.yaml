@@ -112,7 +112,7 @@ line.9.whole:
   92: ctx.forms["f1116"]["line.8.whole"]
 
 line.10.carryback.whole:
-  94: ctx.forms["f1116sb"]["page.2.row.3.subtotal"]
+  94: ctx.forms["f1116sb"]["page.2.row.3.subtotal"] || 0
 
 line.11.whole:
   95: |

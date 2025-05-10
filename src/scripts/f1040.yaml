@@ -68,79 +68,79 @@ foreign.province.county:
 foreign.postal.code:
   16: ctx.address.postCode
 
-digital.assets:
-  value: ctx.financial.haveVirtualCurrency
-  calculate: |
-    (ctx, value) => {
-      return {
-        yes: { fill: 1, field: '25' },
-        no: { fill: 2, field: '26' }
-      }[value]
-    }
-
 filing.status:
   value: ctx.financial.filingStatus.toLowerCase()
   calculate: |
     (ctx, value) => {
       return {
         'single':                    { fill: '1', field: '19' },
-        'head of household':         { fill: '2', field: '20' },
-        'married filing jointly':    { fill: '3', field: '21' },
-        'married filing separately': { fill: '4', field: '22' },
-        'qualifying widow(er)':      { fill: '5', field: '23' }
+        'married filing jointly':    { fill: '1', field: '20' },
+        'married filing separately': { fill: '1', field: '21' },
+        'head of household':         { fill: '1', field: '22' },
+        'qualifying widow(er)':      { fill: '1', field: '23' }
       }[value];
     }
 
+digital.assets:
+  value: ctx.financial.haveVirtualCurrency
+  calculate: |
+    (ctx, value) => {
+      return {
+        yes: { fill: 1, field: '27' },
+        no: { fill: 2, field: '28' }
+      }[value]
+    }
+
 line.1a.wages.salary.tips.whole:
-  55: (ctx.financial.income / ctx.financial.averageExchangeRate)
+  57: (ctx.financial.income / ctx.financial.averageExchangeRate)
 
 line.1z.subtotal.whole:
-  64: ctx.forms["f1040"]["line.1a.wages.salary.tips.whole"]
+  66: ctx.forms["f1040"]["line.1a.wages.salary.tips.whole"]
 
 line.9.total.income.whole:
   # Add lines 1, 2b, 3b, 4b, 5b, 6b, 7, and 8. This is your total income
-  79: ctx.forms["f1040"]["line.1a.wages.salary.tips.whole"]
+  81: ctx.forms["f1040"]["line.1a.wages.salary.tips.whole"]
 
 line.10.adjustments.to.income.schedule.1.whole:
   # Adjustments to income from Schedule 1, line 22
-  80: 0
+  82: 0
 
 line.11.adjusted.gross.income.whole:
   # Subtract line 10c from line 9. This is your adjusted gross income
-  81: ctx.forms["f1040"]["line.9.total.income.whole"]
+  83: ctx.forms["f1040"]["line.9.total.income.whole"]
       - ctx.forms["f1040"]["line.10.adjustments.to.income.schedule.1.whole"]
 
 line.12.standard.deduction.whole:
-  # Single or Married filing separately, $12,200
-  # • Married filing jointly or Qualifying widow(er), $24,400
-  # • Head of household, $18,350
+  # Single or Married filing separately, $14600
+  # • Married filing jointly or Qualifying surviving spouse, $29200
+  # • Head of household, $21900
   # • If you checked any box under Standard Deduction, see instructions.
   value: ctx.financial.filingStatus.toLowerCase()
   calculate: |
     (ctx, value) => {
       return {
-        'single':                    { fill: 13850, field: '82' },
-        'married filing separately': { fill: 13850, field: '82' },
-        'married filing jointly':    { fill: 27700, field: '82' },
-        'qualifying widow(er)':      { fill: 27700, field: '82' },
-        'head of household':         { fill: 20800, field: '82' }
+        'single':                    { fill: 14600, field: '84' },
+        'married filing separately': { fill: 14600, field: '84' },
+        'married filing jointly':    { fill: 29200, field: '84' },
+        'qualifying widow(er)':      { fill: 29200, field: '84' },
+        'head of household':         { fill: 21900, field: '84' }
       }[value];
     }
 
 line.14.total.deductions.whole:
   # Add lines 12a and 12b
-  84: ctx.forms["f1040"]["line.12.standard.deduction.whole"]
+  86: ctx.forms["f1040"]["line.12.standard.deduction.whole"]
 
 line.15.taxable.income.whole:
   # Subtract line 14 from line 11
-  85: Math.max(0,
+  87: Math.max(0,
           (ctx.forms["f1040"]["line.11.adjusted.gross.income.whole"])
           - (ctx.forms["f1040"]["line.14.total.deductions.whole"])
       )
 
 line.16.tax.whole:
   # Tax (see instructions).
-  # see: TAX COMPUTATION WORKSHEET ("married filing separately") p77.
+  # see: TAX COMPUTATION WORKSHEET ("married filing separately") p76.
   #
   # > Tax Table or Tax Computation Worksheet. If your taxable income is
   # > less than $100,000, you must use the Tax Table, later in these
@@ -166,17 +166,19 @@ line.16.tax.whole:
         throw new Error(`The taxable income ${value} is < $100,000 and requires you use a tax table (not implemented)`);
       }
       // Tax Computation Worksheet (married filing separately)
-      if (value >= 100000 && value < 182100) {
-        taxComputationWorksheetValue = value * 0.24 - 6600.00;
-      } else if (value >= 182100 && value < 231250) {
-        taxComputationWorksheetValue = value * 0.32 - 21168.00;
-      } else if (value >= 231250 && value < 346875) {
-        taxComputationWorksheetValue = value * 0.35 - 28105.50;
+      if (value >= 100000 && value <= 100525) {
+        taxComputationWorksheetValue = value * 0.22 - 4947.00;
+      } else if (value > 100525 && value <= 191950) {
+        taxComputationWorksheetValue = value * 0.24 - 6957.50;
+      } else if (value > 191950 && value <= 243725) {
+        taxComputationWorksheetValue = value * 0.32 - 22313.50;
+      } else if (value > 243725 && value <= 365600) {
+        taxComputationWorksheetValue = value * 0.35 - 29625.25;
       } else {
-        taxComputationWorksheetValue = value * 0.37 - 35043.00;
+        taxComputationWorksheetValue = value * 0.37 - 36937.25;
       }
       // include this amount on the entry space on Form 1040 or 1040-SR, line 12a
-      return { field: '90', fill: taxComputationWorksheetValue };
+      return { field: '92', fill: taxComputationWorksheetValue };
     }
 
 line.17.alternative.minimum.tax.whole:
@@ -188,41 +190,41 @@ line.17.alternative.minimum.tax.whole:
   #
   # **NOTE:** The foreign references may not be defined yet, so fields like
   # this may need to take that into account and assign `||0` when undefined.
-  91: ctx.forms["f6251"]["part.2.line.11.amt.whole"] || 0 # WARNING: needed
+  93: ctx.forms["f6251"]["part.2.line.11.amt.whole"] || 0 # WARNING: needed
 
 line.18.tax.and.amt.whole:
   # Add lines 16 and 17
-  92: ctx.forms["f1040"]["line.16.tax.whole"] +
+  94: ctx.forms["f1040"]["line.16.tax.whole"] +
     ctx.forms["f1040"]["line.17.alternative.minimum.tax.whole"]
 
 line.20.schedule.3.additional.credits.whole:
   # Amount from Schedule 3, line 8
   # **NOTE**: Foreign tax credit (f116 required)
-  94: ctx.forms["f1040s3"]["part.i.8.total.whole"] || 0
+  96: ctx.forms["f1040s3"]["part.i.8.total.whole"] || 0
 
 line.21.total.tax.credits.whole:
   # Add lines 19 and 20
-  95: ctx.forms["f1040"]["line.20.schedule.3.additional.credits.whole"]
+  97: ctx.forms["f1040"]["line.20.schedule.3.additional.credits.whole"]
 
 line.22.tax.and.amt.minus.foreign.tax.credit.whole:
   # Subtract line 21 from line 18. If zero or less, enter -0- . .
-  96: Math.max(0,
+  98: Math.max(0,
         ctx.forms["f1040"]["line.18.tax.and.amt.whole"]
         - ctx.forms["f1040"]["line.21.total.tax.credits.whole"]
       )
 
 line.24.total.tax.whole:
   # Add lines 22 and 23. This is your total tax
-  98: ctx.forms["f1040"]["line.22.tax.and.amt.minus.foreign.tax.credit.whole"]
+  100: ctx.forms["f1040"]["line.22.tax.and.amt.minus.foreign.tax.credit.whole"]
 
 line.31.schedule.3.other.refundable.credits.whole:
   # Amount from Schedule 3, line 13
-  108: ctx.forms["f1040s3"]["part.ii.13.other.refundable.credits.total.whole"]
+  110: ctx.forms["f1040s3"]["part.ii.13.other.refundable.credits.total.whole"]
 
 line.32.total.refundable.credits.whole:
   # Add lines 27a and 28 through 31. These are your total other payments and
   # refundable credits
-  109: ctx.forms["f1040"]["line.27.whole"] +
+  111: ctx.forms["f1040"]["line.27.whole"] +
     ctx.forms["f1040"]["line.28.whole"] +
     ctx.forms["f1040"]["line.29.whole"] +
     ctx.forms["f1040"]["line.30.whole"] +
@@ -230,24 +232,24 @@ line.32.total.refundable.credits.whole:
 
 line.33.total.payments.whole:
   # Add lines 25d, 26, and 32. These are your total payments
-  110: ctx.forms["f1040"]["line.17.a.whole"] +
+  112: ctx.forms["f1040"]["line.17.a.whole"] +
     ctx.forms["f1040"]["line.32.total.refundable.credits.whole"]
 
 line.37.amount.you.owe.whole:
   # Subtract line 33 from line 24. This is the amount you owe now
-  119: ctx.forms["f1040"]["line.24.total.tax.whole"] -
+  121: ctx.forms["f1040"]["line.24.total.tax.whole"] -
     ctx.forms["f1040"]["line.33.total.payments.whole"]
 
 third.party.designee:
   # 121: 1 is "yes"
   # 122: 2 is "no"
-  122: 2
+  124: 2
 
 occupation:
-  126: ctx.occupation
+  128: ctx.occupation
 
 phone:
-  130: ctx.phone
+  132: ctx.phone
 
 email:
-  131: ctx.email
+  133: ctx.email
