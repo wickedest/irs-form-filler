@@ -73,7 +73,7 @@ class FormFiller8938 extends FormFiller {
 		// Load the f8938 PDF and fill
 		await form.load(this.pdf, this.map);
 		form.ctx.account = form.ctx.accounts[0];
-		const pdffile = await super.fill(form, dir);
+		const pdffile = await super.fill(form, dir, options);
 
 		// filled/f8938.pdf
 		parts.push(pdffile);
