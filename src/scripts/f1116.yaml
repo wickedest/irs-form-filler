@@ -119,6 +119,12 @@ line.11.whole:
     ctx.forms["f1116"]["line.9.whole"]
     + ctx.forms["f1116"]["line.10.carryback.whole"]
 
+line.12.whole:
+  96: 0
+
+line.13.whole:
+  97: 0
+
 line.14.whole:
   98: |
     ctx.forms["f1116"]["line.11.whole"]

@@ -1,6 +1,6 @@
 
 calendar.year.carryover:
-  0: ctx.financial.endOfTaxYear.slice(-4)
+  0: ctx.financial.endOfTaxYear.slice(-2)
 
 name.first.and.initial:
   5: ctx.firstName + ' ' + ctx.middleInitial + ' ' + ctx.lastName

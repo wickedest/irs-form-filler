@@ -5,7 +5,7 @@
 To develop, you will first need to generate the `./examples` so that you can use this for a visual reference with respect to the `src/maps` files. The `./examples` are not checked in, but they are an important part of the development process:
 
 ```bash
-$ npm run build:map
+npm run build:map
 ```
 
 The `./examples` are pre-filled forms that assign an integer to every input field (that can accept text) that can be used to to visually map the form fields to their keys.  This is necessary because the input fields are not really very human readable, e.g. `topmostSubform[0].Page1[0].FilingStatus[0].c1_01[0]`.  Some fields are checkboxes so are not filled (you may have to count from the last visible integer).
@@ -15,19 +15,19 @@ The `./examples` are pre-filled forms that assign an integer to every input fiel
 Pull master, and create a new branch for the tax year, for example:
 
 ```bash
-$ git checkout -b year-2022
+git checkout -b year-2022
 ```
 
 Remove all pre-existing data:
 
 ```bash
-$ npm run clean
+npm run clean
 ```
 
 Fetch the latest tax documents.  The required documents can change year to year, so the script may need to be updated if any new documents were added, or if any are no longer required (e.g. [f8965.pdf](https://www.irs.gov/affordable-care-act/individuals-and-families/individual-shared-responsibility-provision)).
 
 ```bash
-$ npm run new-tax-year
+npm run new-tax-year
 ```
 
 Update the `package.json` version, bump to a major release candidate, e.g.

@@ -32,7 +32,11 @@ async function fill({ config, only, output, debug }) {
 	// 3nd pass, save
 	for (const formId in forms) {
 		const save = only ? only.includes(formId) : true;
-		await formFillers[formId].fill(form, save ? output : null, { debug, filled });
+		await formFillers[formId].fill(form, save ? output : null, {
+			debug,
+			filled,
+			allowNaN: false
+		});
 	}
 }
 
