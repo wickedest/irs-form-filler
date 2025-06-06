@@ -80,8 +80,8 @@ part2.credit-claim-type:
   calculate: |
     (ctx, value) => {
       return {
-        'paid':    { fill: 'Paid', field: '62' },
-        'accrued': { fill: 'Accrued', field: '63' }
+        'paid':    { fill: '1', field: '62' },
+        'accrued': { fill: '1', field: '63' }
       }[value];
     }
 

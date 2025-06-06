@@ -29,17 +29,17 @@ part.2.line.5.exemption.whole:
       const amti = ctx.forms["f6251"]["part.1.line.4.alternative.minimum.taxable.income.whole"];
       let amt;
       if (value === 'single' || value === 'head of household') {
-        if (amti <= 578150) {
-          amt = 81300;
+        if (amti <= 609350) {
+          amt = 85700;
         }
       } else if (value === 'married filing jointly'
         || value === 'qualifying widow(er)') {
-        if (amti <= 1156300) {
-          amt = 126500;
+        if (amti <= 1218700) {
+          amt = 133300;
         }
       } else if (value === 'married filing separately') {
-        if (amti <= 578150) {
-          amt = 63250;
+        if (amti <= 609350) {
+          amt = 66650;
         }
       }
       if (!amt) {

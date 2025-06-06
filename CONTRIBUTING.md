@@ -48,7 +48,15 @@ Examine all of the scripts in `src/scripts` against their pre-filled PDF forms i
 
 You need to go through every script line-by-line.  Each line requires concentration and take upwards of 15 minutes.  It is easy to lose your place.  I recommend putting a comment in the script as you go along: `// CURRENT -----------------`.
 
-There are two main files are f1040 and f1116, but all files need to be checked.
+All files need to be checked, but in particular, these values change every year:
+
+1. **f1040**, `line.12.standard.deduction.whole`
+1. **f1040**, `line.16.tax.whole`
+1. **f1116**, `line.3a.A.whole`
+1. **f1116amt**, `line.3a.A.whole`
+1. **f6251**, `part.2.line.5.exemption.whole`
+
+Other general changes to watch:
 
 1. If a field number changed, update it in the script.
 2. If the tax form number changed (e.g. "7b" => "9"), then change it in the script.  However, if you change it, you must change **all** references to it in the current script, and in other scripts, e.g. `['f1040']['line.7b.total.income.whole']` changed to `['f1040']['line.9.total.income.whole']`, do this **before** changing the actual key.
