@@ -1,7 +1,17 @@
-import fs from 'fs';
+import fs from 'fs/promises';
 import path from 'path';
+import { Form } from 'pdffiller-script';
 
 class FormFiller {
+	/**
+	 * Construct a form filler. Do not use directly. Use `FormFiller.create`.
+	 *
+	 * @param {object} options -
+	 * @param {string} options.name - The form name (e.g. "f1040").
+	 * @param {string} options.pdf - The PDF file name (e.g. "f1040.pdf").
+	 * @param {string} options.script - The fill YAML script (e.g. "f1040.yaml").
+	 * @param {string} options.map - The PDF map file name (e.g. "f1040-map.yaml").
+	 */
 	constructor({ name, map, script, pdf }) {
 		this.name = name;
 		this.map = map;
@@ -9,6 +19,12 @@ class FormFiller {
 		this.pdf = pdf;
 	}
 
+	/**
+	 * Factory to create a form filler.
+	 *
+	 * @param {*} options
+	 * @returns {FormFiller}
+	 */
 	static create(options) {
 		if (![ 'f8938' ].includes(options.name)) {
 			return new FormFiller(options);
@@ -29,6 +45,7 @@ class FormFiller {
 			if (options.filled) {
 				options.filled.push(pdffile);
 			}
+			return pdffile;
 		}
 	}
 }
@@ -38,67 +55,49 @@ class FormFiller8938 extends FormFiller {
 		super(options);
 	}
 
+	/**
+	 *
+	 * @param {Form} form
+	 * @param {string=} dir
+	 * @param {object={}} options
+	 * @returns
+	 */
 	async fill(form, dir = null, options = {}) {
 		const parts = [];
 		const unlink = [];
 
+		if (!dir) {
+			return;
+		}
+
+		// Load the f8938 PDF and fill
 		await form.load(this.pdf, this.map);
-
-		// Take a clean page 2 from the original document
-		let contd;
-		if (dir) {
-			contd = path.join(dir, 'f8938-contd.pdf');
-			await form.slice(2, 3, contd);
-			unlink.push(contd);
-		}
-
-		// fill pages 1-2
-		form.ctx.page = 1;
 		form.ctx.account = form.ctx.accounts[0];
-		await super.fill(form, dir);
+		const pdffile = await super.fill(form, dir, options);
 
-		// slice pages 1-2 out of written f8938.pdf
-		if (dir) {
-			form.setSourcePDF(path.join(dir, 'f8938.pdf'));
-			const pages1and2 = path.join(dir, 'f8938-pages1-2.pdf');
-			await form.slice(1, 3, pages1and2);
-			parts.push(pages1and2);
-			unlink.push(pages1and2);
+		// filled/f8938.pdf
+		parts.push(pdffile);
+
+		// Slice off page 1 and for each account, fill and save
+		const contd = form.ctx.accounts.slice(1);
+		for (const [i, account] of contd.entries()) {
+			const dest = path.join(dir, `${this.name}-${i}.pdf`);
+
+			// Create a new copy of the Form to fill out
+			const formCont = new Form();
+			await formCont.init(form.config);
+			formCont.ctx.account = account;
+
+			await formCont.load(this.pdf, this.map);
+			await formCont.fill(this.script);
+			await formCont.save(dest, {begin: 2, end: 2});
+			parts.push(dest);
+			unlink.push(dest);
 		}
 
-		// form 8938 has two pages, but we're going to make additional pages,
-		// starting at page 3.
-		const accounts = form.ctx.accounts.slice(1);
-		let i = 0;
-		for (const account of accounts) {
-			form.ctx.page = i + 3;
-			form.ctx.account = account;
+		await form.join(pdffile, parts);
 
-			const formName = `${this.name}-${i + 3}`;
-			form.setFormName(formName);
-			await form.fill(this.script);
-
-			if (dir) {
-				form.setSourcePDF(contd);
-				const part = path.join(dir, `${formName}.pdf`);
-				await form.save(part);
-				parts.push(part);
-				unlink.push(part);
-			}
-
-			i += 1;
-		}
-
-		if (dir) {
-			const pdffile = path.join(dir, 'f8938.pdf');
-			await form.join(parts, pdffile);
-
-			if (options.filled) {
-				options.filled.push(pdffile);
-			}
-		}
-
-		unlink.forEach(fs.unlinkSync);
+		await Promise.all(unlink.map(fs.unlink));
 	}
 }
 

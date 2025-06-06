@@ -80,8 +80,8 @@ part2.credit-claim-type:
   calculate: |
     (ctx, value) => {
       return {
-        'paid':    { fill: 'Paid', field: '62' },
-        'accrued': { fill: 'Accrued', field: '63' }
+        'paid':    { fill: '1', field: '62' },
+        'accrued': { fill: '1', field: '63' }
       }[value];
     }
 
@@ -101,15 +101,24 @@ line.9.whole:
   92: ctx.forms["f1116amt"]["line.8.whole"]
 
 line.10.carryback.whole:
-  94: ctx.forms["f1116sbamt"]["page.2.row.3.subtotal"]
+  94: ctx.forms["f1116sbamt"]["page.2.row.3.subtotal"] || 0
 
 line.11.whole:
   95: |
     ctx.forms["f1116amt"]["line.9.whole"]
     + ctx.forms["f1116amt"]["line.10.carryback.whole"]
 
+line.12.whole:
+  96: 0
+
+line.13.whole:
+  97: 0
+
 line.14.whole:
-  98: ctx.forms["f1116amt"]["line.11.whole"] + ctx.forms["f1116amt"]["line.12.whole"] + ctx.forms["f1116amt"]["line.13.whole"]
+  98: |
+    ctx.forms["f1116amt"]["line.11.whole"]
+    + ctx.forms["f1116amt"]["line.12.whole"]
+    + ctx.forms["f1116amt"]["line.13.whole"]
 
 line.15.whole:
   99: ctx.forms["f1116amt"]["line.7.whole"]

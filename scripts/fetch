@@ -16,13 +16,14 @@ const files = [
 	{ name: 'f1116.pdf', as: 'f1116amt.pdf' },
 	{ name: 'f1116.pdf' },
 	{ name: 'f1116sb.pdf' },
+	{ name: 'f1116sb.pdf', as: 'f1116sbamt.pdf' },
 	{ name: 'f6251.pdf' },
 	{ name: 'f8938.pdf' }
 ];
 
 async function download(url, dest) {
 	console.log("Downloading:", url);
-	return new Promise((resolve, reject) => {
+	return new Promise((resolve) => {
 		const file = fs.createWriteStream(dest);
 		console.log(chalk.grey(`Downloading: ${url} into ${dest}`));
 		https.get(url, (response) => {

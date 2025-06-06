@@ -5,29 +5,31 @@
 To develop, you will first need to generate the `./examples` so that you can use this for a visual reference with respect to the `src/maps` files. The `./examples` are not checked in, but they are an important part of the development process:
 
 ```bash
-$ npm run build:map
+npm run build:map
 ```
 
 The `./examples` are pre-filled forms that assign an integer to every input field (that can accept text) that can be used to to visually map the form fields to their keys.  This is necessary because the input fields are not really very human readable, e.g. `topmostSubform[0].Page1[0].FilingStatus[0].c1_01[0]`.  Some fields are checkboxes so are not filled (you may have to count from the last visible integer).
 
 ## Updating PDF documents for a new tax year
 
+**note**: You should first generate the examples from the previous tax year. These will be useful to compare against for the new tax year.
+
 Pull master, and create a new branch for the tax year, for example:
 
 ```bash
-$ git checkout -b year-2022
+git checkout -b year-2022
 ```
 
 Remove all pre-existing data:
 
 ```bash
-$ npm run clean
+npm run clean
 ```
 
 Fetch the latest tax documents.  The required documents can change year to year, so the script may need to be updated if any new documents were added, or if any are no longer required (e.g. [f8965.pdf](https://www.irs.gov/affordable-care-act/individuals-and-families/individual-shared-responsibility-provision)).
 
 ```bash
-$ npm run new-tax-year
+npm run new-tax-year
 ```
 
 Update the `package.json` version, bump to a major release candidate, e.g.
@@ -46,7 +48,15 @@ Examine all of the scripts in `src/scripts` against their pre-filled PDF forms i
 
 You need to go through every script line-by-line.  Each line requires concentration and take upwards of 15 minutes.  It is easy to lose your place.  I recommend putting a comment in the script as you go along: `// CURRENT -----------------`.
 
-There are two main files are f1040 and f1116, but all files need to be checked.
+All files need to be checked, but in particular, these values change every year:
+
+1. **f1040**, `line.12.standard.deduction.whole`
+1. **f1040**, `line.16.tax.whole`
+1. **f1116**, `line.3a.A.whole`
+1. **f1116amt**, `line.3a.A.whole`
+1. **f6251**, `part.2.line.5.exemption.whole`
+
+Other general changes to watch:
 
 1. If a field number changed, update it in the script.
 2. If the tax form number changed (e.g. "7b" => "9"), then change it in the script.  However, if you change it, you must change **all** references to it in the current script, and in other scripts, e.g. `['f1040']['line.7b.total.income.whole']` changed to `['f1040']['line.9.total.income.whole']`, do this **before** changing the actual key.
@@ -79,12 +89,12 @@ In the case where multiple checkboxes can be ticked independently, then they mos
 
 ### Specific fields of note
 
-**1040 standard.deduction**: This changes every year on the 1040.  The 1040 margin lists the standard deductions.  Update `src/scripts/f1040.yaml` with the appropriate standard deduction values and field number.
+* **1040 standard.deduction**: This changes every year on the 1040.  The 1040 margin lists the standard deductions.  Update `src/scripts/f1040.yaml` with the appropriate standard deduction values and field number.
 
-**1040 tax**: This requires you read the instructions and uses the Tax Computation Worksheet.
+* **1040 tax**: This requires you read the instructions and uses the Tax Computation Worksheet.
 
-**1040 amount from schedule 2, line 3**: This is the Alternative Minimum Tax which is calculated in f6251.
+* **1040 amount from schedule 2, line 3**: This is the Alternative Minimum Tax which is calculated in f6251.
 
-**6251 exemption**: The values for this field are found in Part II of the form.
+* **6251 exemption**: The values for this field are found in Part II of the form.
 
-**6251 line 7**: The values for this field are found in Part II of the form.  The text is so confusing, but the "married filing separately" is a separate else condition.
+* **6251 line 7**: The values for this field are found in Part II of the form (or the instructions). The text is so confusing, but the "married filing separately" is a separate else condition.

@@ -6,7 +6,7 @@ ssn.nodash:
 
 part.i.1.foreign.tax.credit.whole:
   # Foreign tax credit. Attach Form 1116 if required
-  2: ctx.forms["f1116"]["line.35.foreign.tax.credit.whole"]
+  2: ctx.forms["f1116"]["line.35.foreign.tax.credit.whole"] || 0
 
 part.i.7.total.other.non-refundable.credits.whole:
   # Add lines 6a - 6z
@@ -14,11 +14,11 @@ part.i.7.total.other.non-refundable.credits.whole:
 
 part.i.8.total.whole:
   # Add lines 1-5 and 7
-  25: ctx.forms["f1040s3"]["part.i.1.foreign.tax.credit.whole"]
+  25: ctx.forms["f1040s3"]["part.i.1.foreign.tax.credit.whole"] || 0
 
 part.ii.14.refundable.payments.total.whole:
-  36: 0
+  37: 0
 
 part.ii.15.refundable.credits.total.whole:
   # Add lines 9-12 and 14. Enter here and on Form 1040 or 1040-SR, line 31
-  37: 0
+  38: 0

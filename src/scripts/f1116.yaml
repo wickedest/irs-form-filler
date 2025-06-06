@@ -49,11 +49,11 @@ line.3a.A.whole:
   calculate: |
     (ctx, value) => {
       return {
-        'single':                    { fill: 13850, field: '24' },
-        'married filing separately': { fill: 13850, field: '24' },
-        'married filing jointly':    { fill: 27700, field: '24' },
-        'qualifying widow(er)':      { fill: 27700, field: '24' },
-        'head of household':         { fill: 20800, field: '24' }
+        'single':                    { fill: 14600, field: '24' },
+        'married filing separately': { fill: 14600, field: '24' },
+        'married filing jointly':    { fill: 29200, field: '24' },
+        'qualifying widow(er)':      { fill: 29200, field: '24' },
+        'head of household':         { fill: 21900, field: '24' }
       }[value];
     }
 
@@ -91,8 +91,8 @@ part2.credit-claim-type:
   calculate: |
     (ctx, value) => {
       return {
-        'paid':    { fill: 'Paid', field: '59' },
-        'accrued': { fill: 'Accrued', field: '60' }
+        'paid':    { fill: '1', field: '59' },
+        'accrued': { fill: '1', field: '60' }
       }[value];
     }
 
@@ -112,12 +112,18 @@ line.9.whole:
   92: ctx.forms["f1116"]["line.8.whole"]
 
 line.10.carryback.whole:
-  94: ctx.forms["f1116sb"]["page.2.row.3.subtotal"]
+  94: ctx.forms["f1116sb"]["page.2.row.3.subtotal"] || 0
 
 line.11.whole:
   95: |
     ctx.forms["f1116"]["line.9.whole"]
     + ctx.forms["f1116"]["line.10.carryback.whole"]
+
+line.12.whole:
+  96: 0
+
+line.13.whole:
+  97: 0
 
 line.14.whole:
   98: |
